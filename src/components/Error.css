@@ -1,0 +1,10 @@
+.error-img-wrap{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.error-img{
+    width: 500px;
+    height: auto;
+}

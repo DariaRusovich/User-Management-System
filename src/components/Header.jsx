@@ -1,13 +1,14 @@
 import { React, Component } from 'react';
+import { Link } from 'react-router-dom';
+import './Header.css'
 
 
-export default class Header extends Component{
-    render(){
-        return(
-            <div>
-                
-            </div>
-        )
-    }
-
+export default class Header extends Component {
+  render() {
+    return (
+      <header className="header">
+        <Link to="/">Logo</Link>
+      </header>
+    );
+  }
 }
