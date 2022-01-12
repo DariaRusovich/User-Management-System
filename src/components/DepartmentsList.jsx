@@ -14,7 +14,7 @@ export default class DepartmentsList extends Component {
   async componentDidMount() {
     this.setState({ isLoading: true });
     const [departmentsError, departments] = await getDepartments();
-    console.log(departmentsError, departments);
+    //console.log(departmentsError, departments);
     this.setState({ departments: departments.departments });
   }
 

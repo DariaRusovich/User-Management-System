@@ -20,3 +20,7 @@ api.interceptors.response.use(
 export async function getDepartments() {
   return api.get('/departments');
 }
+
+export async function getDepartment(id) {
+    return api.get(`/departments/${id}`);
+  }
