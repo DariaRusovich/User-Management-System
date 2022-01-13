@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { getDepartments } from '../api/api';
 import Department from './Department';
+import Loader from './Loader';
 
 export default class DepartmentsList extends Component {
   constructor(props) {
@@ -13,19 +14,26 @@ export default class DepartmentsList extends Component {
   }
   async componentDidMount() {
     this.setState({ isLoading: true });
-    const [departmentsError, departments] = await getDepartments();
-    //console.log(departmentsError, departments);
-    this.setState({ departments: departments.departments });
+    setTimeout(async () => {
+      const [departmentsError, departments] = await getDepartments();
+      if (!departmentsError) {
+        this.setState({ departments: departments.departments });
+      } else {
+        this.setState({ error: departmentsError });
+      }
+      this.setState({ isLoading: false });
+    }, 1000);
   }
 
   render() {
     const { departments, isLoading, error } = this.state;
-    console.log(departments);
+    //console.log(departments);
+
     if (isLoading) {
-      <h1>Loading...</h1>;
+      return <Loader></Loader>;
     }
     if (error) {
-      <h1>Error</h1>;
+      return <h1>Error</h1>;
     }
 
     return (

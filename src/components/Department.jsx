@@ -5,6 +5,7 @@ import { dateFormat } from '../utils/dateFormatter';
 
 
 
+
 class Department extends Component {
   constructor(props) {
     super(props);
@@ -14,6 +15,7 @@ class Department extends Component {
     const { department } = this.props;
     return (
       <>
+     
         {department && (
           <div className="department-item">
             <img src="#" width="1" height="1" loading="lazy" alt="Avatar" />

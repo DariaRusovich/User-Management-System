@@ -2,29 +2,41 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { getEmployeeByDepartmentId } from '../api/api';
 import Employee from './Employee';
+import Loader from './Loader';
 
 class EmployeesList extends Component {
   constructor(props) {
     super(props);
     this.state = {
       employees: [],
+      isLoading: false,
+      error: null,
     };
   }
 
   async componentDidMount() {
     this.setState({ isLoading: true });
-    const departmentId = this.props.match.params.id;
-    const [employeesDataError, employeesData] = await getEmployeeByDepartmentId(
-      departmentId
-    );
-    console.log(employeesDataError, employeesData);
-    this.setState({ employees: employeesData.employeeByDepartmentId });
+    setTimeout(async () => {
+      const departmentId = this.props.match.params.id;
+      const [employeesDataError, employeesData] =
+        await getEmployeeByDepartmentId(departmentId);
+      if (!employeesDataError) {
+        this.setState({ employees: employeesData.employeeByDepartmentId });
+      } else {
+        this.setState({ error: employeesDataError });
+      }
+      this.setState({ isLoading: false });
+    }, 1000);
   }
 
   render() {
-    const { employees } = this.state;
-    console.log(employees);
-
+    const { employees, isLoading, error } = this.state;
+    if (isLoading) {
+      return <Loader></Loader>;
+    }
+    if (error) {
+      return <h1>Error</h1>;
+    }
     return (
       <>
         <section className="section">
