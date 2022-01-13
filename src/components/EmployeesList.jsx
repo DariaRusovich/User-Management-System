@@ -26,7 +26,7 @@ class EmployeesList extends Component {
         this.setState({ error: employeesDataError });
       }
       this.setState({ isLoading: false });
-    }, 1000);
+    }, 500);
   }
 
   render() {

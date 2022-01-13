@@ -22,7 +22,7 @@ export default class DepartmentsList extends Component {
         this.setState({ error: departmentsError });
       }
       this.setState({ isLoading: false });
-    }, 1000);
+    }, 500);
   }
 
   render() {
