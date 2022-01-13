@@ -1,13 +1,11 @@
 import React, { Component } from 'react';
 import { Route, Switch, Link } from 'react-router-dom';
 import Header from './components/Header';
-import LoginPage from './pages/LoginPage'
-import HomePage from './pages/HomePage'
-import EmployeesPage from './pages/EmployeesPage'
-import NotFoundPage from './pages/NotFoundPage'
-import EmployeesList from './components/EmployeesList';
-
-
+import LoginPage from './pages/LoginPage';
+import HomePage from './pages/HomePage';
+import EmployeesPage from './pages/EmployeesPage';
+import NotFoundPage from './pages/NotFoundPage';
+import PrivateRoute from './components/PrivateRoute';
 
 export default class App extends Component {
   render() {
@@ -21,9 +19,6 @@ export default class App extends Component {
                 <Link to="/">Home</Link>
               </li>
               <li>
-                <Link to="/department/:id">EmployeesList</Link>
-              </li>
-              <li>
                 <Link to="/login">Login</Link>
               </li>
             </ul>
@@ -32,12 +27,12 @@ export default class App extends Component {
             <Route path="/login">
               <LoginPage></LoginPage>
             </Route>
-            <Route path="/department/:id">
+            <PrivateRoute path="/department/:id/employees">
               <EmployeesPage></EmployeesPage>
-            </Route>
-            <Route exact path="/">
+            </PrivateRoute>
+            <PrivateRoute exact path="/">
               <HomePage></HomePage>
-            </Route>
+            </PrivateRoute>
             <Route path="*">
               <NotFoundPage />
             </Route>

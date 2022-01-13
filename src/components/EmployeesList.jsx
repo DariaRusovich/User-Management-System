@@ -1,33 +1,40 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
-import { getDepartment } from '../api/api';
+import { getEmployeeByDepartmentId } from '../api/api';
 import Employee from './Employee';
 
 class EmployeesList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      department: [],
+      employees: [],
     };
   }
 
   async componentDidMount() {
     this.setState({ isLoading: true });
     const departmentId = this.props.match.params.id;
-    const [dataError, data] = await getDepartment(departmentId);
-    console.log(dataError, data);
-    this.setState({ department: data.departmentById.employees });
+    const [employeesDataError, employeesData] = await getEmployeeByDepartmentId(
+      departmentId
+    );
+    console.log(employeesDataError, employeesData);
+    this.setState({ employees: employeesData.employeeByDepartmentId });
   }
 
   render() {
-    const { department } = this.state;
-    console.log(department);
+    const { employees } = this.state;
+    console.log(employees);
+
     return (
       <>
-        {department &&
-          department.map((employee) => (
-            <Employee key={employee.id} employee={employee}></Employee>
-          ))}
+        <section className="section">
+          <div className="container section-wrap">
+            {employees &&
+              employees.map((employee) => (
+                <Employee key={employee.id} employee={employee}></Employee>
+              ))}
+          </div>
+        </section>
       </>
     );
   }

@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { withRouter } from 'react-router-dom';
+import { dateFormat } from '../utils/dateFormatter';
+
+
 
 class Department extends Component {
   constructor(props) {
@@ -8,10 +11,7 @@ class Department extends Component {
   }
 
   render() {
-    
     const { department } = this.props;
-    //console.log(department.employees);
-
     return (
       <>
         {department && (
@@ -22,12 +22,12 @@ class Department extends Component {
               {department.description}
             </p>
             <span className="department-item__date">
-              {department.created_at}
+              {dateFormat(department.created_at)}
             </span>
             {/* <span className='department-item__date'>{department.updated_at}</span> */}
             <button className="btn">Edit</button>
             <button className="btn">Delete</button>
-            <Link to={`/department/${department.id}`}>
+            <Link to={`/department/${department.id}/employees`}>
               <button className="btn">Employees</button>
             </Link>
           </div>
