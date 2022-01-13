@@ -13,9 +13,6 @@ export default class LoginPage extends Component {
     this.signIn = this.signIn.bind(this)
   }
 
-  async componentDidMount() {
-    
-  }
 
   async signIn(loginData) {
     setTimeout(async () => {

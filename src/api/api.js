@@ -29,10 +29,13 @@ api.interceptors.response.use(
 export async function getDepartments() {
   return api.get('/departments');
 }
-
-export async function getEmployeeByDepartmentId(id) {
-  return api.get(`/departments/${id}/employees`);
+export async function getDepartmentById(id) {
+  return api.get(`/departments/${id}`);
 }
+
+// export async function getEmployeeByDepartmentId(id) {
+//   return api.get(`/departments/${id}/employees`);
+// }
 export async function signin(loginData) {
   return api.post('/login', loginData);
 }
