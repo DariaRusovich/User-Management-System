@@ -4,5 +4,4 @@ const dateFormatter = new Intl.DateTimeFormat('en-US', {
     year: 'numeric',
   });
 
-
   export const dateFormat = dateFormatter.format

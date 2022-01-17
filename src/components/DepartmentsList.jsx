@@ -23,7 +23,6 @@ export default class DepartmentsList extends Component {
 
   render() {
     const { departments, isLoading, error } = this.state;
-    //console.log(departments);
 
     if (isLoading) {
       return <Loader />;

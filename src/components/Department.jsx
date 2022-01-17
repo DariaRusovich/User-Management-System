@@ -7,14 +7,13 @@ import { dateFormat } from '../utils/dateFormatter';
 class Department extends Component {
   render() {
     const { department } = this.props;
+    const { name, description, created_at } = department;
     return (
       <div className="department-item">
         <img src="#" width="1" height="1" loading="lazy" alt="Avatar" />
-        <h2 className="department-item__title">{department.name}</h2>
-        <p className="department-item__description">{department.description}</p>
-        <span className="department-item__date">
-          {dateFormat(department.created_at)}
-        </span>
+        <h2 className="department-item__title">{name}</h2>
+        <p className="department-item__description">{description}</p>
+        <span className="department-item__date">{dateFormat(created_at)}</span>
         {/* <span className='department-item__date'>{department.updated_at}</span> */}
         <button className="btn">Edit</button>
         <button className="btn">Delete</button>

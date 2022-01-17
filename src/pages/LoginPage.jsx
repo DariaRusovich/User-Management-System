@@ -16,18 +16,6 @@ export default class LoginPage extends Component {
       this.setState({ token });
     }
   };
-
-  //  signIn = (loginData) => {
-  //     (async function () {
-  //       const [userDataError, userData] = await signin(loginData);
-  //       const token = userData.USERTOKEN || userData.ADMINTOKEN;
-  //       if (!userDataError && userData.USERTOKEN) {
-  //         localStorage.setItem('token', token);
-  //         this.setState({ token });
-  //       }
-  //     })();
-  //   }
-
   render() {
     const { token } = this.state;
 
