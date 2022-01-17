@@ -3,27 +3,30 @@ import { signin } from '../api/api';
 import { Redirect } from 'react-router-dom';
 import LoginForm from '../components/LoginForm';
 
-
 export default class LoginPage extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      token: null,
-    };
-    this.signIn = this.signIn.bind(this)
-  }
+  state = {
+    token: null,
+  };
 
+  signIn = async (loginData) => {
+    const [userDataError, userData] = await signin(loginData);
+    const token = userData.USERTOKEN || userData.ADMINTOKEN;
+    if (!userDataError && userData.USERTOKEN) {
+      localStorage.setItem('token', token);
+      this.setState({ token });
+    }
+  };
 
-  async signIn(loginData) {
-    setTimeout(async () => {
-      const [userDataError, userData] = await signin(loginData);
-      const token = userData.USERTOKEN || userData.ADMINTOKEN;
-      if (!userDataError && userData.USERTOKEN) {
-        localStorage.setItem('token', token);
-        this.setState({ token });
-      }
-    }, 2000);
-  }
+  //  signIn = (loginData) => {
+  //     (async function () {
+  //       const [userDataError, userData] = await signin(loginData);
+  //       const token = userData.USERTOKEN || userData.ADMINTOKEN;
+  //       if (!userDataError && userData.USERTOKEN) {
+  //         localStorage.setItem('token', token);
+  //         this.setState({ token });
+  //       }
+  //     })();
+  //   }
 
   render() {
     const { token } = this.state;

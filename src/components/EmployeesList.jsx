@@ -1,56 +1,34 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { withRouter } from 'react-router-dom';
-import { getDepartmentById, getEmployeeByDepartmentId } from '../api/api';
+import { getDepartmentById } from '../api/api';
 
 import Employee from './Employee';
 import Loader from './Loader';
 
 class EmployeesList extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      departments: {},
-      employees: [],
-      isLoading: false,
-      error: null,
-    };
-  }
-
-  // async componentDidMount() {
-  //   this.setState({ isLoading: true });
-  //   setTimeout(async () => {
-  //     const departmentId = this.props.match.params.id;
-  //     const [employeesDataError, employeesData] =
-  //       await getEmployeeByDepartmentId(departmentId);
-  //       //console.log(employeesData);
-  //     if (!employeesDataError) {
-  //       this.setState({ employees: employeesData.employeeByDepartmentId });
-  //     } else {
-  //       this.setState({ error: employeesDataError });
-  //     }
-  //     this.setState({ isLoading: false });
-  //   }, 500);
-  // }
+  state = {
+    departments: {},
+    employees: [],
+    isLoading: false,
+    error: null,
+  };
 
   async componentDidMount() {
     this.setState({ isLoading: true });
-    setTimeout(async () => {
-      const departmentId = this.props.match.params.id;
-      const [departmentError, department] = await getDepartmentById(
-        departmentId
-      );
-      console.log(department.departmentById);
-      if (!departmentError) {
-        this.setState({
-          department: department.departmentById.name,
-          employees: department.departmentById.employees,
-        });
-      } else {
-        this.setState({ error: departmentError });
-      }
-      this.setState({ isLoading: false });
-    }, 500);
+
+    const departmentId = this.props.match.params.id;
+    const [departmentError, department] = await getDepartmentById(departmentId);
+    console.log(department.departmentById);
+    if (!departmentError) {
+      this.setState({
+        department: department.departmentById.name,
+        employees: department.departmentById.employees,
+      });
+    } else {
+      this.setState({ error: departmentError });
+    }
+    this.setState({ isLoading: false });
   }
   render() {
     const { department, employees, isLoading, error } = this.state;
@@ -68,7 +46,7 @@ class EmployeesList extends Component {
       );
     }
     if (isLoading) {
-      return <Loader></Loader>;
+      return <Loader />;
     }
     return (
       <>
@@ -82,7 +60,7 @@ class EmployeesList extends Component {
             <div className="employees-list">
               {employees &&
                 employees.map((employee) => (
-                  <Employee key={employee.id} employee={employee}></Employee>
+                  <Employee key={employee.id} employee={employee} />
                 ))}
             </div>
           </div>

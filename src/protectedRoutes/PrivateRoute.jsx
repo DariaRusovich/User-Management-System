@@ -2,9 +2,6 @@ import React, { Component } from 'react';
 import { Route, Redirect } from 'react-router-dom';
 
 export default class PrivateRoute extends Component {
-    constructor(props){
-        super(props)
-    }
   render() {
     const { children, ...rest } = this.props;
     return (

@@ -5,10 +5,52 @@ import LoginPage from './pages/LoginPage';
 import HomePage from './pages/HomePage';
 import EmployeesPage from './pages/EmployeesPage';
 import NotFoundPage from './pages/NotFoundPage';
-import PrivateRoute from './components/PrivateRoute';
+import PrivateRoute from './protectedRoutes/PrivateRoute';
+import RouteWithSubRoutes from './pages/RouteWithSubRoutes';
+
+const routes = [
+  {
+    path: '/login',
+    component: LoginPage,
+  },
+
+  {
+    path: '*',
+    component: NotFoundPage,
+  },
+];
+
+const privateRoutes = [
+  {
+    path: '/',
+    component: HomePage,
+    exact: true,
+  },
+  {
+    path: '/departments/:id/employees',
+    component: EmployeesPage,
+  },
+];
 
 export default class App extends Component {
   render() {
+    const routeComponents = routes.map((route, i) => (
+      <Route
+        exact={route.exact}
+        path={route.path}
+        component={route.component}
+        key={i}
+      ></Route>
+    ));
+    const privateRouteComponents = privateRoutes.map((route, i) => (
+      <PrivateRoute
+        exact={route.exact}
+        path={route.path}
+        component={route.component}
+        key={i}
+      />
+    ));
+    console.log(localStorage.getItem('token'));
     return (
       <>
         <Header></Header>
@@ -23,11 +65,23 @@ export default class App extends Component {
               </li>
             </ul>
           </nav>
-          <Switch>
-            <Route path="/login">
+
+          {/* {localStorage.getItem('token') ? (
+            <Switch> {privateRouteComponents} </Switch>
+          ) : (
+            <Switch> {routeComponents} </Switch>
+          )} */}
+          <Switch> {[...routeComponents, ...privateRouteComponents]} </Switch>
+        </div>
+      </>
+    );
+  }
+}
+{
+  /* <Route path="/login">
               <LoginPage></LoginPage>
             </Route>
-            <PrivateRoute path="/department/:id/employees">
+            <PrivateRoute path="/departments/:id/employees">
               <EmployeesPage></EmployeesPage>
             </PrivateRoute>
             <PrivateRoute exact path="/">
@@ -35,10 +89,21 @@ export default class App extends Component {
             </PrivateRoute>
             <Route path="*">
               <NotFoundPage />
-            </Route>
-          </Switch>
-        </div>
-      </>
-    );
-  }
+            </Route> */
+}
+{
+  /* {routes.map((route, i) => (
+              <Route path={route.path} exact={route.exact} key={i}>
+                <route.component routes={route.routes} />
+              </Route>
+            ))} */
+}
+
+{
+  /* {privateRoutes.map((route, i) => (
+              // <PrivateRoute path={route.path} exact={route.exact} key={i}>
+              //   <route.component routes={route.routes} />
+              // </PrivateRoute>
+              <RouteWithSubRoutes route={route} key={i} />
+            ))} */
 }

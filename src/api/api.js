@@ -1,7 +1,13 @@
 import axios from 'axios';
+import {
+  BASE_URL,
+  DEPARTMENT_BY_ID_URL,
+  DEPARTMENTS_URL,
+  LOGIN,
+} from '../constants/url';
 
 const api = axios.create({
-  baseURL: 'http://localhost:3000/api/v1',
+  baseURL: BASE_URL,
   headers: {
     'Content-type': 'application/json;charset=utf-8',
   },
@@ -27,15 +33,15 @@ api.interceptors.response.use(
 );
 
 export async function getDepartments() {
-  return api.get('/departments');
+  return api.get(DEPARTMENTS_URL);
 }
 export async function getDepartmentById(id) {
-  return api.get(`/departments/${id}`);
+  return api.get(`${DEPARTMENT_BY_ID_URL}${id}`);
 }
 
 // export async function getEmployeeByDepartmentId(id) {
 //   return api.get(`/departments/${id}/employees`);
 // }
 export async function signin(loginData) {
-  return api.post('/login', loginData);
+  return api.post(LOGIN, loginData);
 }
