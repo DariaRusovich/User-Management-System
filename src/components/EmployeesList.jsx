@@ -2,24 +2,20 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { withRouter } from 'react-router-dom';
 import { getDepartmentById } from '../api/api';
-
+import withLoader from '../HOC/withLoader';
 import Employee from './Employee';
-import Loader from './Loader';
 
 class EmployeesList extends Component {
   state = {
     departments: {},
     employees: [],
-    isLoading: false,
     error: null,
   };
 
   async componentDidMount() {
-    this.setState({ isLoading: true });
-
+    this.props.handleToggleLoader();
     const departmentId = this.props.match.params.id;
     const [departmentError, department] = await getDepartmentById(departmentId);
-    console.log(department.departmentById);
     if (!departmentError) {
       this.setState({
         department: department.departmentById.name,
@@ -28,12 +24,10 @@ class EmployeesList extends Component {
     } else {
       this.setState({ error: departmentError });
     }
-    this.setState({ isLoading: false });
+    this.props.handleToggleLoader();
   }
   render() {
-    const { department, employees, isLoading, error } = this.state;
-    console.log(department, employees);
-
+    const { department, employees, error } = this.state;
     if (error) {
       return <h1>Error</h1>;
     }
@@ -44,9 +38,6 @@ class EmployeesList extends Component {
           <Link to="/"> Go back.</Link>
         </h2>
       );
-    }
-    if (isLoading) {
-      return <Loader />;
     }
     return (
       <>
@@ -70,4 +61,4 @@ class EmployeesList extends Component {
   }
 }
 
-export default withRouter(EmployeesList);
+export default withRouter(withLoader(EmployeesList));

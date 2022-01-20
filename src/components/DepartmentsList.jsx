@@ -1,32 +1,27 @@
 import React, { Component } from 'react';
 import { getDepartments } from '../api/api';
+import withLoader from '../HOC/withLoader';
 import Department from './Department';
-import Loader from './Loader';
 
-export default class DepartmentsList extends Component {
+class DepartmentsList extends Component {
   state = {
     departments: [],
-    isLoading: false,
     error: null,
   };
 
   async componentDidMount() {
-    this.setState({ isLoading: true });
+    this.props.handleToggleLoader();
     const [departmentsError, departments] = await getDepartments();
     if (!departmentsError) {
       this.setState({ departments: departments.departments });
     } else {
       this.setState({ error: departmentsError });
     }
-    this.setState({ isLoading: false });
+    this.props.handleToggleLoader();
   }
 
   render() {
-    const { departments, isLoading, error } = this.state;
-
-    if (isLoading) {
-      return <Loader />;
-    }
+    const { departments, error } = this.state;
     if (error) {
       return <h1>Error</h1>;
     }
@@ -36,10 +31,15 @@ export default class DepartmentsList extends Component {
         <div className="container section-wrap">
           {departments &&
             departments.map((department) => (
-              <Department key={department.id} department={department} />
+              <Department
+                key={department.id}
+                department={department}
+              ></Department>
             ))}
         </div>
       </section>
     );
   }
 }
+
+export default withLoader(DepartmentsList);
