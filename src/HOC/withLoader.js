@@ -6,7 +6,7 @@ const withLoader = (OriginalComponent) => {
     state = {
       isLoading: false,
     };
-    handleToggleLoader = () => {
+    toggleLoader = () => {
       this.setState((prev) => ({ ...prev, isLoading: !prev.isLoading }));
     };
     render() {
@@ -15,7 +15,7 @@ const withLoader = (OriginalComponent) => {
         <div>
           {isLoading && <Loader />}
           <OriginalComponent
-            handleToggleLoader={this.handleToggleLoader}
+            toggleLoader={this.toggleLoader}
             {...this.props}
           />
         </div>

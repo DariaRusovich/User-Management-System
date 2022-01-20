@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { withRouter } from 'react-router-dom';
 import { getDepartmentById } from '../api/api';
+import withError from '../HOC/withError';
 import withLoader from '../HOC/withLoader';
 import Employee from './Employee';
 
@@ -9,11 +10,10 @@ class EmployeesList extends Component {
   state = {
     departments: {},
     employees: [],
-    error: null,
   };
 
   async componentDidMount() {
-    this.props.handleToggleLoader();
+    this.props.toggleLoader();
     const departmentId = this.props.match.params.id;
     const [departmentError, department] = await getDepartmentById(departmentId);
     if (!departmentError) {
@@ -22,15 +22,12 @@ class EmployeesList extends Component {
         employees: department.departmentById.employees,
       });
     } else {
-      this.setState({ error: departmentError });
+      this.props.setError(departmentError);
     }
-    this.props.handleToggleLoader();
+    this.props.toggleLoader();
   }
   render() {
-    const { department, employees, error } = this.state;
-    if (error) {
-      return <h1>Error</h1>;
-    }
+    const { department, employees } = this.state;
     if (!employees) {
       return (
         <h2>
@@ -43,16 +40,15 @@ class EmployeesList extends Component {
       <>
         <section className="section">
           <div className="container section-wrap">
-            {employees && (
+            {
               <h2>
                 {employees.length} employees in the {department} department
               </h2>
-            )}
+            }
             <div className="employees-list">
-              {employees &&
-                employees.map((employee) => (
-                  <Employee key={employee.id} employee={employee} />
-                ))}
+              {employees.map((employee) => (
+                <Employee key={employee.id} employee={employee} />
+              ))}
             </div>
           </div>
         </section>
@@ -61,4 +57,4 @@ class EmployeesList extends Component {
   }
 }
 
-export default withRouter(withLoader(EmployeesList));
+export default withRouter(withError(withLoader(EmployeesList)));

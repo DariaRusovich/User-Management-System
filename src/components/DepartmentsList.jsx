@@ -1,31 +1,27 @@
 import React, { Component } from 'react';
 import { getDepartments } from '../api/api';
+import withError from '../HOC/withError';
 import withLoader from '../HOC/withLoader';
 import Department from './Department';
 
 class DepartmentsList extends Component {
   state = {
     departments: [],
-    error: null,
   };
 
   async componentDidMount() {
-    this.props.handleToggleLoader();
+    this.props.toggleLoader();
     const [departmentsError, departments] = await getDepartments();
     if (!departmentsError) {
       this.setState({ departments: departments.departments });
     } else {
-      this.setState({ error: departmentsError });
+      this.props.setError(departmentsError);
     }
-    this.props.handleToggleLoader();
+    this.props.toggleLoader();
   }
 
   render() {
-    const { departments, error } = this.state;
-    if (error) {
-      return <h1>Error</h1>;
-    }
-
+    const { departments } = this.state;
     return (
       <section className="section">
         <div className="container section-wrap">
@@ -34,7 +30,7 @@ class DepartmentsList extends Component {
               <Department
                 key={department.id}
                 department={department}
-              ></Department>
+              />
             ))}
         </div>
       </section>
@@ -42,4 +38,4 @@ class DepartmentsList extends Component {
   }
 }
 
-export default withLoader(DepartmentsList);
+export default withError(withLoader(DepartmentsList));
