@@ -1,12 +1,7 @@
 import axios from 'axios';
-import {
-  BASE_URL,
-  DEPARTMENT_BY_ID_URL,
-  DEPARTMENTS_URL,
-  LOGIN,
-} from '../constants/url';
+import { BASE_URL } from '../constants/url';
 
-const api = axios.create({
+export const api = axios.create({
   baseURL: BASE_URL,
   headers: {
     'Content-type': 'application/json;charset=utf-8',
@@ -31,13 +26,3 @@ api.interceptors.response.use(
     return [error, null];
   }
 );
-
-export async function getDepartments() {
-  return api.get(DEPARTMENTS_URL);
-}
-export async function getDepartmentById(id) {
-  return api.get(`${DEPARTMENT_BY_ID_URL}${id}`);
-}
-export async function signin(loginData) {
-  return api.post(LOGIN, loginData);
-}

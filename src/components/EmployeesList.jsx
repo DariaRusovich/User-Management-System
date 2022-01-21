@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { withRouter } from 'react-router-dom';
-import { getDepartmentById } from '../api/api';
+import { apiRequest } from '../api/apiService';
 import withError from '../HOC/withError';
 import withLoader from '../HOC/withLoader';
 import Employee from './Employee';
@@ -15,7 +15,9 @@ class EmployeesList extends Component {
   async componentDidMount() {
     this.props.toggleLoader();
     const departmentId = this.props.match.params.id;
-    const [departmentError, department] = await getDepartmentById(departmentId);
+    const [departmentError, department] = await apiRequest.getDepartmentById(
+      departmentId
+    );
     if (!departmentError) {
       this.setState({
         department: department.departmentById.name,

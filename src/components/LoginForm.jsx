@@ -6,13 +6,7 @@ export default class LoginForm extends Component {
     const loginData = {};
     loginData.username = event.target.username.value.trim();
     loginData.password = event.target.password.value.trim();
-    const validUsername = loginData.username.length > 3;
-    const validpassword = loginData.password.length > 3;
-    if ((validUsername, validpassword)) {
-      this.props.signIn(loginData);
-    } else {
-      alert('Data is not valid');
-    }
+    this.props.signIn(loginData);
   };
   render() {
     return (

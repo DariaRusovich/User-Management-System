@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { getDepartments } from '../api/api';
+import { apiRequest } from '../api/apiService';
 import withError from '../HOC/withError';
 import withLoader from '../HOC/withLoader';
 import Department from './Department';
@@ -11,7 +11,8 @@ class DepartmentsList extends Component {
 
   async componentDidMount() {
     this.props.toggleLoader();
-    const [departmentsError, departments] = await getDepartments();
+
+    const [departmentsError, departments] = await apiRequest.getDepartments();
     if (!departmentsError) {
       this.setState({ departments: departments.departments });
     } else {
@@ -27,10 +28,7 @@ class DepartmentsList extends Component {
         <div className="container section-wrap">
           {departments &&
             departments.map((department) => (
-              <Department
-                key={department.id}
-                department={department}
-              />
+              <Department key={department.id} department={department} />
             ))}
         </div>
       </section>
