@@ -12,12 +12,13 @@ span {
 button,
 input,
 textarea,
-select {
+select, fieldset {
   font: inherit;
   color: inherit;
   background: none;
   border: 0;
 }
+
 button {
   cursor: pointer;
 }
@@ -39,37 +40,41 @@ body {
   --primary-bg: hsl(231, 37%, 96%);
   --danger-bg: hsl(0, 91%, 96%);
   --danger-color: hsl(0, 50%, 47%);
-  --success-bg: hsl(120, 91%, 96%);
+  --success-bg: hsl(120, 91%, 90%);
   --success-color: hsl(120, 50%, 47%);
 }
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
-.btn-group {
+.btns-group {
   display: flex;
   align-items: center;
   justify-content: center;
 }
-.btn-group .btn:not(:first-child) {
+.btns-group .btn:not(:first-child) {
   margin-left: 15px;
 }
 .btn {
   padding: 10px 20px;
   border-radius: 5px;
   transition: 0.5s;
+  border: 1px solid transparent;
 }
 .btn-primary {
   background-color: var(--primary-bg);
   color: var(--primary-color);
+  border: 1px solid var(--primary-color);
 }
 .btn-danger {
   background-color: var(--danger-bg);
   color: var(--danger-color);
+  border: 1px solid var(--danger-color);
 }
 .btn-success {
   background-color: var(--success-bg);
   color: var(--success-color);
+  border: 1px solid var(--success-color);
 }
 .btn-primary:hover {
   background-color: var(--primary-color);

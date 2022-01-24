@@ -15,8 +15,10 @@ export default class Employee extends Component {
         <span className="employee-item__date">
           {dateFormat(created_at)}
         </span>
-        <button className="btn">Edit</button>
-        <button className="btn">Delete</button>
+        <div className="btns-group">
+        <button className="btn btn-primary">Edit</button>
+        <button className="btn btn-danger">Delete</button>
+        </div>
       </div>
     );
   }

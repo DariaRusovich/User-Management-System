@@ -16,7 +16,7 @@ class Department extends Component {
         <p className="department-item__description">{description}</p>
         <span className="department-item__date">{dateFormat(created_at)}</span>
         {/* <span className='department-item__date'>{department.updated_at}</span> */}
-        <div className="btn-group">
+        <div className="btns-group">
           <button className="btn btn-primary">Edit</button>
           <button className="btn btn-danger">Delete</button>
           <button className="btn btn-success">
