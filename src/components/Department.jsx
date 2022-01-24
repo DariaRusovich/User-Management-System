@@ -17,9 +17,9 @@ class Department extends Component {
         <span className="department-item__date">{dateFormat(created_at)}</span>
         {/* <span className='department-item__date'>{department.updated_at}</span> */}
         <div className="btn-group">
-          <button className="btn">Edit</button>
-          <button className="btn">Delete</button>
-          <button className="btn">
+          <button className="btn btn-primary">Edit</button>
+          <button className="btn btn-danger">Delete</button>
+          <button className="btn btn-success">
             <Link
               to={`${DEPARTMENT_BY_ID_URL}${department.id}${EMPLOYEES_URL}`}
             >

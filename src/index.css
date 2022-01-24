@@ -1,4 +1,4 @@
-*{
+* {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -9,7 +9,16 @@ span {
   text-decoration: none;
   color: inherit;
 }
-button{
+button,
+input,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+}
+button {
   cursor: pointer;
 }
 ol,
@@ -24,25 +33,66 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-:root{
+:root {
   --box-shadow: 0px 2px 16px rgba(32, 108, 164, 0.16);
-  --secondary-color: hsl(231, 22%, 47%);
-  
+  --primary-color: hsl(231, 22%, 47%);
+  --primary-bg: hsl(231, 37%, 96%);
+  --danger-bg: hsl(0, 91%, 96%);
+  --danger-color: hsl(0, 50%, 47%);
+  --success-bg: hsl(120, 91%, 96%);
+  --success-color: hsl(120, 50%, 47%);
 }
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+.btn-group {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.btn-group .btn:not(:first-child) {
+  margin-left: 15px;
+}
+.btn {
+  padding: 10px 20px;
+  border-radius: 5px;
+  transition: 0.5s;
+}
+.btn-primary {
+  background-color: var(--primary-bg);
+  color: var(--primary-color);
+}
+.btn-danger {
+  background-color: var(--danger-bg);
+  color: var(--danger-color);
+}
+.btn-success {
+  background-color: var(--success-bg);
+  color: var(--success-color);
+}
+.btn-primary:hover {
+  background-color: var(--primary-color);
+  color: #fff;
+}
+.btn-danger:hover {
+  background-color: var(--danger-color);
+  color: #fff;
+}
+.btn-success:hover {
+  background-color: var(--success-color);
+  color: #fff;
+}
 
-.container{
+.container {
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
 }
 .title {
-  color: var(--secondary-color);
+  color: var(--primary-color);
   text-transform: uppercase;
 }
-.section{
+.section {
   padding: 70px 0;
 }
