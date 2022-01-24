@@ -11,7 +11,6 @@ class DepartmentsList extends Component {
 
   async componentDidMount() {
     this.props.toggleLoader();
-
     const [departmentsError, departments] = await apiRequest.getDepartments();
     if (!departmentsError) {
       this.setState({ departments: departments.departments });
