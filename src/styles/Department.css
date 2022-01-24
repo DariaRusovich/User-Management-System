@@ -9,13 +9,7 @@
 .department-item:not(:first-child) {
   margin-top: 30px;
 }
-.department-item__img {
-  width: 70px;
-  height: 70px;
-  border-radius: 50%;
-  border: 1px solid var(--primary-color);
-  
-}
+
 .department-item__title {
   width: 200px;
 }

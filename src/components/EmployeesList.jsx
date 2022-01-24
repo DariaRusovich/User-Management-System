@@ -43,8 +43,13 @@ class EmployeesList extends Component {
         <section className="section">
           <div className="container section-wrap">
             {
-              <h2>
-                {employees.length} employees in the {department} department
+              <h2 className="title-secondary">
+                {employees.length} employees in the{' '}
+                <Link to="/" className="title">
+                  {' '}
+                  {department}
+                </Link>{' '}
+                department
               </h2>
             }
             <div className="employees-list">

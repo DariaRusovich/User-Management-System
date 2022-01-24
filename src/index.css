@@ -88,7 +88,12 @@ code {
   background-color: var(--success-color);
   color: #fff;
 }
-
+.item__img {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  border: 1px solid var(--primary-color);
+}
 .container {
   width: 100%;
   max-width: 1200px;
@@ -97,6 +102,9 @@ code {
 .title {
   color: var(--primary-color);
   text-transform: uppercase;
+}
+.title-secondary{
+  color: var(--primary-color);
 }
 .section {
   padding: 70px 0;

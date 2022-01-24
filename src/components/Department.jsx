@@ -11,10 +11,10 @@ class Department extends Component {
     const { name, description, created_at } = department;
     return (
       <div className="department-item">
-        <img className="department-item__img" src="#" width="1" height="1" loading="lazy" alt="Avatar" />
-        <h2 className="department-item__title title">{name}</h2>
-        <p className="department-item__description">{description}</p>
-        <span className="department-item__date">{dateFormat(created_at)}</span>
+        <img className="item__img" src="#" width="1" height="1" loading="lazy" alt="Avatar" />
+        <h2 className="department-item__title item__title title">{name}</h2>
+        <p className="department-item__description item__description">{description}</p>
+        <span className="item__date">{dateFormat(created_at)}</span>
         {/* <span className='department-item__date'>{department.updated_at}</span> */}
         <div className="btns-group">
           <button className="btn btn-primary">Edit</button>
