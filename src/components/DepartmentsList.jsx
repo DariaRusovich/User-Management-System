@@ -3,6 +3,7 @@ import { apiRequest } from '../api/apiService';
 import withError from '../HOC/withError';
 import withLoader from '../HOC/withLoader';
 import Department from './Department';
+import '../styles/DepartmentsList.css'
 
 class DepartmentsList extends Component {
   state = {

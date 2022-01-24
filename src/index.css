@@ -1,5 +1,20 @@
 *{
   box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+a,
+span {
+  display: inline-flex;
+  text-decoration: none;
+  color: inherit;
+}
+button{
+  cursor: pointer;
+}
+ol,
+ul {
+  list-style: none;
 }
 body {
   margin: 0;
@@ -9,12 +24,25 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+:root{
+  --box-shadow: 0px 2px 16px rgba(32, 108, 164, 0.16);
+  --secondary-color: hsl(231, 22%, 47%);
+  
+}
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
 .container{
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
+}
+.title {
+  color: var(--secondary-color);
+  text-transform: uppercase;
+}
+.section{
+  padding: 70px 0;
 }

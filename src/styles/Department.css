@@ -1,0 +1,25 @@
+.department-item {
+  padding: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: var(--box-shadow);
+  border-radius: 5px;
+}
+.department-item:not(:first-child) {
+  margin-top: 30px;
+}
+.department-item__img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 1px solid var(--secondary-color);
+  
+}
+.department-item__title {
+  width: 200px;
+}
+.department-item__description {
+  width: 320px;
+  text-align: center;
+}
