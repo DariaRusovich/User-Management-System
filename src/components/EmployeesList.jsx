@@ -5,6 +5,8 @@ import { apiRequest } from '../api/apiService';
 import withError from '../HOC/withError';
 import withLoader from '../HOC/withLoader';
 import Employee from './Employee';
+import '../styles/EmployeesList.css'
+
 
 class EmployeesList extends Component {
   state = {

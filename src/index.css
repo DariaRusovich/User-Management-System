@@ -12,7 +12,8 @@ span {
 button,
 input,
 textarea,
-select, fieldset {
+select,
+fieldset {
   font: inherit;
   color: inherit;
   background: none;
@@ -105,13 +106,24 @@ code {
   border-radius: 50%;
   border: 1px solid var(--primary-color);
 }
-
+.item-block {
+  padding: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: var(--box-shadow);
+  border-radius: 5px;
+}
+.item-block:not(:first-child) {
+  margin-top: 30px;
+}
 .title {
   text-transform: uppercase;
 }
-.title a:hover, .title-secondary a:hover{
+.title a:hover,
+.title-secondary a:hover {
   color: var(--primary-color-hover);
 }
-.item__date{
+.item__date {
   color: var(--accent-color);
 }

@@ -55,9 +55,6 @@
   color: var(--danger-color);
   transition: all 0.35s;
 }
-/* .input-wrapper input:invalid {
-  border-color: var(--danger-color);
-} */
 .input-wrapper input:invalid ~ .validation {
   opacity: 1;
   transform: translate(-50%, -20%);

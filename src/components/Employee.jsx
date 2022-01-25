@@ -7,7 +7,7 @@ export default class Employee extends Component {
     const { employee } = this.props;
     const { username, first_name, last_name, email, created_at } = employee;
     return (
-      <div className="employee-item">
+      <div className="employee-item item-block">
         <img
           className="item__img"
           src="#"
@@ -16,10 +16,10 @@ export default class Employee extends Component {
           loading="lazy"
           alt="Avatar"
         />
-        <div className='item-wrapper'>
-          <div className='item-title__wrapper'>
-          <h2 className="item__title">{first_name}</h2>
-          <h2 className="item__title">{last_name}</h2>
+        <div className="item-wrapper">
+          <div className="item-title__wrapper">
+            <h2 className="item__title">{first_name}</h2>
+            <h2 className="item__title">{last_name}</h2>
           </div>
           <h3 className="item__title__secondary">{username}</h3>
         </div>
