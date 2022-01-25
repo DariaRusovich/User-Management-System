@@ -4,10 +4,11 @@ import LoginForm from '../components/LoginForm';
 import withError from '../HOC/withError';
 
 class LoginPage extends Component {
+ 
   signIn = async (loginData) => {
     const [userDataError, userData] = await apiRequest.signin(loginData);
     const token = userData.USERTOKEN || userData.ADMINTOKEN;
-    if (!userDataError && userData.USERTOKEN) {
+    if ((!userDataError && userData.USERTOKEN) || userData.ADMINTOKEN) {
       localStorage.setItem('token', token);
       this.props.history.push('/');
     } else {
