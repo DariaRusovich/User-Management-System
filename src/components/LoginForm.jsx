@@ -16,18 +16,24 @@ export default class LoginForm extends Component {
           <form className="login-form" onSubmit={this.handleSubmit}>
             <fieldset className="title">
               <legend>Login form</legend>
-              <input
-                type="text"
-                name="username"
-                placeholder="Username"
-                required
-              />
+              <div className="input-wrapper">
+                <input
+                  type="text"
+                  name="username"
+                  placeholder="Username"
+                  required
+                />
+                <div className="validation">*Required</div>
+              </div>
+              <div className="input-wrapper">
               <input
                 type="password"
                 name="password"
                 placeholder="Password"
                 required
               />
+              <div className="validation">*Required</div>
+              </div>
               <button type="submit" className="btn btn-success">
                 Login
               </button>

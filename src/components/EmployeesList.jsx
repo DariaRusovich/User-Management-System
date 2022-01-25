@@ -45,7 +45,7 @@ class EmployeesList extends Component {
             {
               <h2 className="title-secondary">
                 {employees.length} employees in the{' '}
-                <Link to="/" className="title">
+                <Link to="/" className='title'>
                   {' '}
                   {department}
                 </Link>{' '}

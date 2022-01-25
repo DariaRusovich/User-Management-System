@@ -10,7 +10,7 @@ export default class Header extends Component {
           <h1 className="header-title title">
             <Link to="/">User management system</Link>
           </h1>
-          <button className="btn primary-btn">
+          <button className="btn btn-primary">
             <Link to="/login">Login</Link>
           </button>
         </div>

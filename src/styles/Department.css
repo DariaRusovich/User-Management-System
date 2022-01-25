@@ -16,4 +16,5 @@
 .department-item__description {
   width: 320px;
   text-align: center;
+  color: var(--accent-color);
 }

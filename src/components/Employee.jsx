@@ -16,10 +16,16 @@ export default class Employee extends Component {
           loading="lazy"
           alt="Avatar"
         />
-        <h2 className="item__title">{username}</h2>
-        <h3 className="item__title__secondary">{first_name}</h3>
-        <h3 className="item__title__secondary">{last_name}</h3>
-        <p className="item__email">{email}</p>
+        <div className='item-wrapper'>
+          <div className='item-title__wrapper'>
+          <h2 className="item__title">{first_name}</h2>
+          <h2 className="item__title">{last_name}</h2>
+          </div>
+          <h3 className="item__title__secondary">{username}</h3>
+        </div>
+        <a href={`mailto:${email}`} className="item__email">
+          {email}
+        </a>
         <span className="item__date">{dateFormat(created_at)}</span>
         <div className="btns-group">
           <button className="btn btn-primary">Edit</button>
