@@ -5,8 +5,7 @@ import { apiRequest } from '../api/apiService';
 import withError from '../HOC/withError';
 import withLoader from '../HOC/withLoader';
 import Employee from './Employee';
-import '../styles/EmployeesList.css'
-
+import '../styles/EmployeesList.css';
 
 class EmployeesList extends Component {
   state = {
@@ -34,10 +33,14 @@ class EmployeesList extends Component {
     const { department, employees } = this.state;
     if (!employees) {
       return (
-        <h2>
-          No employees in the {department} department.
-          <Link to="/"> Go back.</Link>
-        </h2>
+        <section className="section">
+          <div className="container">
+            <h1 className='title-primary'>
+              No employees in the {department} department.
+              {' '}<Link className='title' to="/"> Go back.</Link>
+            </h1>
+          </div>
+        </section>
       );
     }
     return (
@@ -47,7 +50,7 @@ class EmployeesList extends Component {
             {
               <h2 className="title-secondary">
                 {employees.length} employees in the{' '}
-                <Link to="/" className='title'>
+                <Link to="/" className="title">
                   {' '}
                   {department}
                 </Link>{' '}
