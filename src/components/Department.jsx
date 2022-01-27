@@ -9,6 +9,7 @@ class Department extends Component {
   render() {
     const { department } = this.props;
     const { name, description, created_at } = department;
+    
     return (
       <div className="department-item item-block">
         <img className="item__img" src="#" width="1" height="1" loading="lazy" alt="Avatar" />

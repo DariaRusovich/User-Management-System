@@ -4,9 +4,8 @@
     margin: 0 auto;
   }
   .section {
-    padding: 70px 0;
+    padding: 50px 0;
   }
-  
   .item__img {
     width: 70px;
     height: 70px;
@@ -21,8 +20,11 @@
     box-shadow: var(--box-shadow);
     border-radius: 5px;
   }
-  .item-block:not(:first-child) {
+  .section-wrap .item-block:not(:first-child) {
     margin-top: 30px;
+  }
+  .item-list{
+    margin-top: 50px;
   }
   .title {
     text-transform: uppercase;

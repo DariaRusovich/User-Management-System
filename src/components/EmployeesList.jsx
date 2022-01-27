@@ -5,7 +5,8 @@ import { apiRequest } from '../api/apiService';
 import withError from '../HOC/withError';
 import withLoader from '../HOC/withLoader';
 import Employee from './Employee';
-import '../styles/EmployeesList.css';
+import AddNewItemBtn from './AddNewItemBtn';
+
 
 class EmployeesList extends Component {
   state = {
@@ -57,7 +58,8 @@ class EmployeesList extends Component {
                 department
               </h2>
             }
-            <div className="employees-list">
+            <AddNewItemBtn>employee</AddNewItemBtn>
+            <div className="item-list">
               {employees.map((employee) => (
                 <Employee key={employee.id} employee={employee} />
               ))}
