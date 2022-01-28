@@ -28,7 +28,6 @@ class DepartmentsList extends Component {
 
   render() {
     const { departments } = this.state;
-    //console.log(this.context);
     const {visible, handleOpenModal, handleCloseModal} = this.context
     return (
       <section className="section">
