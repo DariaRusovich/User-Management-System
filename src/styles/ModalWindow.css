@@ -1,0 +1,33 @@
+.modal-window {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: none;
+    background-color: rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(8px);
+    box-shadow: var(--box-shadow);
+  }
+  .modal-window__content{
+      padding: 25px;
+      background-color: #fff;
+      border-radius: 5px;
+      min-width: 250px;
+      position: relative;
+  }
+  
+  .modal-window.active{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+  }
+  .modal-close__btn {
+      position: absolute;
+      top: 0;
+      right: 0;
+      padding: 5px;
+      font-size: 22px;
+      transform: translate(-50%, 10%);
+      color: var(--primary-color);
+  }
