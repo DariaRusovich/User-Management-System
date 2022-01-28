@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import '../styles/LoginForm.css';
+
 
 export default class LoginForm extends Component {
   state = {
@@ -32,7 +32,7 @@ export default class LoginForm extends Component {
     return (
       <section className="section">
         <div className="container form-wrap">
-          <form className="login-form" onSubmit={this.handleSubmit}>
+          <form className="login-form form" onSubmit={this.handleSubmit}>
             <fieldset className="title">
               <legend>Login form</legend>
               <div className="input-wrapper">

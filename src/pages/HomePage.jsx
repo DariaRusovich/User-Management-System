@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import DepartmentsList from '../components/DepartmentsList';
-import AppProvider, { AppContext } from '../context/AppContext';
+import AppProvider, { AppContext } from '../contexts/ModalWindowContext';
 
 //import { AppConsumer } from '../context/AppContext';
 

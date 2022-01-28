@@ -1,10 +1,10 @@
 import React, { Component, createContext } from 'react';
 import '../styles/Loader.css';
 
-export const AppContext = createContext();
+export const ModalWindowContext = createContext();
 //export const AppConsumer = AppContext.Consumer;
 
-export default class AppProvider extends Component {
+export default class ModalWindowProvider extends Component {
   setState = this.setState.bind(this);
   state = {
     visible: false,
@@ -25,11 +25,11 @@ export default class AppProvider extends Component {
     const { handleOpenModal, handleCloseModal } = this;
     const { children } = this.props;
     return (
-      <AppContext.Provider
+      <ModalWindowContext.Provider
         value={{ visible, handleOpenModal, handleCloseModal }}
       >
         {children}
-      </AppContext.Provider>
+      </ModalWindowContext.Provider>
     );
   }
 }

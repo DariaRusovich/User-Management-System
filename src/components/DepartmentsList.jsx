@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { apiRequest } from '../api/apiService';
-import { AppContext } from '../context/AppContext';
+import { ModalWindowContext } from '../contexts/ModalWindowContext';
 import withError from '../HOC/withError';
 import withLoader from '../HOC/withLoader';
 import AddDepartmentForm from '../modalForms/AddDepartmentForm';
@@ -49,4 +49,4 @@ class DepartmentsList extends Component {
 }
 
 export default withError(withLoader(DepartmentsList));
-DepartmentsList.contextType = AppContext
+DepartmentsList.contextType = ModalWindowContext

@@ -19,7 +19,9 @@ fieldset {
   background: none;
   border: 0;
 }
-
+textarea{
+  resize: none;
+}
 button {
   cursor: pointer;
 }

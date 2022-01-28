@@ -1,3 +1,9 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 450px;
+}
 .form-wrap {
   display: flex;
   justify-content: center;
@@ -5,45 +11,56 @@
 }
 .login-form {
   padding: 30px;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  width: 450px;
   box-shadow: var(--box-shadow);
   border-radius: 5px;
 }
-.login-form fieldset{
+.login-form fieldset {
   width: 100%;
 }
-.login-form legend {
+.form fieldset {
+  width: 100%;
+}
+.form textarea {
+  width: 100%;
+  height: 130px;
+}
+.form legend {
   font-size: 22px;
   font-weight: 700;
   text-align: center;
 }
-.login-form input {
+.form input,
+.form textarea {
   padding: 10px 15px;
   border: 1px solid var(--primary-color);
   background-color: var(--primary-bg);
   border-radius: 5px;
   width: 100%;
-}
-.login-form input:focus {
-  border: 2px solid var(--primary-color);
-  outline: 0;
-}
-.login-form input::placeholder {
-  color: var(--primary-color);
-}
-.login-form input {
   margin-top: 15px;
 }
-.login-form .btn {
+.form input:focus,
+.form textarea:focus {
+  outline: 2px solid var(--primary-color);
+}
+.form input::placeholder,
+.form textarea::placeholder {
+  color: var(--primary-color);
+}
+.form .btn {
   margin-top: 30px;
   text-transform: uppercase;
 }
+.btns-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.btns-wrap .btn:not(:first-child) {
+  margin-left: 15px;
+}
 .input-wrapper {
   position: relative;
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 .validation {
   position: absolute;
