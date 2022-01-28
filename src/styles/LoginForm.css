@@ -1,0 +1,61 @@
+.form-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.login-form {
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 450px;
+  box-shadow: var(--box-shadow);
+  border-radius: 5px;
+}
+.login-form fieldset{
+  width: 100%;
+}
+.login-form legend {
+  font-size: 22px;
+  font-weight: 700;
+  text-align: center;
+}
+.login-form input {
+  padding: 10px 15px;
+  border: 1px solid var(--primary-color);
+  background-color: var(--primary-bg);
+  border-radius: 5px;
+  width: 100%;
+}
+.login-form input:focus {
+  border: 2px solid var(--primary-color);
+  outline: 0;
+}
+.login-form input::placeholder {
+  color: var(--primary-color);
+}
+.login-form input {
+  margin-top: 15px;
+}
+.login-form .btn {
+  margin-top: 30px;
+  text-transform: uppercase;
+}
+.input-wrapper {
+  position: relative;
+  overflow: hidden;
+}
+.validation {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translate(0, -20%);
+  text-transform: none;
+  opacity: 0;
+  color: var(--danger-color);
+  transition: all 0.35s;
+}
+.input-wrapper input:invalid ~ .validation {
+  opacity: 1;
+  transform: translate(-50%, -20%);
+}
