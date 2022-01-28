@@ -6,16 +6,10 @@ import { privateRouteComponents, routeComponents } from './constants/routes';
 export default class App extends Component {
   render() {
     return (
-      <>
-        
-              <div className="App">
-                <Header />
-                <Switch>
-                  {[...privateRouteComponents, ...routeComponents]}
-                </Switch>
-              </div>
-            
-      </>
+        <div className="App">
+          <Header />
+          <Switch>{[...privateRouteComponents, ...routeComponents]}</Switch>
+        </div>
     );
   }
 }

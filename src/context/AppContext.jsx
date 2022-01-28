@@ -1,33 +1,36 @@
 import React, { Component, createContext } from 'react';
 import '../styles/Loader.css';
 
-const AppContext = createContext();
-export const AppConsumer = AppContext.Consumer;
+export const AppContext = createContext();
+//export const AppConsumer = AppContext.Consumer;
 
 export default class AppProvider extends Component {
-  constructor(props) {
-    super(props);
-    this.setState = this.setState.bind(this);
-    this.state = {
-      visibility: false,
-    };
-  }
+  setState = this.setState.bind(this);
+  state = {
+    visible: false,
+  };
+
   handleOpenModal = (e) => {
     e.preventDefault();
-    this.setState({ visibility: true });
+    this.setState({ visible: true });
   };
   handleCloseModal = (e) => {
     e.preventDefault();
-    this.setState({ visibility: false });
+    this.setState({ visible: false });
   };
 
   render() {
     console.log('App context', this.state);
+    const { visible } = this.state;
+    const { handleOpenModal, handleCloseModal } = this;
     const { children } = this.props;
     return (
-      <AppContext.Provider value={[this.state, this.setState]}>
+      <AppContext.Provider
+        value={{ visible, handleOpenModal, handleCloseModal }}
+      >
         {children}
       </AppContext.Provider>
     );
   }
 }
+
