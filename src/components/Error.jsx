@@ -3,8 +3,6 @@ import '../styles/Error.css';
 
 export default class Error extends Component {
   render() {
-    const { error } = this.props;
-
     return (
       <div className="section">
         <div className="container error">

@@ -6,33 +6,33 @@ export const ModalWindowContext = createContext();
 export default class ModalWindowProvider extends Component {
   setState = this.setState.bind(this);
   state = {
-    visible: false,
+    open: false,
   };
 
   componentDidMount = () => {
     window.addEventListener('keyup', (e) => {
       if (e.key === 'Escape') {
-        this.setState({ visible: false });
+        this.setState({ open: false });
       }
     });
   };
 
   handleOpenModal = (e) => {
     e.preventDefault();
-    this.setState({ visible: true });
+    this.setState({ open: true });
   };
   handleCloseModal = (e) => {
     e.preventDefault();
-    this.setState({ visible: false });
+    this.setState({ open: false });
   };
 
   render() {
-    const { visible } = this.state;
+    const { open } = this.state;
     const { handleOpenModal, handleCloseModal } = this;
     const { children } = this.props;
     return (
       <ModalWindowContext.Provider
-        value={{ visible, handleOpenModal, handleCloseModal }}
+        value={{ open, handleOpenModal, handleCloseModal }}
       >
         {children}
       </ModalWindowContext.Provider>

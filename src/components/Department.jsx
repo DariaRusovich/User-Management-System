@@ -8,8 +8,7 @@ import '../styles/Department.css';
 class Department extends Component {
   render() {
     const { department } = this.props;
-    const { name, description, picture, createdAt, updatedAt } = department;
-    //console.log(department);
+    const { name, description, picture } = department;
     return (
       <div className="department-item item-block">
         <img className="item__img" src={picture} width="1" height="1" loading="lazy" alt="Avatar" />

@@ -1,23 +1,7 @@
 import React, { Component } from 'react';
+import withValidation from '../HOC/withValidation';
 
-export default class LoginForm extends Component {
-  state = {
-    // inputError: '*Required',
-    // passwordError: '*Required',
-    inputDirty: false,
-    passwordDirty: false,
-  };
-  handleChange = (event) => {
-    switch (event.target.name) {
-      case 'username':
-        this.setState({ inputDirty: true });
-        break;
-      case 'password':
-        this.setState({ passwordDirty: true });
-        break;
-    }
-  };
-
+class LoginForm extends Component {
   handleSubmit = (event) => {
     event.preventDefault();
     const loginData = {};
@@ -26,9 +10,7 @@ export default class LoginForm extends Component {
     this.props.signIn(loginData);
   };
   render() {
-    const { inputDirty, passwordDirty } = this.state;
-    const { invalidData } = this.props;
-    //console.log(invalidData);
+    const { invalidData, handleChange, inputUserNameDirty, passwordDirty } = this.props;
     return (
       <section className="section">
         <div className="container form-wrap">
@@ -37,17 +19,17 @@ export default class LoginForm extends Component {
               <legend>Login form</legend>
               <div className="input-wrapper">
                 <input
-                  onChange={this.handleChange}
+                  onChange={handleChange}
                   type="text"
                   name="username"
                   placeholder="Username"
                   required
                 />
-                {inputDirty && <div className="validation">*Required</div>}
+                {inputUserNameDirty && <div className="validation">*Required</div>}
               </div>
               <div className="input-wrapper">
                 <input
-                  onChange={this.handleChange}
+                  onChange={handleChange}
                   type="password"
                   name="password"
                   placeholder="Password"
@@ -55,7 +37,7 @@ export default class LoginForm extends Component {
                 />
                 {passwordDirty && <div className="validation">*Required</div>}
               </div>
-             <div> {invalidData && <p className='warning-message'>{invalidData}</p> }</div>
+              {invalidData && <p className="warning-message">{invalidData}</p>}
               <button type="submit" className="btn btn-success">
                 Login
               </button>
@@ -66,3 +48,4 @@ export default class LoginForm extends Component {
     );
   }
 }
+export default withValidation(LoginForm);

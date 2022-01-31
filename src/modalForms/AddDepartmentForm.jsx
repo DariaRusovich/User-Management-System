@@ -1,18 +1,24 @@
 import React, { Component } from 'react';
+import withValidation from '../HOC/withValidation';
 
-export default class AddDepartmentForm extends Component {
+class AddDepartmentForm extends Component {
   render() {
-    const {setVisible} = this.props
+    const { close, inputDirty, handleChange } = this.props;
+    console.log(this);
     return (
       <form className="add-form form">
         <fieldset>
           <legend>Add department</legend>
-          <input
-            type="text"
-            name="title"
-            placeholder="Department name"
-            required
-          />
+          <div className="input-wrapper">
+            <input
+              onChange={handleChange}
+              type="text"
+              name="name"
+              placeholder="Department name"
+              required
+            />
+            {inputDirty && <div className="validation">*Required</div>}
+          </div>
           <textarea
             type="text"
             name="description"
@@ -23,7 +29,7 @@ export default class AddDepartmentForm extends Component {
             <button type="submit" className="btn btn-success">
               Add department
             </button>
-            <button onClick={setVisible} type="submit" className="btn btn-danger">
+            <button onClick={close} type="submit" className="btn btn-danger">
               Cancel
             </button>
           </div>
@@ -32,3 +38,4 @@ export default class AddDepartmentForm extends Component {
     );
   }
 }
+export default withValidation(AddDepartmentForm);

@@ -4,7 +4,7 @@ import '../styles/Employee.css';
 export default class Employee extends Component {
   render() {
     const { employee } = this.props;
-    const { username, firstName, lastName, email, createdAt } = employee;
+    const { username, firstName, lastName, email } = employee;
     return (
       <div className="employee-item item-block">
         <img

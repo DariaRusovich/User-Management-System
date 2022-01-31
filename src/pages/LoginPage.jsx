@@ -11,7 +11,6 @@ class LoginPage extends Component {
   signIn = async (loginData) => {
     const [userDataError, userData] =
       await apiRequest.signin(loginData);
-    console.log(userDataError);
     if (!userDataError) {
       const token = userData.user.tokens.accessToken;
       localStorage.setItem('token', token);
@@ -25,7 +24,6 @@ class LoginPage extends Component {
 
   render() {
     const { invalidData } = this.state;
-    console.log(invalidData);
     return <LoginForm invalidData={invalidData} signIn={this.signIn} />;
   }
 }
