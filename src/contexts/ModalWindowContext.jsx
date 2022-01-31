@@ -2,12 +2,19 @@ import React, { Component, createContext } from 'react';
 import '../styles/Loader.css';
 
 export const ModalWindowContext = createContext();
-//export const AppConsumer = AppContext.Consumer;
 
 export default class ModalWindowProvider extends Component {
   setState = this.setState.bind(this);
   state = {
     visible: false,
+  };
+
+  componentDidMount = () => {
+    window.addEventListener('keyup', (e) => {
+      if (e.key === 'Escape') {
+        this.setState({ visible: false });
+      }
+    });
   };
 
   handleOpenModal = (e) => {
@@ -20,7 +27,6 @@ export default class ModalWindowProvider extends Component {
   };
 
   render() {
-    console.log('App context', this.state);
     const { visible } = this.state;
     const { handleOpenModal, handleCloseModal } = this;
     const { children } = this.props;
@@ -33,4 +39,3 @@ export default class ModalWindowProvider extends Component {
     );
   }
 }
-

@@ -4,20 +4,29 @@ import LoginForm from '../components/LoginForm';
 import withError from '../HOC/withError';
 
 class LoginPage extends Component {
- 
+  state = {
+    invalidData: '',
+  };
+
   signIn = async (loginData) => {
-    const [userDataError, userData] = await apiRequest.signin(loginData);
-    const token = userData.USERTOKEN || userData.ADMINTOKEN;
-    if ((!userDataError && userData.USERTOKEN) || userData.ADMINTOKEN) {
+    const [userDataError, userData] =
+      await apiRequest.signin(loginData);
+    console.log(userDataError);
+    if (!userDataError) {
+      const token = userData.user.tokens.accessToken;
       localStorage.setItem('token', token);
       this.props.history.push('/');
+    } else if (userDataError.response) {
+      this.setState({ invalidData: userDataError.response.data.message });
     } else {
       this.props.setError(userDataError);
     }
   };
 
   render() {
-    return <LoginForm signIn={this.signIn} />;
+    const { invalidData } = this.state;
+    console.log(invalidData);
+    return <LoginForm invalidData={invalidData} signIn={this.signIn} />;
   }
 }
 

@@ -6,14 +6,14 @@ import '../src/styles/CommonStyles.css';
 import '../src/styles/FormStyles.css'
 import App from './App';
 import { BrowserRouter } from 'react-router-dom';
-import AppProvider from './contexts/ModalWindowContext';
+import ModalWindowProvider from './contexts/ModalWindowContext';
 
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
-      <AppProvider>
+      <ModalWindowProvider>
         <App />
-      </AppProvider>
+      </ModalWindowProvider>
     </BrowserRouter>
   </React.StrictMode>,
   document.getElementById('root')

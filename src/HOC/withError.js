@@ -13,7 +13,7 @@ const withError = (OriginalComponent) => {
       const { error } = this.state;
       return (
         <div>
-          {error && <Error />}
+          {error && <Error error={error} />}
           <OriginalComponent setError={this.setError} {...this.props} />
         </div>
       );

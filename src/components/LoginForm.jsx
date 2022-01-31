@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 
-
 export default class LoginForm extends Component {
   state = {
     // inputError: '*Required',
@@ -28,7 +27,8 @@ export default class LoginForm extends Component {
   };
   render() {
     const { inputDirty, passwordDirty } = this.state;
-
+    const { invalidData } = this.props;
+    //console.log(invalidData);
     return (
       <section className="section">
         <div className="container form-wrap">
@@ -55,6 +55,7 @@ export default class LoginForm extends Component {
                 />
                 {passwordDirty && <div className="validation">*Required</div>}
               </div>
+             <div> {invalidData && <p className='warning-message'>{invalidData}</p> }</div>
               <button type="submit" className="btn btn-success">
                 Login
               </button>
