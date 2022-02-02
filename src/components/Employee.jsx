@@ -1,7 +1,22 @@
 import React, { Component } from 'react';
+import { apiRequest } from '../api/apiService';
 import '../styles/Employee.css';
 
+
 export default class Employee extends Component {
+
+deleteEmployee = async () => {
+    const employeeId = this.props.employee._id
+    console.log(employeeId);
+    const [employeeDeletedError, employeeDeleted] =
+      await apiRequest.deleteEmployee(employeeId);
+      if (employeeDeleted) {
+        alert('OK!')
+      } else {
+        alert(employeeDeletedError.response.data.message)
+      }
+  };
+
   render() {
     const { employee } = this.props;
     const { username, firstName, lastName, email } = employee;
@@ -27,7 +42,7 @@ export default class Employee extends Component {
         </a>
         <div className="btns-group">
           <button className="btn btn-primary">Edit</button>
-          <button className="btn btn-danger">Delete</button>
+          <button onClick={this.deleteEmployee} className="btn btn-danger">Delete</button>
         </div>
       </div>
     );

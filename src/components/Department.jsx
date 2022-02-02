@@ -22,7 +22,7 @@ class Department extends Component {
 
   render() {
     const { department } = this.props;
-    const { name, description, picture, _id } = department;
+    const { name, description, picture } = department;
     return (
       <div className="department-item item-block">
         <img

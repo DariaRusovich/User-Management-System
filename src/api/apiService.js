@@ -22,6 +22,9 @@ export default class apiService {
   deleteDepartment(id) {
     return api.delete(`${DEPARTMENT_BY_ID_URL}${id}`);
   }
+  deleteEmployee(id) {
+    return api.delete(`${EMPLOYEES_URL}/${id}`);
+  }
   signin(loginData) {
     return api.post(LOGIN, loginData);
   }
