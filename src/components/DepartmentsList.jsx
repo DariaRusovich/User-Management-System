@@ -7,11 +7,18 @@ import Department from './Department';
 class DepartmentsList extends Component {
   state = {
     departments: [],
+    limit: 10,
+    page: 1,
+    total: 0,
   };
 
   async componentDidMount() {
     this.props.toggleLoader();
-    const [departmentsError, departments] = await apiRequest.getDepartments();
+    const { limit, page } = this.state;
+    const [departmentsError, departments] = await apiRequest.getDepartments(
+      limit,
+      page
+    );
     if (!departmentsError) {
       this.setState({ departments: departments.departments.departments });
     } else {
@@ -19,6 +26,11 @@ class DepartmentsList extends Component {
     }
     this.props.toggleLoader();
   }
+
+  handlePagination = () => {
+    this.setState((prev) => ({page: (prev.page + 1)}))
+  };
+
 
   render() {
     const { departments } = this.state;
@@ -30,6 +42,14 @@ class DepartmentsList extends Component {
               departments.map((department) => (
                 <Department key={department._id} department={department} />
               ))}
+          </div>
+          <div className="btn-wrap">
+            <button
+              onClick={this.handlePagination}
+              className="btn btn-primary btn-block"
+            >
+              See more
+            </button>
           </div>
         </div>
       </section>

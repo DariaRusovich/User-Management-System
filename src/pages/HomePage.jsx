@@ -3,6 +3,7 @@ import DepartmentsList from '../components/DepartmentsList';
 import ModalWindow from '../components/ModalWindow';
 import { ModalWindowContext } from '../contexts/ModalWindowContext';
 import AddDepartmentForm from '../modalForms/AddDepartmentForm';
+import Footer from '../components/Footer';
 
 export default class HomePage extends Component {
   render() {
@@ -18,6 +19,7 @@ export default class HomePage extends Component {
           </button>
         </div>
         <DepartmentsList />
+        <Footer />
         <ModalWindow open={open} close={handleCloseModal}>
           <AddDepartmentForm close={handleCloseModal}></AddDepartmentForm>
         </ModalWindow>

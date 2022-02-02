@@ -6,6 +6,11 @@
   .btns-group .btn:not(:first-child) {
     margin-left: 15px;
   }
+  .btn-wrap{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
   .btn {
     padding: 10px 20px;
     border-radius: 5px;

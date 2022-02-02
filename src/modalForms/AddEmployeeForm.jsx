@@ -1,11 +1,32 @@
 import React, { Component } from 'react';
+import { apiRequest } from '../api/apiService';
+import { withRouter } from 'react-router-dom';
 import withValidation from '../HOC/withValidation';
 
 class AddEmployeeForm extends Component {
+  createNewEmployee = async (e) => {
+    e.preventDefault();
+    const newEmployee = {
+      firstName: e.target.firstname.value.trim(),
+      lastName: e.target.lastname.value.trim(),
+      username: e.target.username.value.trim(),
+      email: e.target.email.value.trim(),
+      department: this.props.match.params.id,
+      createdAt: Date.now(),
+    };
+    console.log(newEmployee);
+    console.log(this.props.match.params.id);
+    const [savedEmployeeError, savedEmployee] = await apiRequest.addEmployee(
+      newEmployee
+    );
+    if (!savedEmployeeError) {
+      alert('OK!');
+      e.target.reset();
+    }
+  };
   render() {
-    const { close } = this.props;
     return (
-      <form className="add-form form">
+      <form className="add-form form" onSubmit={this.createNewEmployee}>
         <fieldset>
           <legend>Add employee</legend>
           <input
@@ -20,7 +41,12 @@ class AddEmployeeForm extends Component {
             placeholder="Employee last name"
             required
           />
-          <input name="username" placeholder="Employee username" required />
+          <input
+            type="text"
+            name="username"
+            placeholder="Employee username"
+            required
+          />
           <input
             type="email"
             name="email"
@@ -31,7 +57,7 @@ class AddEmployeeForm extends Component {
             <button type="submit" className="btn btn-success">
               Add employee
             </button>
-            <button onClick={close} type="submit" className="btn btn-danger">
+            <button type="reset" className="btn btn-danger">
               Cancel
             </button>
           </div>
@@ -40,4 +66,4 @@ class AddEmployeeForm extends Component {
     );
   }
 }
-export default withValidation(AddEmployeeForm);
+export default withRouter(withValidation(AddEmployeeForm));

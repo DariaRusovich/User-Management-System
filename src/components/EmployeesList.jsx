@@ -10,6 +10,7 @@ class EmployeesList extends Component {
   state = {
     employees: [],
   };
+ 
 
   async componentDidMount() {
     this.props.toggleLoader();
@@ -20,6 +21,7 @@ class EmployeesList extends Component {
       this.setState({
         employees: employees.employees,
       });
+      
     } else {
       this.props.setError(employeesError);
     }
@@ -57,7 +59,7 @@ class EmployeesList extends Component {
 
             <div className="item-list">
               {employees.map((employee) => (
-                <Employee key={employee.id} employee={employee} />
+                <Employee key={employee._id} employee={employee} />
               ))}
             </div>
           </div>

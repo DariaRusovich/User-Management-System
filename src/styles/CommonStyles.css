@@ -6,6 +6,9 @@
 .section {
   padding: 50px 0 0 0;
 }
+.item-list{
+  margin-top: 20px;
+}
 .item__img {
   width: 70px;
   height: 70px;
@@ -30,6 +33,4 @@
 .title-secondary a:hover {
   color: var(--primary-color-hover);
 }
-.item__date {
-  color: var(--accent-color);
-}
+
