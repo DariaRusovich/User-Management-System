@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { apiRequest } from '../api/apiService';
 import { withRouter } from 'react-router-dom';
-import withValidation from '../HOC/withValidation';
+
 
 class AddEmployeeForm extends Component {
   createNewEmployee = async (e) => {
@@ -29,12 +29,14 @@ class AddEmployeeForm extends Component {
       <form className="add-form form" onSubmit={this.createNewEmployee}>
         <fieldset>
           <legend>Add employee</legend>
-          <input
+         <div className="input-wrapper">
+         <input
             type="text"
             name="firstname"
             placeholder="Employee first name"
             required
           />
+         </div>
           <input
             type="text"
             name="lastname"
@@ -66,4 +68,4 @@ class AddEmployeeForm extends Component {
     );
   }
 }
-export default withRouter(withValidation(AddEmployeeForm));
+export default withRouter(AddEmployeeForm);

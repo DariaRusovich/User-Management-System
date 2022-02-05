@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { apiRequest } from '../api/apiService';
 import LoginForm from '../components/LoginForm';
 import withError from '../HOC/withError';
+import { Cookie } from '../utils/cookie';
+
 
 class LoginPage extends Component {
   state = {
@@ -14,6 +16,7 @@ class LoginPage extends Component {
     if (!userDataError) {
       const token = userData.user.tokens.accessToken;
       localStorage.setItem('token', token);
+      Cookie.set('refreshToken', userData.user.tokens.refreshToken, 30)
       this.props.history.push('/');
     } else if (userDataError.response) {
       this.setState({ invalidData: userDataError.response.data.message });

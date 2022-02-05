@@ -10,6 +10,9 @@ export default class apiService {
   getDepartments(limit=10, page=1) {
     return api.get(`${DEPARTMENTS_URL}?limit=${limit}&page=${page}`);
   }
+  getDepartment(id) {
+    return api.get(`${DEPARTMENTS_URL}/${id}`);
+  }
   getEmployeesByDepartmentId(id) {
     return api.get(`${DEPARTMENT_BY_ID_URL}${id}${EMPLOYEES_URL}`);
   }

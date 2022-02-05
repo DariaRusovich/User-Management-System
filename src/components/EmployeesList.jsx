@@ -2,15 +2,17 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { withRouter } from 'react-router-dom';
 import { apiRequest } from '../api/apiService';
+import { ModalWindowContext } from '../contexts/ModalWindowContext';
 import withError from '../HOC/withError';
 import withLoader from '../HOC/withLoader';
+import AddEmployeeForm from '../modalForms/AddEmployeeForm';
 import Employee from './Employee';
+import ModalWindow from './ModalWindow';
 
 class EmployeesList extends Component {
   state = {
     employees: [],
   };
- 
 
   async componentDidMount() {
     this.props.toggleLoader();
@@ -21,7 +23,6 @@ class EmployeesList extends Component {
       this.setState({
         employees: employees.employees,
       });
-      
     } else {
       this.props.setError(employeesError);
     }
@@ -29,6 +30,7 @@ class EmployeesList extends Component {
   }
   render() {
     const { employees } = this.state;
+    const { open, handleOpenModal, handleCloseModal } = this.context;
     if (!employees.length) {
       return (
         <section className="section">
@@ -48,15 +50,20 @@ class EmployeesList extends Component {
       <>
         <section className="section">
           <div className="container section-wrap">
-            
-              <h1 className="title-secondary">
-                {employees.length} employees.{' '}
-                <Link to="/" className="title">
-                  Go back
-                </Link>
-              </h1>
-            
-
+            <h1 className="title-secondary">
+              {employees.length} employees.{' '}
+              <Link to="/" className="title">
+                Go back
+              </Link>
+            </h1>
+            <div className="container">
+              <button
+                onClick={handleOpenModal}
+                className="btn btn-success btn-block"
+              >
+                + Add employee
+              </button>
+            </div>
             <div className="item-list">
               {employees.map((employee) => (
                 <Employee key={employee._id} employee={employee} />
@@ -64,9 +71,15 @@ class EmployeesList extends Component {
             </div>
           </div>
         </section>
+
+        <ModalWindow open={open} close={handleCloseModal}>
+          <AddEmployeeForm close={handleCloseModal}></AddEmployeeForm>
+        </ModalWindow>
       </>
     );
   }
 }
 
 export default withRouter(withError(withLoader(EmployeesList)));
+
+EmployeesList.contextType = ModalWindowContext

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import withValidation from '../HOC/withValidation';
 
-class LoginForm extends Component {
+
+export default class LoginForm extends Component {
   handleSubmit = (event) => {
     event.preventDefault();
     const loginData = {};
@@ -10,7 +10,7 @@ class LoginForm extends Component {
     this.props.signIn(loginData);
   };
   render() {
-    const { invalidData, handleChange, inputUserNameDirty, passwordDirty } = this.props;
+    const { invalidData, handleChange } = this.props;
     return (
       <section className="section">
         <div className="container form-wrap">
@@ -25,7 +25,7 @@ class LoginForm extends Component {
                   placeholder="Username"
                   required
                 />
-                {inputUserNameDirty && <div className="validation">*Required</div>}
+               <div className="validation">*Required</div>
               </div>
               <div className="input-wrapper">
                 <input
@@ -35,7 +35,7 @@ class LoginForm extends Component {
                   placeholder="Password"
                   required
                 />
-                {passwordDirty && <div className="validation">*Required</div>}
+               <div className="validation">*Required</div>
               </div>
               {invalidData && <p className="warning-message">{invalidData}</p>}
               <button type="submit" className="btn btn-success">
@@ -48,4 +48,4 @@ class LoginForm extends Component {
     );
   }
 }
-export default withValidation(LoginForm);
+

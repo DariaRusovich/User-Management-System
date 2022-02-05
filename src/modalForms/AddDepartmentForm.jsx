@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { apiRequest } from '../api/apiService';
-import withValidation from '../HOC/withValidation';
 
-class AddDepartmentForm extends Component {
+export default class AddDepartmentForm extends Component {
   state = {
     department: {},
   };
@@ -14,20 +13,25 @@ class AddDepartmentForm extends Component {
       description: e.target.description.value.trim(),
       createdAt: Date.now(),
     };
-    console.log(newDepartment);
     const [savedDepartmentError, savedDepartment] =
       await apiRequest.addDepartment(newDepartment);
-      if (!savedDepartmentError) {
-      alert('OK!')
-      e.target.reset()
-      }
+    if (savedDepartment) {
+      this.props.add(savedDepartment.department);
+      alert('OK!');
+      e.target.reset();
+    } else {
+      alert(savedDepartmentError.response.data.message);
+    }
   };
-  
 
   render() {
-    const { inputDirty, handleChange } = this.props;
+    const { close, handleChange } = this.props;
     return (
-      <form className="add-form form" onSubmit={this.createNewDepartment}>
+      <form
+        className="add-form form"
+        onSubmit={this.createNewDepartment}
+        onReset={close}
+      >
         <fieldset>
           <legend>Add department</legend>
           <div className="input-wrapper">
@@ -38,14 +42,17 @@ class AddDepartmentForm extends Component {
               placeholder="Department name"
               required
             />
-            {inputDirty && <div className="validation">*Required</div>}
+            <div className="validation">*Required</div>
           </div>
-          <textarea
-            type="text"
-            name="description"
-            placeholder="Department description"
-            required
-          ></textarea>
+          <div className="input-wrapper">
+            <textarea
+              type="text"
+              name="description"
+              placeholder="Department description"
+              required
+            ></textarea>
+            <div className="validation">*Required</div>
+          </div>
           <div className="btns-wrap">
             <button type="submit" className="btn btn-success">
               Add department
@@ -59,4 +66,3 @@ class AddDepartmentForm extends Component {
     );
   }
 }
-export default withValidation(AddDepartmentForm);
