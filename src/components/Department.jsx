@@ -11,7 +11,6 @@ import ModalWindow from './ModalWindow';
 class Department extends Component {
   deleteDeprtment = async () => {
     const departmentId = this.props.department._id;
-    console.log(departmentId);
     const [departmentDeletedError, departmentDeleted] =
       await apiRequest.deleteDepartment(departmentId);
     if (departmentDeleted) {
@@ -23,9 +22,10 @@ class Department extends Component {
   };
 
   render() {
-    const { department } = this.props;
+    const { department, update } = this.props;
+    //console.log(update);
     const { name, description, picture, _id } = department;
-    const { open, handleOpenModal, handleCloseModal } = this.context;
+    const { handleOpenModal, handleCloseModal } = this.context;
     return (
       <>
         <div className="department-item item-block">
@@ -43,7 +43,11 @@ class Department extends Component {
             <button
               onClick={() =>
                 handleOpenModal(
-                  <EditDepartment department={department}></EditDepartment>
+                  <EditDepartment
+                    update={update}
+                    close={handleCloseModal}
+                    department={department}
+                  ></EditDepartment>
                 )
               }
               className="btn btn-primary"

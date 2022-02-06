@@ -19,11 +19,33 @@ class EditDepartment extends Component {
       departmentId
     );
     if (!departmenError) {
-      console.log(department);
       const { name, description } = department.departmentByID;
       this.setState({ name, description });
     } else {
-      alert('Error');
+      alert(departmenError.response.data.message);
+    }
+  };
+
+  handleSubmit = async (e) => {
+    e.preventDefault();
+    const departmentId = this.props.department._id;
+    const updatedDepartment = {
+      name: e.target.name.value.trim(),
+      description: e.target.description.value.trim(),
+      updatedAt: Date.now(),
+    };
+    const [savedUpdatedDepartmentError, savedUpdatedDepartment] =
+      await apiRequest.updatedDepartment(departmentId, updatedDepartment);
+    console.log(savedUpdatedDepartment);
+    if (savedUpdatedDepartment) {
+      alert('OK!');
+      e.target.reset();
+      this.props.update(
+        savedUpdatedDepartment.updatedDescription,
+        departmentId
+      );
+    } else {
+      alert(savedUpdatedDepartmentError.response.data.message);
     }
   };
 
@@ -31,22 +53,27 @@ class EditDepartment extends Component {
     const { close } = this.props;
     const { name, description } = this.state;
     return (
-      <form className="add-form form" onReset={close}>
+      <form
+        className="add-form form"
+        onSubmit={this.handleSubmit}
+        onReset={close}
+      >
         <fieldset>
           <legend>Edit department</legend>
           <div className="input-wrapper">
             <input
-              onChange={(e) => this.setState({name: e.target.value})}
+              onChange={(e) => this.setState({ name: e.target.value })}
               type="text"
               name="name"
               placeholder="Department name"
               value={name}
+              disabled
               required
             />
             <div className="validation">*Required</div>
           </div>
           <textarea
-            onChange={(e) => this.setState({description: e.target.value})}
+            onChange={(e) => this.setState({ description: e.target.value })}
             type="text"
             name="description"
             placeholder="Department description"

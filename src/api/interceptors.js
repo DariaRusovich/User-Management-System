@@ -20,11 +20,9 @@ api.interceptors.request.use(
 
 api.interceptors.response.use(
   (response) => {
-    console.log(response);
     return [null, response.data];
   },
   async (error) => {
-    console.dir(error);
     if (error.response.status === 401) {
       //const [userError, user] = await api.get('refresh-token');
       

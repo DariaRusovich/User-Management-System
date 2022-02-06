@@ -1,5 +1,4 @@
 import React, { Component, createContext } from 'react';
-import { apiRequest } from '../api/apiService';
 import ModalWindow from '../components/ModalWindow';
 import '../styles/Loader.css';
 

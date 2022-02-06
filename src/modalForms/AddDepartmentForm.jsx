@@ -2,9 +2,6 @@ import React, { Component } from 'react';
 import { apiRequest } from '../api/apiService';
 
 export default class AddDepartmentForm extends Component {
-  state = {
-    department: {},
-  };
 
   createNewDepartment = async (e) => {
     e.preventDefault();
