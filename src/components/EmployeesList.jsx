@@ -30,7 +30,7 @@ class EmployeesList extends Component {
   }
   render() {
     const { employees } = this.state;
-    const { open, handleOpenModal, handleCloseModal } = this.context;
+    const { handleOpenModal, handleCloseModal } = this.context;
     if (!employees.length) {
       return (
         <section className="section">
@@ -58,7 +58,11 @@ class EmployeesList extends Component {
             </h1>
             <div className="container">
               <button
-                onClick={handleOpenModal}
+                onClick={() =>
+                  handleOpenModal(
+                    <AddEmployeeForm close={handleCloseModal}></AddEmployeeForm>
+                  )
+                }
                 className="btn btn-success btn-block"
               >
                 + Add employee
@@ -71,10 +75,6 @@ class EmployeesList extends Component {
             </div>
           </div>
         </section>
-
-        <ModalWindow open={open} close={handleCloseModal}>
-          <AddEmployeeForm close={handleCloseModal}></AddEmployeeForm>
-        </ModalWindow>
       </>
     );
   }
@@ -82,4 +82,4 @@ class EmployeesList extends Component {
 
 export default withRouter(withError(withLoader(EmployeesList)));
 
-EmployeesList.contextType = ModalWindowContext
+EmployeesList.contextType = ModalWindowContext;

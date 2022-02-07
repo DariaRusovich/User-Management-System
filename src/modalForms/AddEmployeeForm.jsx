@@ -6,6 +6,7 @@ import { withRouter } from 'react-router-dom';
 class AddEmployeeForm extends Component {
   createNewEmployee = async (e) => {
     e.preventDefault();
+    console.log(this.props);
     const newEmployee = {
       firstName: e.target.firstname.value.trim(),
       lastName: e.target.lastname.value.trim(),
@@ -15,7 +16,7 @@ class AddEmployeeForm extends Component {
       createdAt: Date.now(),
     };
     console.log(newEmployee);
-    console.log(this.props.match.params.id);
+    console.log(this.props);
     const [savedEmployeeError, savedEmployee] = await apiRequest.addEmployee(
       newEmployee
     );
