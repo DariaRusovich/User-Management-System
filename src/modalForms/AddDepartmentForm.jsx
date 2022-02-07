@@ -22,7 +22,7 @@ export default class AddDepartmentForm extends Component {
   };
 
   render() {
-    const { close, handleChange } = this.props;
+    const { close } = this.props;
     return (
       <form
         className="add-form form"
@@ -33,7 +33,6 @@ export default class AddDepartmentForm extends Component {
           <legend>Add department</legend>
           <div className="input-wrapper">
             <input
-              onChange={handleChange}
               type="text"
               name="name"
               placeholder="Department name"

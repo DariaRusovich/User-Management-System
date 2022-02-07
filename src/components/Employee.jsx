@@ -1,25 +1,26 @@
 import React, { Component } from 'react';
 import { apiRequest } from '../api/apiService';
 import '../styles/Employee.css';
-
+import { ModalWindowContext } from '../contexts/ModalWindowContext';
+import EditEmployeeForm from '../modalForms/EditEmployeeForm';
 
 export default class Employee extends Component {
-
-deleteEmployee = async () => {
-    const employeeId = this.props.employee._id
-    console.log(employeeId);
+  deleteEmployee = async () => {
+    const employeeId = this.props.employee._id;
     const [employeeDeletedError, employeeDeleted] =
       await apiRequest.deleteEmployee(employeeId);
-      if (employeeDeleted) {
-        alert('OK!')
-      } else {
-        alert(employeeDeletedError.response.data.message)
-      }
+    if (employeeDeleted) {
+      alert('OK!');
+      this.props.remove(employeeId);
+    } else {
+      alert(employeeDeletedError.response.data.message);
+    }
   };
 
   render() {
-    const { employee } = this.props;
+    const { employee, update } = this.props;
     const { username, firstName, lastName, email } = employee;
+    const { handleOpenModal, handleCloseModal } = this.context;
     return (
       <div className="employee-item item-block">
         <img
@@ -41,10 +42,27 @@ deleteEmployee = async () => {
           {email}
         </a>
         <div className="btns-group">
-          <button className="btn btn-primary">Edit</button>
-          <button onClick={this.deleteEmployee} className="btn btn-danger">Delete</button>
+          <button
+            onClick={() =>
+              handleOpenModal(
+                <EditEmployeeForm
+                  employee={employee}
+                  close={handleCloseModal}
+                  update={update}
+                />
+              )
+            }
+            className="btn btn-primary"
+          >
+            Edit
+          </button>
+          <button onClick={this.deleteEmployee} className="btn btn-danger">
+            Delete
+          </button>
         </div>
       </div>
     );
   }
 }
+
+Employee.contextType = ModalWindowContext;

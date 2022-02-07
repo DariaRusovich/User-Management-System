@@ -7,7 +7,6 @@ import withError from '../HOC/withError';
 import withLoader from '../HOC/withLoader';
 import AddEmployeeForm from '../modalForms/AddEmployeeForm';
 import Employee from './Employee';
-import ModalWindow from './ModalWindow';
 
 class EmployeesList extends Component {
   state = {
@@ -28,9 +27,29 @@ class EmployeesList extends Component {
     }
     this.props.toggleLoader();
   }
+
+  addNewEmployee = (newEmployee) => {
+    this.setState((prev) => ({ employees: [...prev.employees, newEmployee] }));
+  };
+  removeEmployee = (employeeId) => {
+    this.setState((prev) => ({
+      employees: prev.employees.filter((emloyee) => emloyee._id !== employeeId),
+    }));
+  };
+  updateEmployee = (updatedDepartment, employeeId) => {
+    const copiedState = this.state.employees;
+    const employeeIdx = copiedState.findIndex(
+      (employee) => employee._id === employeeId
+    );
+    if (employeeIdx !== -1) {
+      copiedState.splice(employeeIdx, 1, updatedDepartment);
+      this.setState({ employees: copiedState });
+    }
+  };
   render() {
     const { employees } = this.state;
     const { handleOpenModal, handleCloseModal } = this.context;
+    const departmentId = this.props.match.params.id;
     if (!employees.length) {
       return (
         <section className="section">
@@ -42,6 +61,20 @@ class EmployeesList extends Component {
                 Go back.
               </Link>
             </h1>
+            <button
+              onClick={() =>
+                handleOpenModal(
+                  <AddEmployeeForm
+                    id={departmentId}
+                    close={handleCloseModal}
+                    add={this.addNewEmployee}
+                  ></AddEmployeeForm>
+                )
+              }
+              className="btn btn-success btn-block"
+            >
+              + Add employee
+            </button>
           </div>
         </section>
       );
@@ -60,7 +93,11 @@ class EmployeesList extends Component {
               <button
                 onClick={() =>
                   handleOpenModal(
-                    <AddEmployeeForm close={handleCloseModal}></AddEmployeeForm>
+                    <AddEmployeeForm
+                      id={departmentId}
+                      close={handleCloseModal}
+                      add={this.addNewEmployee}
+                    ></AddEmployeeForm>
                   )
                 }
                 className="btn btn-success btn-block"
@@ -70,7 +107,12 @@ class EmployeesList extends Component {
             </div>
             <div className="item-list">
               {employees.map((employee) => (
-                <Employee key={employee._id} employee={employee} />
+                <Employee
+                  key={employee._id}
+                  remove={this.removeEmployee}
+                  update={this.updateEmployee}
+                  employee={employee}
+                />
               ))}
             </div>
           </div>

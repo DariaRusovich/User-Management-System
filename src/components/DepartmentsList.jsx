@@ -60,7 +60,6 @@ class DepartmentsList extends Component {
 
   render() {
     const { departments } = this.state;
-    console.log(departments);
     const { handleOpenModal, handleCloseModal } = this.context;
     return (
       <section className="section">

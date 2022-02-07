@@ -16,6 +16,9 @@ export default class apiService {
   getEmployeesByDepartmentId(id) {
     return api.get(`${DEPARTMENT_BY_ID_URL}${id}${EMPLOYEES_URL}`);
   }
+  getEmployee(id) {
+    return api.get(`${EMPLOYEES_URL}/${id}`)
+  }
   addDepartment(departmentData) {
     return api.post(DEPARTMENTS_URL, departmentData);
   }
@@ -30,6 +33,9 @@ export default class apiService {
   }
   updatedDepartment(id, department) {
     return api.patch(`${DEPARTMENTS_URL}/${id}`, department);
+  }
+  updateEmployee(id, employee) {
+    return api.patch(`${EMPLOYEES_URL}/${id}`, employee)
   }
   signin(loginData) {
     return api.post(LOGIN, loginData);

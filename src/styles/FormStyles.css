@@ -46,6 +46,10 @@
 .form textarea::placeholder {
   color: var(--primary-color);
 }
+.form input:disabled{
+  color: #ccc;
+  border: 1px solid #ccc;
+}
 .form .btn {
   margin-top: 20px;
   text-transform: uppercase;

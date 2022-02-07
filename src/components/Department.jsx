@@ -4,9 +4,8 @@ import { withRouter } from 'react-router-dom';
 import { apiRequest } from '../api/apiService';
 import { DEPARTMENT_BY_ID_URL, EMPLOYEES_URL } from '../constants/url';
 import { ModalWindowContext } from '../contexts/ModalWindowContext';
-import EditDepartment from '../modalForms/EditDepartment';
+import EditDepartmentForm from '../modalForms/EditDepartmentForm';
 import '../styles/Department.css';
-import ModalWindow from './ModalWindow';
 
 class Department extends Component {
   deleteDeprtment = async () => {
@@ -23,8 +22,7 @@ class Department extends Component {
 
   render() {
     const { department, update } = this.props;
-    //console.log(update);
-    const { name, description, picture, _id } = department;
+    const { name, description, picture } = department;
     const { handleOpenModal, handleCloseModal } = this.context;
     return (
       <>
@@ -43,11 +41,11 @@ class Department extends Component {
             <button
               onClick={() =>
                 handleOpenModal(
-                  <EditDepartment
+                  <EditDepartmentForm
                     update={update}
                     close={handleCloseModal}
                     department={department}
-                  ></EditDepartment>
+                  />
                 )
               }
               className="btn btn-primary"

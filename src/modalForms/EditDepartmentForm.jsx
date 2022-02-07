@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { apiRequest } from '../api/apiService';
 
-class EditDepartment extends Component {
+class EditDepartmentForm extends Component {
   state = {
     name: '',
     description: '',
@@ -94,4 +94,4 @@ class EditDepartment extends Component {
   }
 }
 
-export default withRouter(EditDepartment);
+export default withRouter(EditDepartmentForm);
