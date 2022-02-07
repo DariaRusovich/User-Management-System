@@ -5,32 +5,49 @@ import withLoader from '../HOC/withLoader';
 import Department from './Department';
 import AddDepartmentForm from '../modalForms/AddDepartmentForm';
 import { ModalWindowContext } from '../contexts/ModalWindowContext';
+import SearchForm from './SearchForm';
 
 class DepartmentsList extends Component {
   state = {
     departments: [],
     limit: 10,
-    page: 1,
+    currentPage: 1,
+    lastPage: 1,
     total: 0,
   };
 
-  async componentDidMount() {
+  componentDidMount() {
+    this.getDepartments();
+  }
+  getDepartments = async () => {
     this.props.toggleLoader();
-    const { limit, page } = this.state;
+    const { limit, currentPage } = this.state;
     const [departmentsError, departments] = await apiRequest.getDepartments(
       limit,
-      page
+      currentPage
     );
     if (!departmentsError) {
-      this.setState({ departments: departments.departments.departments });
+      const { limit, currentPage, total } = departments.departments.results;
+      this.setState({
+        departments: departments.departments.departments,
+        limit,
+        currentPage,
+        total,
+        lastPage: Math.ceil(total / limit),
+      });
     } else {
       this.props.setError(departmentsError);
     }
     this.props.toggleLoader();
+  };
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.currentPage !== prevState.currentPage) {
+      this.getDepartments();
+    }
   }
 
-  handlePagination = () => {
-    this.setState((prev) => ({ page: prev.page + 1 }));
+  handlePagination = (direction) => {
+    this.setState((prev) => ({ currentPage: prev.currentPage + direction }));
   };
 
   addNewDepartment = (newDepartment) => {
@@ -57,14 +74,16 @@ class DepartmentsList extends Component {
       this.setState({ departments: copiedState });
     }
   };
-
+  searchDepartment = (searchDepartments) => {
+    this.setState({ departments: searchDepartments });
+  };
   render() {
-    const { departments } = this.state;
+    const { departments, lastPage, currentPage } = this.state;
     const { handleOpenModal, handleCloseModal } = this.context;
     return (
       <section className="section">
         <div className="container section-wrap">
-          <div className="container">
+          <div className="wrapper">
             <button
               onClick={() =>
                 handleOpenModal(
@@ -74,10 +93,11 @@ class DepartmentsList extends Component {
                   ></AddDepartmentForm>
                 )
               }
-              className="btn btn-success btn-block"
+              className="btn btn-success"
             >
               + Add department
             </button>
+            <SearchForm search={this.searchDepartment} />
           </div>
           <div className="item-list">
             {departments &&
@@ -91,12 +111,22 @@ class DepartmentsList extends Component {
               ))}
           </div>
           <div className="btn-wrap">
-            <button
-              onClick={this.handlePagination}
-              className="btn btn-primary btn-block"
-            >
-              See more
-            </button>
+            {currentPage > 1 && (
+              <button
+                onClick={() => this.handlePagination(-1)}
+                className="btn btn-primary btn-block"
+              >
+                Previous page
+              </button>
+            )}
+            {currentPage < lastPage && (
+              <button
+                onClick={() => this.handlePagination(1)}
+                className="btn btn-primary btn-block"
+              >
+                Next page
+              </button>
+            )}
           </div>
         </div>
       </section>

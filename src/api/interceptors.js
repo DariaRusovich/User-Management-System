@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { BASE_URL } from '../constants/url';
+import { Cookie } from '../utils/cookie';
 
 export const api = axios.create({
   baseURL: BASE_URL,
@@ -23,10 +24,21 @@ api.interceptors.response.use(
     return [null, response.data];
   },
   async (error) => {
-    if (error.response.status === 401) {
-      //const [userError, user] = await api.get('refresh-token');
-      
-    } 
+    console.dir(error);
+    if (error.response.status === 401 && error.config.url !== 'refresh-token') {
+      const [userError, user] = await api.get('refresh-token', {
+        withCredentials: true,
+      });
+      console.log([userError, user]);
+      if (!userError) {
+        const { accessToken, refreshToken } = user.userData.tokens;
+        localStorage.setItem('token', accessToken);
+        Cookie.set('refreshToken', refreshToken, 30);
+        return await api(error.config);
+      } else {
+        return [userError, null];
+      }
+    }
 
     return [error, null];
   }

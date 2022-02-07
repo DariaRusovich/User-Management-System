@@ -6,8 +6,10 @@
 .section {
   padding: 50px 0;
 }
-.item-list{
-  margin-top: 20px;
+.wrapper{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 .item__img {
   width: 70px;
@@ -23,7 +25,7 @@
   box-shadow: var(--box-shadow);
   border-radius: 5px;
 }
-.section-wrap .item-block:not(:first-child) {
+.section-wrap .item-block {
   margin-top: 30px;
 }
 .title {

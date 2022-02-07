@@ -36,7 +36,6 @@ class EditDepartmentForm extends Component {
     };
     const [savedUpdatedDepartmentError, savedUpdatedDepartment] =
       await apiRequest.updatedDepartment(departmentId, updatedDepartment);
-    console.log(savedUpdatedDepartment);
     if (savedUpdatedDepartment) {
       alert('OK!');
       e.target.reset();

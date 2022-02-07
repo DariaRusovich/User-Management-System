@@ -61,7 +61,8 @@ class EmployeesList extends Component {
                 Go back.
               </Link>
             </h1>
-            <button
+           <div className="wrapper">
+           <button
               onClick={() =>
                 handleOpenModal(
                   <AddEmployeeForm
@@ -71,10 +72,11 @@ class EmployeesList extends Component {
                   ></AddEmployeeForm>
                 )
               }
-              className="btn btn-success btn-block"
+              className="btn btn-success"
             >
               + Add employee
             </button>
+           </div>
           </div>
         </section>
       );
@@ -89,7 +91,7 @@ class EmployeesList extends Component {
                 Go back
               </Link>
             </h1>
-            <div className="container">
+            <div className="wrapper">
               <button
                 onClick={() =>
                   handleOpenModal(
@@ -100,7 +102,7 @@ class EmployeesList extends Component {
                     ></AddEmployeeForm>
                   )
                 }
-                className="btn btn-success btn-block"
+                className="btn btn-success"
               >
                 + Add employee
               </button>

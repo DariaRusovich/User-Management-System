@@ -13,6 +13,9 @@ export default class apiService {
   getDepartment(id) {
     return api.get(`${DEPARTMENTS_URL}/${id}`);
   }
+  getSearchingDepartment(search) {
+    return api.get(`${DEPARTMENTS_URL}?q=${search}`)
+  }
   getEmployeesByDepartmentId(id) {
     return api.get(`${DEPARTMENT_BY_ID_URL}${id}${EMPLOYEES_URL}`);
   }

@@ -4,6 +4,11 @@
   align-items: flex-start;
   width: 450px;
 }
+.search-form {
+  display: flex;
+  align-items: center;
+  width: 400px;
+}
 .form-wrap {
   display: flex;
   justify-content: center;
@@ -30,6 +35,7 @@
   text-align: center;
 }
 .form input,
+.search-form input,
 .form textarea {
   padding: 10px 15px;
   border: 1px solid var(--primary-color);
@@ -38,15 +44,23 @@
   width: 100%;
   margin-top: 15px;
 }
+.search-form input {
+  margin: initial;
+}
+.search-form .btn{
+  margin-left: 20px;
+}
 .form input:focus,
-.form textarea:focus {
+.form textarea:focus,
+.search-form input:focus {
   outline: 2px solid var(--primary-color);
 }
 .form input::placeholder,
-.form textarea::placeholder {
+.form textarea::placeholder,
+.search-form input::placeholder {
   color: var(--primary-color);
 }
-.form input:disabled{
+.form input:disabled {
   color: #ccc;
   border: 1px solid #ccc;
 }
@@ -79,7 +93,7 @@
   opacity: 1;
   transform: translate(-50%, -20%);
 }
-.warning-message{
+.warning-message {
   margin-top: 10px;
   color: var(--danger-color);
 }
