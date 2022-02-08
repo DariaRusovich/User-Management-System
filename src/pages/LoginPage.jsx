@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { apiRequest } from '../api/apiService';
 import LoginForm from '../components/LoginForm';
+import { AppContext } from '../contexts/AppContext';
 import withError from '../HOC/withError';
 import { Cookie } from '../utils/cookie';
-
 
 class LoginPage extends Component {
   state = {
@@ -11,13 +11,13 @@ class LoginPage extends Component {
   };
 
   signIn = async (loginData) => {
-    const [userDataError, userData] =
-      await apiRequest.signin(loginData);
+    const [userDataError, userData] = await apiRequest.signin(loginData);
     if (!userDataError) {
       const token = userData.user.tokens.accessToken;
       localStorage.setItem('token', token);
-      Cookie.set('refreshToken', userData.user.tokens.refreshToken, 30)
+      Cookie.set('refreshToken', userData.user.tokens.refreshToken, 30);
       this.props.history.push('/');
+      this.context.getToken(token)
     } else if (userDataError.response) {
       this.setState({ invalidData: userDataError.response.data.message });
     } else {
@@ -32,3 +32,4 @@ class LoginPage extends Component {
 }
 
 export default withError(LoginPage);
+LoginPage.contextType = AppContext;

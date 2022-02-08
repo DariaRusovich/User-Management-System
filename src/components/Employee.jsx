@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { apiRequest } from '../api/apiService';
 import '../styles/Employee.css';
-import { ModalWindowContext } from '../contexts/ModalWindowContext';
+import { AppContext } from '../contexts/AppContext';
 import EditEmployeeForm from '../modalForms/EditEmployeeForm';
 
 export default class Employee extends Component {
@@ -65,4 +65,4 @@ export default class Employee extends Component {
   }
 }
 
-Employee.contextType = ModalWindowContext;
+Employee.contextType = AppContext;

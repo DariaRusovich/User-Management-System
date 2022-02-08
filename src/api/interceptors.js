@@ -31,15 +31,13 @@ api.interceptors.response.use(
       });
       console.log([userError, user]);
       if (!userError) {
-        const { accessToken, refreshToken } = user.userData.tokens;
+        const { accessToken } = user.userData.tokens;
         localStorage.setItem('token', accessToken);
-        Cookie.set('refreshToken', refreshToken, 30);
-        return await api(error.config);
+        return await api.request(error.config);
       } else {
         return [userError, null];
       }
     }
-
     return [error, null];
   }
 );

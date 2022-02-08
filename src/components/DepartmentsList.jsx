@@ -4,7 +4,7 @@ import withError from '../HOC/withError';
 import withLoader from '../HOC/withLoader';
 import Department from './Department';
 import AddDepartmentForm from '../modalForms/AddDepartmentForm';
-import { ModalWindowContext } from '../contexts/ModalWindowContext';
+import { AppContext } from '../contexts/AppContext';
 import SearchForm from './SearchForm';
 
 class DepartmentsList extends Component {
@@ -135,4 +135,4 @@ class DepartmentsList extends Component {
 }
 
 export default withError(withLoader(DepartmentsList));
-DepartmentsList.contextType = ModalWindowContext;
+DepartmentsList.contextType = AppContext;

@@ -2,7 +2,6 @@ export class Cookie{
     static set(cname, cvalue, exdays) {
         const currentDay = new Date();
         currentDay.setTime(currentDay.getTime() + (exdays * 24 * 60 * 60 * 1000));
-  
         const expires = `expires=${currentDay.toUTCString()}`;
         document.cookie = `${cname}=${cvalue};${expires};path=/`;
     }

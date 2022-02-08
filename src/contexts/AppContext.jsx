@@ -2,13 +2,14 @@ import React, { Component, createContext } from 'react';
 import ModalWindow from '../components/ModalWindow';
 import '../styles/Loader.css';
 
-export const ModalWindowContext = createContext();
+export const AppContext = createContext();
 
-export default class ModalWindowProvider extends Component {
+export default class AppProvider extends Component {
   setState = this.setState.bind(this);
   state = {
     open: false,
     component: null,
+    token: localStorage.getItem('token'),
   };
 
   componentDidMount = () => {
@@ -22,32 +23,27 @@ export default class ModalWindowProvider extends Component {
   handleOpenModal = (component) => {
     this.setState({ open: true, component });
   };
-  // const modals = {
-  //   first: (name) => console.log('HERE IS', name),
-  //   second: (name) => console.log('HERE IS SECOND', name)
-  // }
 
-  // const openModal = (name, modalKey) => {
-  //     return modals[modalKey](name)
-  // }
-
-  // openModal("HEllo", 'second')
   handleCloseModal = (e) => {
     e.preventDefault();
     this.setState({ open: false, component: null });
   };
-
+  getToken = (result) => {
+    this.setState({ token: result });
+  };
   render() {
-    const { open, component } = this.state;
-    const { handleOpenModal, handleCloseModal } = this;
+    const { open, component, token } = this.state;
+    const { handleOpenModal, handleCloseModal, getToken } = this;
     const { children } = this.props;
-
+    console.log('App context', this.state);
     return (
-      <ModalWindowContext.Provider
+      <AppContext.Provider
         value={{
           open,
           handleOpenModal,
-          handleCloseModal
+          handleCloseModal,
+          token,
+          getToken
         }}
       >
         <ModalWindow
@@ -57,7 +53,7 @@ export default class ModalWindowProvider extends Component {
         />
 
         {children}
-      </ModalWindowContext.Provider>
+      </AppContext.Provider>
     );
   }
 }

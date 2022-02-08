@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { withRouter } from 'react-router-dom';
 import { apiRequest } from '../api/apiService';
-import { ModalWindowContext } from '../contexts/ModalWindowContext';
+import { AppContext } from '../contexts/AppContext';
 import withError from '../HOC/withError';
 import withLoader from '../HOC/withLoader';
 import AddEmployeeForm from '../modalForms/AddEmployeeForm';
@@ -126,4 +126,4 @@ class EmployeesList extends Component {
 
 export default withRouter(withError(withLoader(EmployeesList)));
 
-EmployeesList.contextType = ModalWindowContext;
+EmployeesList.contextType = AppContext;
