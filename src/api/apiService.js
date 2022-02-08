@@ -1,26 +1,30 @@
 import {
   DEPARTMENT_BY_ID_URL,
   DEPARTMENTS_URL,
-  LOGIN,
+  LOGIN_URL,
+  LOGOUT_URL,
   EMPLOYEES_URL,
 } from '../constants/url';
 import { api } from './interceptors';
 
 export default class apiService {
-  getDepartments(limit=10, page=1) {
+  getDepartments(limit = 10, page = 1) {
     return api.get(`${DEPARTMENTS_URL}?limit=${limit}&page=${page}`);
   }
   getDepartment(id) {
     return api.get(`${DEPARTMENTS_URL}/${id}`);
   }
   getSearchingDepartment(search) {
-    return api.get(`${DEPARTMENTS_URL}?q=${search}`)
+    return api.get(`${DEPARTMENTS_URL}?q=${search}`);
+  }
+  getSortedDepartments(order) {
+    return api.get(`${DEPARTMENTS_URL}?sort=desc`)
   }
   getEmployeesByDepartmentId(id) {
     return api.get(`${DEPARTMENT_BY_ID_URL}${id}${EMPLOYEES_URL}`);
   }
   getEmployee(id) {
-    return api.get(`${EMPLOYEES_URL}/${id}`)
+    return api.get(`${EMPLOYEES_URL}/${id}`);
   }
   addDepartment(departmentData) {
     return api.post(DEPARTMENTS_URL, departmentData);
@@ -38,10 +42,13 @@ export default class apiService {
     return api.patch(`${DEPARTMENTS_URL}/${id}`, department);
   }
   updateEmployee(id, employee) {
-    return api.patch(`${EMPLOYEES_URL}/${id}`, employee)
+    return api.patch(`${EMPLOYEES_URL}/${id}`, employee);
   }
   signin(loginData) {
-    return api.post(LOGIN, loginData);
+    return api.post(LOGIN_URL, loginData);
+  }
+  logout() {
+    return api.post(LOGOUT_URL);
   }
 }
 

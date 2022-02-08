@@ -1,12 +1,12 @@
 import axios from 'axios';
 import { BASE_URL } from '../constants/url';
-import { Cookie } from '../utils/cookie';
 
 export const api = axios.create({
   baseURL: BASE_URL,
   headers: {
     'Content-type': 'application/json;charset=utf-8',
   },
+  withCredentials: true,
 });
 
 api.interceptors.request.use(
@@ -29,7 +29,6 @@ api.interceptors.response.use(
       const [userError, user] = await api.get('refresh-token', {
         withCredentials: true,
       });
-      console.log([userError, user]);
       if (!userError) {
         const { accessToken } = user.userData.tokens;
         localStorage.setItem('token', accessToken);

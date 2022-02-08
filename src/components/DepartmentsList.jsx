@@ -6,6 +6,8 @@ import Department from './Department';
 import AddDepartmentForm from '../modalForms/AddDepartmentForm';
 import { AppContext } from '../contexts/AppContext';
 import SearchForm from './SearchForm';
+import SortForm from './SortForm';
+
 
 class DepartmentsList extends Component {
   state = {
@@ -97,6 +99,7 @@ class DepartmentsList extends Component {
             >
               + Add department
             </button>
+            <SortForm/>
             <SearchForm search={this.searchDepartment} />
           </div>
           <div className="item-list">
