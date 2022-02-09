@@ -10,18 +10,13 @@
   width: 400px;
   margin-left: 50px;
 }
-.sort-form{
+.sort-form {
   width: 250px;
   padding: 9px;
   border: 1px solid var(--primary-color);
   border-radius: 5px;
   background-color: var(--primary-bg);
 }
-.sort-form:focus {
-  outline: 2px solid var(--primary-color);
-}
-
-
 .form-wrap {
   display: flex;
   justify-content: center;
@@ -60,12 +55,13 @@
 .search-form input {
   margin: initial;
 }
-.search-form .btn{
+.search-form .btn {
   margin-left: 20px;
 }
 .form input:focus,
 .form textarea:focus,
-.search-form input:focus {
+.search-form input:focus,
+.sort-form:focus {
   outline: 2px solid var(--primary-color);
 }
 .form input::placeholder,

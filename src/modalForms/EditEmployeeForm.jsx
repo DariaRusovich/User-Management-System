@@ -12,7 +12,6 @@ export default class EditEmployeeForm extends Component {
   componentDidMount = async () => {
     const employeeId = this.props.employee._id;
     const [employeeError, employee] = await apiRequest.getEmployee(employeeId);
-    console.log(employee.employeeByID);
     if (employee) {
       const { email, firstName, lastName, username } = employee.employeeByID;
       this.setState({ email, firstName, lastName, username });
@@ -35,7 +34,6 @@ export default class EditEmployeeForm extends Component {
       employeeId,
       updatedEmployee
     );
-    console.log(savedEmployee);
     if (savedEmployee) {
       alert('OK!');
       e.target.reset();
@@ -65,35 +63,45 @@ export default class EditEmployeeForm extends Component {
               value={firstName}
               required
             />
+            <div className="validation">*Required</div>
           </div>
-          <input
-            onChange={(e) => this.setState({ lastName: e.target.value })}
-            type="text"
-            name="lastname"
-            placeholder="Employee last name"
-            value={lastName}
-            required
-          />
-          <input
-            onChange={(e) => this.setState({ username: e.target.value })}
-            type="text"
-            name="username"
-            placeholder="Employee username"
-            value={username}
-            disabled
-            required
-          />
-          <input
-            onChange={(e) => this.setState({ email: e.target.value })}
-            type="email"
-            name="email"
-            placeholder="Employee e-mail"
-            value={email}
-            required
-          />
+          <div className="input-wrapper">
+            <input
+              onChange={(e) => this.setState({ lastName: e.target.value })}
+              type="text"
+              name="lastname"
+              placeholder="Employee last name"
+              value={lastName}
+              required
+            />
+            <div className="validation">*Required</div>
+          </div>
+          <div className="input-wrapper">
+            <input
+              onChange={(e) => this.setState({ username: e.target.value })}
+              type="text"
+              name="username"
+              placeholder="Employee username"
+              value={username}
+              disabled
+              required
+            />
+            <div className="validation">*Required</div>
+          </div>
+          <div className="input-wrapper">
+            <input
+              onChange={(e) => this.setState({ email: e.target.value })}
+              type="email"
+              name="email"
+              placeholder="Employee e-mail"
+              value={email}
+              required
+            />
+            <div className="validation">*Required</div>
+          </div>
           <div className="btns-wrap">
             <button type="submit" className="btn btn-success">
-              Add employee
+              Edit employee
             </button>
             <button type="reset" className="btn btn-danger">
               Cancel

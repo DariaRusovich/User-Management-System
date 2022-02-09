@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { apiRequest } from '../api/apiService';
 
-
 export default class SortForm extends Component {
   handleSort = async (e) => {
     const sortType = e.target.value;

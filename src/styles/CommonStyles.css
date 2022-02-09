@@ -35,4 +35,6 @@
 .title-secondary a:hover {
   color: var(--primary-color-hover);
 }
-
+.title-secondary + .wrapper{
+  margin-top: 20px;
+}

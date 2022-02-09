@@ -24,7 +24,6 @@ api.interceptors.response.use(
     return [null, response.data];
   },
   async (error) => {
-    console.dir(error);
     if (error.response.status === 401 && error.config.url !== 'refresh-token') {
       const [userError, user] = await api.get('refresh-token', {
         withCredentials: true,

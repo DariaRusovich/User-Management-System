@@ -46,6 +46,7 @@ class DepartmentsList extends Component {
   componentDidUpdate(prevProps, prevState) {
     if (this.state.currentPage !== prevState.currentPage) {
       this.getDepartments();
+      window.scroll(0, 0)
     }
   }
 
@@ -122,24 +123,32 @@ class DepartmentsList extends Component {
                 />
               ))}
           </div>
-          <div className="btn-wrap">
-            {currentPage > 1 && (
-              <button
-                onClick={() => this.handlePagination(-1)}
-                className="btn btn-primary btn-block"
-              >
-                Previous page
-              </button>
-            )}
-            {currentPage < lastPage && (
-              <button
-                onClick={() => this.handlePagination(1)}
-                className="btn btn-primary btn-block"
-              >
-                Next page
-              </button>
-            )}
-          </div>
+          {departments.length ? (
+            <>
+              {' '}
+              <span className='current-page'>Page: {currentPage}</span>
+              <div className="btn-wrap">
+                {currentPage > 1 && (
+                  <button
+                    onClick={() => this.handlePagination(-1)}
+                    className="btn btn-primary btn-block"
+                  >
+                    Previous page
+                  </button>
+                )}
+                {currentPage < lastPage && (
+                  <button
+                    onClick={() => this.handlePagination(1)}
+                    className="btn btn-primary btn-block"
+                  >
+                    Next page
+                  </button>
+                )}
+              </div>
+            </>
+          ) : (
+            ''
+          )}
         </div>
       </section>
     );

@@ -1,7 +1,6 @@
 import React, { Component, createContext } from 'react';
 import ModalWindow from '../components/ModalWindow';
 import '../styles/Loader.css';
-
 export const AppContext = createContext();
 
 export default class AppProvider extends Component {
@@ -28,14 +27,15 @@ export default class AppProvider extends Component {
     e.preventDefault();
     this.setState({ open: false, component: null });
   };
+
   getToken = (result) => {
     this.setState({ token: result });
   };
+  
   render() {
     const { open, component, token } = this.state;
     const { handleOpenModal, handleCloseModal, getToken } = this;
     const { children } = this.props;
-    console.log('App context', this.state);
     return (
       <AppContext.Provider
         value={{
@@ -43,7 +43,7 @@ export default class AppProvider extends Component {
           handleOpenModal,
           handleCloseModal,
           token,
-          getToken
+          getToken,
         }}
       >
         <ModalWindow
