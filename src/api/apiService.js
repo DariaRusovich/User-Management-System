@@ -18,7 +18,7 @@ export default class apiService {
     return api.get(`${DEPARTMENTS_URL}?q=${search}`);
   }
   getSortedDepartments(order) {
-    return api.get(`${DEPARTMENTS_URL}?sort=desc`)
+    return api.get(`${DEPARTMENTS_URL}?sort=${order}`)
   }
   getEmployeesByDepartmentId(id) {
     return api.get(`${DEPARTMENT_BY_ID_URL}${id}${EMPLOYEES_URL}`);

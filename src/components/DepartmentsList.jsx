@@ -8,7 +8,6 @@ import { AppContext } from '../contexts/AppContext';
 import SearchForm from './SearchForm';
 import SortForm from './SortForm';
 
-
 class DepartmentsList extends Component {
   state = {
     departments: [],
@@ -18,9 +17,6 @@ class DepartmentsList extends Component {
     total: 0,
   };
 
-  componentDidMount() {
-    this.getDepartments();
-  }
   getDepartments = async () => {
     this.props.toggleLoader();
     const { limit, currentPage } = this.state;
@@ -42,6 +38,11 @@ class DepartmentsList extends Component {
     }
     this.props.toggleLoader();
   };
+
+  componentDidMount() {
+    this.getDepartments();
+  }
+
   componentDidUpdate(prevProps, prevState) {
     if (this.state.currentPage !== prevState.currentPage) {
       this.getDepartments();
@@ -76,9 +77,15 @@ class DepartmentsList extends Component {
       this.setState({ departments: copiedState });
     }
   };
+
   searchDepartment = (searchDepartments) => {
     this.setState({ departments: searchDepartments });
   };
+
+  sortDepartments = (sortedDepartments) => {
+    this.setState({ departments: sortedDepartments });
+  };
+
   render() {
     const { departments, lastPage, currentPage } = this.state;
     const { handleOpenModal, handleCloseModal } = this.context;
@@ -99,8 +106,10 @@ class DepartmentsList extends Component {
             >
               + Add department
             </button>
-            <SortForm/>
-            <SearchForm search={this.searchDepartment} />
+            <div className="form-wrap">
+              <SortForm sort={this.sortDepartments} />
+              <SearchForm search={this.searchDepartment} />
+            </div>
           </div>
           <div className="item-list">
             {departments &&
