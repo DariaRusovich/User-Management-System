@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import { apiRequest } from '../api/apiService';
 import { AppContext } from '../contexts/AppContext';
 
-
 export default class LogoutBtn extends Component {
   signOut = async () => {
     const [statusError, status] = await apiRequest.logout();

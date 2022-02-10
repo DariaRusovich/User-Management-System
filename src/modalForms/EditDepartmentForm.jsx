@@ -8,11 +8,6 @@ class EditDepartmentForm extends Component {
     description: '',
   };
 
-  // componentDidMount = () => {
-  //   const { name, description } = this.props.department;
-  //   this.setState({ name, description });
-  // };
-
   componentDidMount = async () => {
     const departmentId = this.props.department._id;
     const [departmenError, department] = await apiRequest.getDepartment(

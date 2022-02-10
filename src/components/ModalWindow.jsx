@@ -4,7 +4,6 @@ import '../styles/ModalWindow.css';
 export default class ModalWindow extends Component {
   render() {
     const { open, close, component } = this.props;
-    
     return (
       <div className={`modal-window ${open ? 'active' : ''}`}>
         <div className="modal-window__content">
