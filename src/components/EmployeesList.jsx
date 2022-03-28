@@ -38,11 +38,11 @@ class EmployeesList extends Component {
   };
   updateEmployee = (updatedDepartment, employeeId) => {
     const copiedState = this.state.employees;
-    const employeeIdx = copiedState.findIndex(
-      (employee) => employee._id === employeeId
+    const employee = copiedState.filter(
+      (employee) => employee._id !== employeeId
     );
-    if (employeeIdx !== -1) {
-      copiedState.splice(employeeIdx, 1, updatedDepartment);
+    if (employee) {
+      copiedState.splice(employee, 1, updatedDepartment);
       this.setState({ employees: copiedState });
     }
   };
@@ -55,9 +55,8 @@ class EmployeesList extends Component {
         <section className="section">
           <div className="container">
             <h1 className="title-primary">
-              No employees in the department.{' '}
+              No employees in the department.
               <Link className="title" to="/">
-                {' '}
                 Go back.
               </Link>
             </h1>
@@ -86,7 +85,7 @@ class EmployeesList extends Component {
         <section className="section">
           <div className="container section-wrap">
             <h1 className="title-secondary">
-              {employees.length} employees.{' '}
+              {employees.length} employees.
               <Link to="/" className="title">
                 Go back
               </Link>

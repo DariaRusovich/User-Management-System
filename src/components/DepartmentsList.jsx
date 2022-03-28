@@ -70,11 +70,11 @@ class DepartmentsList extends Component {
 
   updateDepartment = (updatedDepartment, departmentId) => {
     const copiedState = this.state.departments;
-    const departmentIdx = copiedState.findIndex(
-      (department) => department._id === departmentId
+    const department = copiedState.filter(
+      (department) => department._id !== departmentId
     );
-    if (departmentIdx !== -1) {
-      copiedState.splice(departmentIdx, 1, updatedDepartment);
+    if (department) {
+      copiedState.splice(department, 1, updatedDepartment);
       this.setState({ departments: copiedState });
     }
   };
@@ -125,7 +125,6 @@ class DepartmentsList extends Component {
           </div>
           {departments.length ? (
             <>
-              {' '}
               <span className='current-page'>Page: {currentPage}</span>
               <div className="btn-wrap">
                 {currentPage > 1 && (
@@ -147,7 +146,7 @@ class DepartmentsList extends Component {
               </div>
             </>
           ) : (
-            ''
+            null
           )}
         </div>
       </section>

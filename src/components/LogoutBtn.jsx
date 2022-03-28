@@ -19,7 +19,6 @@ export default class LogoutBtn extends Component {
       <>
         {token && (
           <Link to="/login">
-            {' '}
             <button onClick={this.signOut} className="btn btn-primary">
               Logout
             </button>
