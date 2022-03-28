@@ -13,11 +13,12 @@ class LoginPage extends Component {
   signIn = async (loginData) => {
     const [userDataError, userData] = await apiRequest.signin(loginData);
     if (!userDataError) {
-      const token = userData.user.tokens.accessToken;
-      localStorage.setItem('token', token);
-      Cookie.set('refreshToken', userData.user.tokens.refreshToken, 30);
+      const tokenAccess = userData.user.tokens.accessToken;
+      const tokenRefresh = userData.user.tokens.refreshToken
+      localStorage.setItem('token', tokenAccess);
+      Cookie.set('refreshToken', tokenRefresh, 30);
       this.props.history.push('/');
-      this.context.getToken(token)
+      this.context.getToken(tokenAccess)
     } else if (userDataError.response) {
       this.setState({ invalidData: userDataError.response.data.message });
     } else {

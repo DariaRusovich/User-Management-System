@@ -4,7 +4,6 @@ import { withRouter } from 'react-router-dom';
 import { apiRequest } from '../api/apiService';
 import { DEPARTMENT_BY_ID_URL, EMPLOYEES_URL } from '../constants/url';
 import { AppContext } from '../contexts/AppContext';
-
 import EditDepartmentForm from '../modalForms/EditDepartmentForm';
 import '../styles/Department.css';
 
