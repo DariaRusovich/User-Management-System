@@ -33,7 +33,7 @@ class EditDepartmentForm extends Component {
       await apiRequest.updatedDepartment(departmentId, updatedDepartment);
     if (savedUpdatedDepartment) {
       alert('OK!');
-      e.target.reset();
+      this.props.close()
       this.props.update(
         savedUpdatedDepartment.updatedDescription,
         departmentId

@@ -15,6 +15,7 @@ export default class EditEmployeeForm extends Component {
     if (employee) {
       const { email, firstName, lastName, username } = employee.employeeByID;
       this.setState({ email, firstName, lastName, username });
+      
     } else {
       alert(employeeError.response.data.message);
     }
@@ -36,7 +37,7 @@ export default class EditEmployeeForm extends Component {
     );
     if (savedEmployee) {
       alert('OK!');
-      e.target.reset();
+      this.props.close()
       this.props.update(savedEmployee.updatedEmployee, employeeId);
     } else {
       alert(savedEmployeeError.response.data.message);

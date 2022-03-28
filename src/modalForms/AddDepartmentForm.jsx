@@ -13,9 +13,9 @@ export default class AddDepartmentForm extends Component {
     const [savedDepartmentError, savedDepartment] =
       await apiRequest.addDepartment(newDepartment);
     if (savedDepartment) {
-      this.props.add(savedDepartment.department);
       alert('OK!');
-      e.target.reset();
+      this.props.close()
+      this.props.add(savedDepartment.department);
     } else {
       alert(savedDepartmentError.response.data.message);
     }

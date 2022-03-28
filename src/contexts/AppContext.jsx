@@ -23,8 +23,7 @@ export default class AppProvider extends Component {
     this.setState({ open: true, component });
   };
 
-  handleCloseModal = (e) => {
-    e.preventDefault();
+  handleCloseModal = () => {
     this.setState({ open: false, component: null });
   };
 

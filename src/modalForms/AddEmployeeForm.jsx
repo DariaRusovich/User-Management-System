@@ -17,8 +17,8 @@ export default class AddEmployeeForm extends Component {
     );
     if (savedEmployee) {
       alert('OK!');
+      this.props.close()
       this.props.add(savedEmployee.employee);
-      e.target.reset();
     } else {
       alert(savedEmployeeError.response.data.message);
     }
