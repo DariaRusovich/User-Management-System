@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
 import { apiRequest } from '../api/apiService';
 import LoginForm from '../components/LoginForm';
 import { AppContext } from '../contexts/AppContext';
@@ -8,17 +9,18 @@ import { Cookie } from '../utils/cookie';
 class LoginPage extends Component {
   state = {
     invalidData: '',
+    token: null,
   };
 
   signIn = async (loginData) => {
     const [userDataError, userData] = await apiRequest.signin(loginData);
     if (!userDataError) {
       const tokenAccess = userData.user.tokens.accessToken;
-      const tokenRefresh = userData.user.tokens.refreshToken
+      const tokenRefresh = userData.user.tokens.refreshToken;
       localStorage.setItem('token', tokenAccess);
       Cookie.set('refreshToken', tokenRefresh, 30);
-      this.props.history.push('/');
-      this.context.getToken(tokenAccess)
+      this.setState({ token: tokenAccess });
+      this.context.getToken(tokenAccess);
     } else if (userDataError.response) {
       this.setState({ invalidData: userDataError.response.data.message });
     } else {
@@ -27,8 +29,12 @@ class LoginPage extends Component {
   };
 
   render() {
-    const { invalidData } = this.state;
-    return <LoginForm invalidData={invalidData} signIn={this.signIn} />;
+    const { invalidData, token } = this.state;
+    return token ? (
+      <Redirect to="/" />
+    ) : (
+      <LoginForm invalidData={invalidData} signIn={this.signIn} />
+    );
   }
 }
 
