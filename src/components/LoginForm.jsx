@@ -1,15 +1,28 @@
 import React, { Component } from 'react';
 
 export default class LoginForm extends Component {
+  state = {
+    username: '',
+    password: '',
+  }
+  handleChange = (event) => {
+    const target = event.target
+    const value = target.type === 'checkbox' ? target.checked : target.value;
+    const name = target.name;
+    this.setState({
+      [name]: value
+    });
+  }
   handleSubmit = (event) => {
     event.preventDefault();
-    const loginData = {};
-    loginData.username = event.target.username.value.trim();
-    loginData.password = event.target.password.value.trim();
+    const loginData = {
+      username: this.state.username,
+      password: this.state.password
+    };
     this.props.signIn(loginData);
   };
   render() {
-    const { invalidData, handleChange } = this.props;
+    const { invalidData } = this.props;
     return (
       <section className="section">
         <div className="container form-wrap">
@@ -18,7 +31,7 @@ export default class LoginForm extends Component {
               <legend>Login form</legend>
               <div className="input-wrapper">
                 <input
-                  onChange={handleChange}
+                  onChange={this.handleChange}
                   type="text"
                   name="username"
                   placeholder="Username"
@@ -28,7 +41,7 @@ export default class LoginForm extends Component {
               </div>
               <div className="input-wrapper">
                 <input
-                  onChange={handleChange}
+                  onChange={this.handleChange}
                   type="password"
                   name="password"
                   placeholder="Password"

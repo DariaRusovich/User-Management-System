@@ -22,6 +22,7 @@ class LoginPage extends Component {
       this.setState({ token: tokenAccess });
       this.context.getToken(tokenAccess);
     } else if (userDataError.response) {
+      console.dir(userDataError);
       this.setState({ invalidData: userDataError.response.data.message });
     } else {
       this.props.setError(userDataError);

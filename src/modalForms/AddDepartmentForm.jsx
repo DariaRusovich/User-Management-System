@@ -2,19 +2,32 @@ import React, { Component } from 'react';
 import { apiRequest } from '../api/apiService';
 
 export default class AddDepartmentForm extends Component {
+  state = {
+    name: '',
+    description: '',
+    createdAt: null,
+  };
 
+  handleChange = (event) => {
+    const target = event.target;
+    const value = target.type === 'checkbox' ? target.checked : target.value;
+    const name = target.name;
+    this.setState({
+      [name]: value
+    });
+}
   createNewDepartment = async (e) => {
     e.preventDefault();
     const newDepartment = {
-      name: e.target.name.value.trim(),
-      description: e.target.description.value.trim(),
+      name: this.state.name,
+      description: this.state.description,
       createdAt: Date.now(),
     };
     const [savedDepartmentError, savedDepartment] =
       await apiRequest.addDepartment(newDepartment);
     if (savedDepartment) {
       alert('OK!');
-      this.props.close()
+      this.props.close();
       this.props.add(savedDepartment.department);
     } else {
       alert(savedDepartmentError.response.data.message);
@@ -35,6 +48,7 @@ export default class AddDepartmentForm extends Component {
             <input
               type="text"
               name="name"
+              onChange={this.handleChange}
               placeholder="Department name"
               required
             />
@@ -44,6 +58,7 @@ export default class AddDepartmentForm extends Component {
             <textarea
               type="text"
               name="description"
+              onChange={this.handleChange}
               placeholder="Department description"
               required
             ></textarea>

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import { Router } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 import { Switch } from 'react-router-dom';
-import { Route } from 'react-router-dom/cjs/react-router-dom.min';
 import Header from './components/Header';
 //import { privateRouteComponents, routeComponents } from './constants/routes';
 import EmployeesPage from './pages/EmployeesPage';
@@ -15,7 +14,6 @@ export default class App extends Component {
     return (
       <div className="App">
         <Header />
-        
         <Switch>
           <Route path="/login">
             <LoginPage />
@@ -30,7 +28,6 @@ export default class App extends Component {
             <NotFoundPage />
           </Route>
         </Switch>
-        
       </div>
     );
   }
