@@ -21,7 +21,8 @@ class LoginPage extends Component {
       Cookie.set('refreshToken', tokenRefresh, 30);
       this.setState({ token: tokenAccess });
       this.context.getToken(tokenAccess);
-    } else if (userDataError.response) {
+    }
+     else if (userDataError.response) {
       console.dir(userDataError);
       this.setState({ invalidData: userDataError.response.data.message });
     } else {

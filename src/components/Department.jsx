@@ -19,11 +19,18 @@ class Department extends Component {
       alert(departmentDeletedError.response.data.message);
     }
   };
-
+  openModal = () => {
+    this.context.handleOpenModal(
+      <EditDepartmentForm
+        update={this.props.update}
+        close={this.context.handleCloseModal}
+        department={this.props.department}
+      />
+    );
+  };
   render() {
-    const { department, update } = this.props;
+    const { department } = this.props;
     const { name, description, picture } = department;
-    const { handleOpenModal, handleCloseModal } = this.context;
     return (
       <>
         <div className="department-item item-block">
@@ -38,18 +45,7 @@ class Department extends Component {
           <h2 className="department-item__title item__title title">{name}</h2>
           <p className="department-item__description">{description}</p>
           <div className="btns-group">
-            <button
-              onClick={() =>
-                handleOpenModal(
-                  <EditDepartmentForm
-                    update={update}
-                    close={handleCloseModal}
-                    department={department}
-                  />
-                )
-              }
-              className="btn btn-primary"
-            >
+            <button onClick={this.openModal} className="btn btn-primary">
               Edit
             </button>
             <button onClick={this.deleteDeprtment} className="btn btn-danger">
