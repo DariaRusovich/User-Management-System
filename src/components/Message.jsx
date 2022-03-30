@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import succes_icon from '../img/success_icon.svg';
-import '../styles/Message.css'
+import '../styles/Message.css';
 
 export default class Message extends Component {
   render() {
+    const { message, name, title } = this.props;
     return (
       <div className="message-block">
         <img
@@ -14,8 +15,14 @@ export default class Message extends Component {
           src={succes_icon}
           alt="Success icon"
         />
-        <h1 className='message-block__title'>Success!</h1>
-        <button className='btn btn-success' onClick={this.props.close}>OK</button>
+        <h1 className="message-block__title__primary mt">Success!</h1>
+        <h2 className="message-block__title__secondary mt">
+          {name}
+        </h2>
+        <p className='message-block__message'>{title} {message}</p>
+        <button className="btn btn-success mt" onClick={this.props.close}>
+          OK
+        </button>
       </div>
     );
   }

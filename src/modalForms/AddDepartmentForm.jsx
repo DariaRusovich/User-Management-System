@@ -3,7 +3,6 @@ import { apiRequest } from '../api/apiService';
 import Message from '../components/Message';
 import { AppContext } from '../contexts/AppContext';
 
-
 class AddDepartmentForm extends Component {
   state = {
     name: '',
@@ -32,21 +31,23 @@ class AddDepartmentForm extends Component {
     if (savedDepartment) {
       this.props.close();
       this.props.add(savedDepartment.department);
-      this.showMessage()
+      this.showMessage();
     } else {
       this.setState({
         invalidData: savedDepartmentError.response.data.message,
       });
     }
   };
-  // componentWillUnmount = () => {
-  //   this.showMessage()
-  // }
   showMessage = () => {
     this.context.handleOpenModal(
-      <Message close={this.context.handleCloseModal}/>
-    )
-  }
+      <Message
+        close={this.context.handleCloseModal}
+        name={this.state.name}
+        title={'department'}
+        message={'added'}
+      />
+    );
+  };
   render() {
     const { close } = this.props;
     const { invalidData } = this.state;
@@ -93,6 +94,6 @@ class AddDepartmentForm extends Component {
   }
 }
 
-export default AddDepartmentForm
+export default AddDepartmentForm;
 
-AddDepartmentForm.contextType = AppContext
+AddDepartmentForm.contextType = AppContext;
