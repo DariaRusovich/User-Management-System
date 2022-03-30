@@ -16,10 +16,10 @@ export default class Message extends Component {
           alt="Success icon"
         />
         <h1 className="message-block__title__primary mt">Success!</h1>
-        <h2 className="message-block__title__secondary mt">
-          {name}
-        </h2>
-        <p className='message-block__message'>{title} {message}</p>
+        <h2 className="message-block__title__secondary mt">{name}</h2>
+        <p className="message-block__message">
+          {title} {message}
+        </p>
         <button className="btn btn-success mt" onClick={this.props.close}>
           OK
         </button>

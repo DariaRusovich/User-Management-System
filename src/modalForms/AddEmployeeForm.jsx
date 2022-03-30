@@ -1,29 +1,56 @@
 import React, { Component } from 'react';
 import { apiRequest } from '../api/apiService';
+import Message from '../components/Message';
+import { AppContext } from '../contexts/AppContext';
 
 export default class AddEmployeeForm extends Component {
   state = {
     invalidData: '',
+    firstname: '',
+    lastname: '',
+    username: '',
+    email: '',
+  };
+  handleChange = (event) => {
+    const target = event.target;
+    const value = target.type === 'checkbox' ? target.checked : target.value;
+    const name = target.name;
+    this.setState({
+      [name]: value,
+    });
   };
   createNewEmployee = async (e) => {
     e.preventDefault();
     const newEmployee = {
-      firstName: e.target.firstname.value.trim(),
-      lastName: e.target.lastname.value.trim(),
-      username: e.target.username.value.trim(),
-      email: e.target.email.value.trim(),
+      firstName: this.state.firstname,
+      lastName: this.state.lastname,
+      username: this.state.username,
+      email: this.state.email,
       department: this.props.id,
       createdAt: Date.now(),
     };
+    console.log(newEmployee);
     const [savedEmployeeError, savedEmployee] = await apiRequest.addEmployee(
       newEmployee
     );
     if (savedEmployee) {
       this.props.close();
+      this.showMessage();
       this.props.add(savedEmployee.employee);
     } else {
       this.setState({ invalidData: savedEmployeeError.response.data.message });
     }
+  };
+ 
+  showMessage = () => {
+    this.context.handleOpenModal(
+      <Message
+        close={this.context.handleCloseModal}
+        name={this.state.username}
+        title={'employee'}
+        message={'added'}
+      />
+    );
   };
   render() {
     const { close } = this.props;
@@ -38,6 +65,7 @@ export default class AddEmployeeForm extends Component {
           <legend>Add employee</legend>
           <div className="input-wrapper">
             <input
+            onChange={this.handleChange}
               type="text"
               name="firstname"
               placeholder="Employee first name"
@@ -45,18 +73,21 @@ export default class AddEmployeeForm extends Component {
             />
           </div>
           <input
+            onChange={this.handleChange}
             type="text"
             name="lastname"
             placeholder="Employee last name"
             required
           />
           <input
+            onChange={this.handleChange}
             type="text"
             name="username"
             placeholder="Employee username"
             required
           />
           <input
+            onChange={this.handleChange}
             type="email"
             name="email"
             placeholder="Employee e-mail"
@@ -76,3 +107,5 @@ export default class AddEmployeeForm extends Component {
     );
   }
 }
+
+AddEmployeeForm.contextType = AppContext;
