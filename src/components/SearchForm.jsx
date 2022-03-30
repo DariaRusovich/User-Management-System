@@ -1,31 +1,39 @@
 import React, { Component } from 'react';
 import { apiRequest } from '../api/apiService';
+import { debounce } from '../utils/debounce';
 
 export default class SearchForm extends Component {
   state = {
     searchValue: '',
   };
 
-  handleSearch = async (e) => {
-    e.preventDefault();
-    const searchValue = this.state.searchValue;
+  handleChange = debounce((event) => {
+    const target = event.target;
+    const value = target.type === 'checkbox' ? target.checked : target.value;
+    const name = target.name;
+    this.setState({
+      [name]: value,
+    })
+  }, 250)
+
+  handleSearch = async (event) => {
+    event.preventDefault();
+    const searchValue = this.state.search;
     const [searchDeprtmentsError, searchDepartments] =
       await apiRequest.getSearchingDepartment(searchValue);
-      const departments = searchDepartments.departments.departments
+    const departments = searchDepartments.departments.departments;
     if (searchDepartments) {
-      this.props.search(departments)
+      this.props.search(departments);
     } else {
-      alert(searchDeprtmentsError.response.data.message)
+      alert(searchDeprtmentsError.response.data.message);
     }
-  };
+  }
 
   render() {
-    const { searchValue } = this.state;
     return (
-      <form className="search-form" onSubmit={this.handleSearch}>
+      <form className="search-form" onSubmit={this.handleSearchDebounce}>
         <input
-          value={searchValue}
-          onChange={(e) => this.setState({ searchValue: e.target.value })}
+          onChange={this.handleChange}
           name="search"
           type="text"
           placeholder="Search..."
