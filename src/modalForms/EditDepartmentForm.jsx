@@ -6,6 +6,7 @@ class EditDepartmentForm extends Component {
   state = {
     name: '',
     description: '',
+    invalidData: '',
   };
 
   componentDidMount = async () => {
@@ -17,7 +18,7 @@ class EditDepartmentForm extends Component {
       const { name, description } = department.departmentByID;
       this.setState({ name, description });
     } else {
-      alert(departmenError.response.data.message);
+      this.setState({invalidData: departmenError.response.data.message})
     }
   };
 
@@ -32,20 +33,21 @@ class EditDepartmentForm extends Component {
     const [savedUpdatedDepartmentError, savedUpdatedDepartment] =
       await apiRequest.updatedDepartment(departmentId, updatedDepartment);
     if (savedUpdatedDepartment) {
-      alert('OK!');
-      this.props.close()
+      this.props.close();
       this.props.update(
         savedUpdatedDepartment.updatedDescription,
         departmentId
       );
     } else {
-      alert(savedUpdatedDepartmentError.response.data.message);
+      this.setState({
+        invalidData: savedUpdatedDepartmentError.response.data.message,
+      });
     }
   };
 
   render() {
     const { close } = this.props;
-    const { name, description } = this.state;
+    const { name, description, invalidData } = this.state;
     return (
       <form
         className="add-form form"
@@ -74,6 +76,7 @@ class EditDepartmentForm extends Component {
             value={description}
             required
           ></textarea>
+          {invalidData && <p className="warning-message">{invalidData}</p>}
           <div className="btns-wrap">
             <button type="submit" className="btn btn-success">
               Edit

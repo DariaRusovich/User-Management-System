@@ -1,11 +1,15 @@
 import React, { Component } from 'react';
 import { apiRequest } from '../api/apiService';
+import Message from '../components/Message';
+import { AppContext } from '../contexts/AppContext';
 
-export default class AddDepartmentForm extends Component {
+
+class AddDepartmentForm extends Component {
   state = {
     name: '',
     description: '',
     createdAt: null,
+    invalidData: '',
   };
 
   handleChange = (event) => {
@@ -13,9 +17,9 @@ export default class AddDepartmentForm extends Component {
     const value = target.type === 'checkbox' ? target.checked : target.value;
     const name = target.name;
     this.setState({
-      [name]: value
+      [name]: value,
     });
-}
+  };
   createNewDepartment = async (e) => {
     e.preventDefault();
     const newDepartment = {
@@ -26,16 +30,26 @@ export default class AddDepartmentForm extends Component {
     const [savedDepartmentError, savedDepartment] =
       await apiRequest.addDepartment(newDepartment);
     if (savedDepartment) {
-      alert('OK!');
       this.props.close();
       this.props.add(savedDepartment.department);
+      this.showMessage()
     } else {
-      alert(savedDepartmentError.response.data.message);
+      this.setState({
+        invalidData: savedDepartmentError.response.data.message,
+      });
     }
   };
-
+  // componentWillUnmount = () => {
+  //   this.showMessage()
+  // }
+  showMessage = () => {
+    this.context.handleOpenModal(
+      <Message close={this.context.handleCloseModal}/>
+    )
+  }
   render() {
     const { close } = this.props;
+    const { invalidData } = this.state;
     return (
       <form
         className="add-form form"
@@ -64,6 +78,7 @@ export default class AddDepartmentForm extends Component {
             ></textarea>
             <div className="validation">*Required</div>
           </div>
+          {invalidData && <p className="warning-message">{invalidData}</p>}
           <div className="btns-wrap">
             <button type="submit" className="btn btn-success">
               Add department
@@ -77,3 +92,7 @@ export default class AddDepartmentForm extends Component {
     );
   }
 }
+
+export default AddDepartmentForm
+
+AddDepartmentForm.contextType = AppContext

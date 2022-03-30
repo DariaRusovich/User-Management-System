@@ -1,0 +1,17 @@
+.message-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.message-block__img {
+  width: 80px;
+  height: auto;
+}
+.message-block__title {
+  color: var(--success-color);
+  margin-top: 15px;
+}
+.message-block .btn {
+  width: 100%;
+  margin-top: 15px;
+}

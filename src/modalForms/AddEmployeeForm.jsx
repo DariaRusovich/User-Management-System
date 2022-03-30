@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import { apiRequest } from '../api/apiService';
 
 export default class AddEmployeeForm extends Component {
+  state = {
+    invalidData: '',
+  };
   createNewEmployee = async (e) => {
     e.preventDefault();
     const newEmployee = {
@@ -16,15 +19,15 @@ export default class AddEmployeeForm extends Component {
       newEmployee
     );
     if (savedEmployee) {
-      alert('OK!');
-      this.props.close()
+      this.props.close();
       this.props.add(savedEmployee.employee);
     } else {
-      alert(savedEmployeeError.response.data.message);
+      this.setState({ invalidData: savedEmployeeError.response.data.message });
     }
   };
   render() {
     const { close } = this.props;
+    const { invalidData } = this.state;
     return (
       <form
         className="add-form form"
@@ -59,6 +62,7 @@ export default class AddEmployeeForm extends Component {
             placeholder="Employee e-mail"
             required
           />
+          {invalidData && <p className="warning-message">{invalidData}</p>}
           <div className="btns-wrap">
             <button type="submit" className="btn btn-success">
               Add employee
@@ -72,4 +76,3 @@ export default class AddEmployeeForm extends Component {
     );
   }
 }
-

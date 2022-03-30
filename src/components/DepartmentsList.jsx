@@ -8,6 +8,7 @@ import { AppContext } from '../contexts/AppContext';
 import SearchForm from './SearchForm';
 import SortForm from './SortForm';
 
+
 class DepartmentsList extends Component {
   state = {
     departments: [],

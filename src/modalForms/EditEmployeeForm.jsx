@@ -7,6 +7,7 @@ export default class EditEmployeeForm extends Component {
     firstName: '',
     lastName: '',
     username: '',
+    invalidData: ''
   };
 
   componentDidMount = async () => {
@@ -17,7 +18,7 @@ export default class EditEmployeeForm extends Component {
       this.setState({ email, firstName, lastName, username });
       
     } else {
-      alert(employeeError.response.data.message);
+      this.setState({invalidData: employeeError.response.data.message})
     }
   };
 
@@ -36,17 +37,16 @@ export default class EditEmployeeForm extends Component {
       updatedEmployee
     );
     if (savedEmployee) {
-      alert('OK!');
       this.props.close()
       this.props.update(savedEmployee.updatedEmployee, employeeId);
     } else {
-      alert(savedEmployeeError.response.data.message);
+      this.setState({invalidData: savedEmployeeError.response.data.message})
     }
   };
 
   render() {
     const { close } = this.props;
-    const { firstName, lastName, username, email } = this.state;
+    const { firstName, lastName, username, email, invalidData } = this.state;
     return (
       <form
         className="add-form form"
@@ -100,6 +100,7 @@ export default class EditEmployeeForm extends Component {
             />
             <div className="validation">*Required</div>
           </div>
+          {invalidData && <p className="warning-message">{invalidData}</p>}
           <div className="btns-wrap">
             <button type="submit" className="btn btn-success">
               Edit employee

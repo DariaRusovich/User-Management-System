@@ -8,7 +8,7 @@ import EditDepartmentForm from '../modalForms/EditDepartmentForm';
 import '../styles/Department.css';
 
 class Department extends Component {
-  deleteDeprtment = async () => {
+  deleteDepartment = async () => {
     const departmentId = this.props.department._id;
     const [departmentDeletedError, departmentDeleted] =
       await apiRequest.deleteDepartment(departmentId);
@@ -48,7 +48,7 @@ class Department extends Component {
             <button onClick={this.openModal} className="btn btn-primary">
               Edit
             </button>
-            <button onClick={this.deleteDeprtment} className="btn btn-danger">
+            <button onClick={this.deleteDepartment} className="btn btn-danger">
               Delete
             </button>
             <button className="btn btn-success">

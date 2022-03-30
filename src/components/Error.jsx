@@ -4,6 +4,7 @@ import '../styles/Error.css';
 
 export default class Error extends Component {
   render() {
+    console.log(this.props);
     return (
       <div className="section">
         <div className="container error">
