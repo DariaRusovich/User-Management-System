@@ -4,23 +4,23 @@ export default class LoginForm extends Component {
   state = {
     username: '',
     password: '',
-  }
+  };
+
   handleChange = (event) => {
-    const target = event.target
-    const value = target.type === 'checkbox' ? target.checked : target.value;
-    const name = target.name;
     this.setState({
-      [name]: value
+      [event.target.name]: event.target.value,
     });
-  }
+  };
+
   handleSubmit = (event) => {
     event.preventDefault();
     const loginData = {
       username: this.state.username,
-      password: this.state.password
+      password: this.state.password,
     };
     this.props.signIn(loginData);
   };
+  
   render() {
     const { invalidData } = this.props;
     return (
@@ -37,7 +37,7 @@ export default class LoginForm extends Component {
                   placeholder="Username"
                   required
                 />
-               <div className="validation">*Required</div>
+                <div className="validation">*Required</div>
               </div>
               <div className="input-wrapper">
                 <input
@@ -47,7 +47,7 @@ export default class LoginForm extends Component {
                   placeholder="Password"
                   required
                 />
-               <div className="validation">*Required</div>
+                <div className="validation">*Required</div>
               </div>
               {invalidData && <p className="warning-message">{invalidData}</p>}
               <button type="submit" className="btn btn-success">
@@ -60,4 +60,3 @@ export default class LoginForm extends Component {
     );
   }
 }
-

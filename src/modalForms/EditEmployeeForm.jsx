@@ -4,10 +4,10 @@ import { apiRequest } from '../api/apiService';
 export default class EditEmployeeForm extends Component {
   state = {
     email: '',
-    firstName: '',
-    lastName: '',
+    firstname: '',
+    lastname: '',
     username: '',
-    invalidData: ''
+    invalidData: '',
   };
 
   componentDidMount = async () => {
@@ -15,21 +15,27 @@ export default class EditEmployeeForm extends Component {
     const [employeeError, employee] = await apiRequest.getEmployee(employeeId);
     if (employee) {
       const { email, firstName, lastName, username } = employee.employeeByID;
-      this.setState({ email, firstName, lastName, username });
-      
+      this.setState({
+        email,
+        firstname: firstName,
+        lastname: lastName,
+        username,
+      });
     } else {
-      this.setState({invalidData: employeeError.response.data.message})
+      this.setState({ invalidData: employeeError.response.data.message });
     }
   };
-
+  handleChange = (event) => {
+    this.setState({ [event.target.name]: event.target.value });
+  };
   handleSubmit = async (e) => {
     e.preventDefault();
     const employeeId = this.props.employee._id;
     const updatedEmployee = {
-      firstName: e.target.firstname.value.trim(),
-      lastName: e.target.lastname.value.trim(),
-      username: e.target.username.value.trim(),
-      email: e.target.email.value.trim(),
+      firstName: this.state.firstname,
+      lastName: this.state.lastname,
+      username: this.state.username,
+      email: this.state.email,
       updatedAt: Date.now(),
     };
     const [savedEmployeeError, savedEmployee] = await apiRequest.updateEmployee(
@@ -37,16 +43,16 @@ export default class EditEmployeeForm extends Component {
       updatedEmployee
     );
     if (savedEmployee) {
-      this.props.close()
+      this.props.close();
       this.props.update(savedEmployee.updatedEmployee, employeeId);
     } else {
-      this.setState({invalidData: savedEmployeeError.response.data.message})
+      this.setState({ invalidData: savedEmployeeError.response.data.message });
     }
   };
 
   render() {
     const { close } = this.props;
-    const { firstName, lastName, username, email, invalidData } = this.state;
+    const { firstname, lastname, username, email, invalidData } = this.state;
     return (
       <form
         className="add-form form"
@@ -57,29 +63,29 @@ export default class EditEmployeeForm extends Component {
           <legend>Edit employee</legend>
           <div className="input-wrapper">
             <input
-              onChange={(e) => this.setState({ firstName: e.target.value })}
+              onChange={this.handleChange}
               type="text"
               name="firstname"
               placeholder="Employee first name"
-              value={firstName}
+              value={firstname}
               required
             />
             <div className="validation">*Required</div>
           </div>
           <div className="input-wrapper">
             <input
-              onChange={(e) => this.setState({ lastName: e.target.value })}
+              onChange={this.handleChange}
               type="text"
               name="lastname"
               placeholder="Employee last name"
-              value={lastName}
+              value={lastname}
               required
             />
             <div className="validation">*Required</div>
           </div>
           <div className="input-wrapper">
             <input
-              onChange={(e) => this.setState({ username: e.target.value })}
+              onChange={this.handleChange}
               type="text"
               name="username"
               placeholder="Employee username"
@@ -91,7 +97,7 @@ export default class EditEmployeeForm extends Component {
           </div>
           <div className="input-wrapper">
             <input
-              onChange={(e) => this.setState({ email: e.target.value })}
+              onChange={this.handleChange}
               type="email"
               name="email"
               placeholder="Employee e-mail"

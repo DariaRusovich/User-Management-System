@@ -12,11 +12,8 @@ export default class AddEmployeeForm extends Component {
     email: '',
   };
   handleChange = (event) => {
-    const target = event.target;
-    const value = target.type === 'checkbox' ? target.checked : target.value;
-    const name = target.name;
     this.setState({
-      [name]: value,
+      [event.target.name]: event.target.value,
     });
   };
   createNewEmployee = async (e) => {
@@ -29,7 +26,6 @@ export default class AddEmployeeForm extends Component {
       department: this.props.id,
       createdAt: Date.now(),
     };
-    console.log(newEmployee);
     const [savedEmployeeError, savedEmployee] = await apiRequest.addEmployee(
       newEmployee
     );

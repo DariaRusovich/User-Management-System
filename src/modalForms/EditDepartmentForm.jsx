@@ -18,18 +18,23 @@ class EditDepartmentForm extends Component {
       const { name, description } = department.departmentByID;
       this.setState({ name, description });
     } else {
-      this.setState({invalidData: departmenError.response.data.message})
+      this.setState({ invalidData: departmenError.response.data.message });
     }
+  };
+
+  handleChange = (event) => {
+    this.setState({ [event.target.name]: event.target.value });
   };
 
   handleSubmit = async (e) => {
     e.preventDefault();
     const departmentId = this.props.department._id;
     const updatedDepartment = {
-      name: e.target.name.value.trim(),
-      description: e.target.description.value.trim(),
+      name: this.state.name,
+      description: this.state.description,
       updatedAt: Date.now(),
     };
+
     const [savedUpdatedDepartmentError, savedUpdatedDepartment] =
       await apiRequest.updatedDepartment(departmentId, updatedDepartment);
     if (savedUpdatedDepartment) {
@@ -58,7 +63,7 @@ class EditDepartmentForm extends Component {
           <legend>Edit department</legend>
           <div className="input-wrapper">
             <input
-              onChange={(e) => this.setState({ name: e.target.value })}
+              onChange={this.handleChange}
               type="text"
               name="name"
               placeholder="Department name"
@@ -69,7 +74,7 @@ class EditDepartmentForm extends Component {
             <div className="validation">*Required</div>
           </div>
           <textarea
-            onChange={(e) => this.setState({ description: e.target.value })}
+            onChange={this.handleChange}
             type="text"
             name="description"
             placeholder="Department description"

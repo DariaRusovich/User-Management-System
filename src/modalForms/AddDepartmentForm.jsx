@@ -12,13 +12,11 @@ class AddDepartmentForm extends Component {
   };
 
   handleChange = (event) => {
-    const target = event.target;
-    const value = target.type === 'checkbox' ? target.checked : target.value;
-    const name = target.name;
     this.setState({
-      [name]: value,
+      [event.target.name]: event.target.value,
     });
   };
+
   createNewDepartment = async (e) => {
     e.preventDefault();
     const newDepartment = {
@@ -38,6 +36,7 @@ class AddDepartmentForm extends Component {
       });
     }
   };
+
   showMessage = () => {
     this.context.handleOpenModal(
       <Message
@@ -48,6 +47,7 @@ class AddDepartmentForm extends Component {
       />
     );
   };
+  
   render() {
     const { close } = this.props;
     const { invalidData } = this.state;
