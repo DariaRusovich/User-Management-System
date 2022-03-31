@@ -3,6 +3,8 @@ import { apiRequest } from '../api/apiService';
 import '../styles/Employee.css';
 import { AppContext } from '../contexts/AppContext';
 import EditEmployeeForm from '../modalForms/EditEmployeeForm';
+import Message from './Message';
+import WarningMessage from './WarningMessage';
 
 export default class Employee extends Component {
   deleteEmployee = async () => {
@@ -10,11 +12,28 @@ export default class Employee extends Component {
     const [employeeDeletedError, employeeDeleted] =
       await apiRequest.deleteEmployee(employeeId);
     if (employeeDeleted) {
-      alert('OK!');
+      this.showMessage();
       this.props.remove(employeeId);
     } else {
+      this.showWarningMessage(employeeDeletedError.response.data.message);
       alert(employeeDeletedError.response.data.message);
     }
+  };
+  showWarningMessage = (message) => {
+    this.context.handleOpenModal(
+      <WarningMessage close={this.context.handleCloseModal} message={message} />
+    );
+  };
+
+  showMessage = () => {
+    this.context.handleOpenModal(
+      <Message
+        close={this.context.handleCloseModal}
+        name={this.props.employee.username}
+        message={'employee deleted'}
+        deleted={true}
+      />
+    );
   };
 
   render() {

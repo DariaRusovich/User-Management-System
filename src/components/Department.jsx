@@ -6,6 +6,9 @@ import { DEPARTMENT_BY_ID_URL, EMPLOYEES_URL } from '../constants/url';
 import { AppContext } from '../contexts/AppContext';
 import EditDepartmentForm from '../modalForms/EditDepartmentForm';
 import '../styles/Department.css';
+import Message from './Message';
+import WarningMessage from './WarningMessage';
+
 
 class Department extends Component {
   deleteDepartment = async () => {
@@ -13,10 +16,10 @@ class Department extends Component {
     const [departmentDeletedError, departmentDeleted] =
       await apiRequest.deleteDepartment(departmentId);
     if (departmentDeleted) {
+      this.showMessage()
       this.props.remove(departmentId);
-      alert('OK!');
     } else {
-      alert(departmentDeletedError.response.data.message);
+      this.showWarningMessage(departmentDeletedError.response.data.message)
     }
   };
   openModal = () => {
@@ -28,6 +31,26 @@ class Department extends Component {
       />
     );
   };
+
+  showWarningMessage = (message) => {
+    this.context.handleOpenModal(
+      <WarningMessage
+        close={this.context.handleCloseModal}
+        message={message}
+      />
+    );
+  };
+  showMessage = () => {
+    this.context.handleOpenModal(
+      <Message
+        close={this.context.handleCloseModal}
+        name={this.props.department.name}
+        message={'department deleted'}
+        deleted={true}
+      />
+    );
+  };
+
   render() {
     const { department } = this.props;
     const { name, description, picture } = department;

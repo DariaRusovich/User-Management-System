@@ -18,7 +18,6 @@ class EmployeesList extends Component {
     const departmentId = this.props.match.params.id;
     const [employeesError, employees] =
       await apiRequest.getEmployeesByDepartmentId(departmentId);
-    console.log(employees.employees);
     if (!employeesError) {
       this.setState({
         employees: employees.employees,

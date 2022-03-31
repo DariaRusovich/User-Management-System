@@ -45,6 +45,8 @@ body {
   --primary-bg: hsl(231, 37%, 96%);
   --danger-bg: hsl(0, 91%, 96%);
   --danger-color: hsl(0, 50%, 47%);
+  --warning-color: hsl(26, 79%, 56%);
+  --warning-bg: hsl(26, 78%, 90%);
   --success-bg: hsl(120, 91%, 90%);
   --success-color: hsl(120, 50%, 47%);
   --primary-color-hover: hsl(231, 22%, 57%);

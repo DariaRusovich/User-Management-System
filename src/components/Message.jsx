@@ -4,7 +4,7 @@ import '../styles/Message.css';
 
 export default class Message extends Component {
   render() {
-    const { message, name } = this.props;
+    const { message, name, deleted } = this.props;
     return (
       <div className="message-block">
         <img
@@ -15,7 +15,10 @@ export default class Message extends Component {
           src={succes_icon}
           alt="Success icon"
         />
-        <h1 className="message-block__title__primary mt">Success!</h1>
+        {deleted ? 
+        <h1 className="message-block__title__primary mt">Deleted</h1> :
+        <h1 className="message-block__title__primary mt">Success!</h1>}
+        
         <h2 className="message-block__title__secondary mt">{name}</h2>
         <p className="message-block__message">{message}</p>
         <button className="btn btn-success mt" onClick={this.props.close}>
