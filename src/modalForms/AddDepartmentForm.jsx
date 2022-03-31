@@ -42,12 +42,11 @@ class AddDepartmentForm extends Component {
       <Message
         close={this.context.handleCloseModal}
         name={this.state.name}
-        title={'department'}
-        message={'added'}
+        message={'department added'}
       />
     );
   };
-  
+
   render() {
     const { close } = this.props;
     const { invalidData } = this.state;

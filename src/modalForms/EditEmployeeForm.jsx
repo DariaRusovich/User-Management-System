@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { apiRequest } from '../api/apiService';
+import Message from '../components/Message';
+import { AppContext } from '../contexts/AppContext';
 
 export default class EditEmployeeForm extends Component {
   state = {
@@ -25,9 +27,11 @@ export default class EditEmployeeForm extends Component {
       this.setState({ invalidData: employeeError.response.data.message });
     }
   };
+
   handleChange = (event) => {
     this.setState({ [event.target.name]: event.target.value });
   };
+
   handleSubmit = async (e) => {
     e.preventDefault();
     const employeeId = this.props.employee._id;
@@ -44,10 +48,21 @@ export default class EditEmployeeForm extends Component {
     );
     if (savedEmployee) {
       this.props.close();
-      this.props.update(savedEmployee.updatedEmployee, employeeId);
+      this.showMessage();
+      this.props.update(savedEmployee.updatedEmployee);
     } else {
       this.setState({ invalidData: savedEmployeeError.response.data.message });
     }
+  };
+
+  showMessage = () => {
+    this.context.handleOpenModal(
+      <Message
+        close={this.context.handleCloseModal}
+        name={this.state.username}
+        message={'employee edited'}
+      />
+    );
   };
 
   render() {
@@ -120,3 +135,5 @@ export default class EditEmployeeForm extends Component {
     );
   }
 }
+
+EditEmployeeForm.contextType = AppContext;

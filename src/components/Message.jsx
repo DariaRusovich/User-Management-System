@@ -4,7 +4,7 @@ import '../styles/Message.css';
 
 export default class Message extends Component {
   render() {
-    const { message, name, title } = this.props;
+    const { message, name } = this.props;
     return (
       <div className="message-block">
         <img
@@ -17,9 +17,7 @@ export default class Message extends Component {
         />
         <h1 className="message-block__title__primary mt">Success!</h1>
         <h2 className="message-block__title__secondary mt">{name}</h2>
-        <p className="message-block__message">
-          {title} {message}
-        </p>
+        <p className="message-block__message">{message}</p>
         <button className="btn btn-success mt" onClick={this.props.close}>
           OK
         </button>

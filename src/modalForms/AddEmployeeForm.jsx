@@ -11,11 +11,13 @@ export default class AddEmployeeForm extends Component {
     username: '',
     email: '',
   };
+
   handleChange = (event) => {
     this.setState({
       [event.target.name]: event.target.value,
     });
   };
+
   createNewEmployee = async (e) => {
     e.preventDefault();
     const newEmployee = {
@@ -43,11 +45,11 @@ export default class AddEmployeeForm extends Component {
       <Message
         close={this.context.handleCloseModal}
         name={this.state.username}
-        title={'employee'}
-        message={'added'}
+        message={'employee added'}
       />
     );
   };
+
   render() {
     const { close } = this.props;
     const { invalidData } = this.state;

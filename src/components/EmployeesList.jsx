@@ -18,6 +18,7 @@ class EmployeesList extends Component {
     const departmentId = this.props.match.params.id;
     const [employeesError, employees] =
       await apiRequest.getEmployeesByDepartmentId(departmentId);
+    console.log(employees.employees);
     if (!employeesError) {
       this.setState({
         employees: employees.employees,
@@ -36,16 +37,15 @@ class EmployeesList extends Component {
       employees: prev.employees.filter((emloyee) => emloyee._id !== employeeId),
     }));
   };
-  updateEmployee = (updatedDepartment, employeeId) => {
+
+  updateEmployee = (updatedEmployee) => {
     const copiedState = this.state.employees;
-    const employee = copiedState.filter(
-      (employee) => employee._id !== employeeId
-    );
-    if (employee) {
-      copiedState.splice(employee, 1, updatedDepartment);
-      this.setState({ employees: copiedState });
-    }
+    const updatedEmployees = copiedState.map((employee) => {
+      return employee._id === updatedEmployee._id ? updatedEmployee : employee;
+    });
+    this.setState({ employees: updatedEmployees });
   };
+
   render() {
     const { employees } = this.state;
     const { handleOpenModal, handleCloseModal } = this.context;
@@ -60,22 +60,22 @@ class EmployeesList extends Component {
                 Go back.
               </Link>
             </h1>
-           <div className="wrapper">
-           <button
-              onClick={() =>
-                handleOpenModal(
-                  <AddEmployeeForm
-                    id={departmentId}
-                    close={handleCloseModal}
-                    add={this.addNewEmployee}
-                  ></AddEmployeeForm>
-                )
-              }
-              className="btn btn-success"
-            >
-              + Add employee
-            </button>
-           </div>
+            <div className="wrapper">
+              <button
+                onClick={() =>
+                  handleOpenModal(
+                    <AddEmployeeForm
+                      id={departmentId}
+                      close={handleCloseModal}
+                      add={this.addNewEmployee}
+                    ></AddEmployeeForm>
+                  )
+                }
+                className="btn btn-success"
+              >
+                + Add employee
+              </button>
+            </div>
           </div>
         </section>
       );

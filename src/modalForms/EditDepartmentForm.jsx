@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { apiRequest } from '../api/apiService';
+import Message from '../components/Message';
+import { AppContext } from '../contexts/AppContext';
+
 
 class EditDepartmentForm extends Component {
   state = {
@@ -37,17 +40,28 @@ class EditDepartmentForm extends Component {
 
     const [savedUpdatedDepartmentError, savedUpdatedDepartment] =
       await apiRequest.updatedDepartment(departmentId, updatedDepartment);
+      console.log('updatedDepartment',savedUpdatedDepartment.updatedDescription);
     if (savedUpdatedDepartment) {
       this.props.close();
+      this.showMessage()
       this.props.update(
         savedUpdatedDepartment.updatedDescription,
-        departmentId
       );
     } else {
       this.setState({
         invalidData: savedUpdatedDepartmentError.response.data.message,
       });
     }
+  };
+
+  showMessage = () => {
+    this.context.handleOpenModal(
+      <Message
+        close={this.context.handleCloseModal}
+        name={this.state.name}
+        message={'edited'}
+      />
+    );
   };
 
   render() {
@@ -97,3 +111,5 @@ class EditDepartmentForm extends Component {
 }
 
 export default withRouter(EditDepartmentForm);
+
+EditDepartmentForm.contextType = AppContext

@@ -8,7 +8,6 @@ import { AppContext } from '../contexts/AppContext';
 import SearchForm from './SearchForm';
 import SortForm from './SortForm';
 
-
 class DepartmentsList extends Component {
   state = {
     departments: [],
@@ -47,7 +46,7 @@ class DepartmentsList extends Component {
   componentDidUpdate(prevProps, prevState) {
     if (this.state.currentPage !== prevState.currentPage) {
       this.getDepartments();
-      window.scroll(0, 0)
+      window.scroll(0, 0);
     }
   }
 
@@ -69,15 +68,11 @@ class DepartmentsList extends Component {
     }));
   };
 
-  updateDepartment = (updatedDepartment, departmentId) => {
+  updateDepartment = (updatedDepartment) => {
     const copiedState = this.state.departments;
-    const department = copiedState.filter(
-      (department) => department._id !== departmentId
-    );
-    if (department) {
-      copiedState.splice(department, 1, updatedDepartment);
-      this.setState({ departments: copiedState });
-    }
+    const updatedDepartments = copiedState.map(department => 
+    department._id === updatedDepartment._id ? updatedDepartment : department)
+    this.setState({ departments: updatedDepartments });
   };
 
   searchDepartment = (searchDepartments) => {
@@ -126,7 +121,7 @@ class DepartmentsList extends Component {
           </div>
           {departments.length ? (
             <>
-              <span className='current-page'>Page: {currentPage}</span>
+              <span className="current-page">Page: {currentPage}</span>
               <div className="btn-wrap">
                 {currentPage > 1 && (
                   <button
@@ -146,9 +141,7 @@ class DepartmentsList extends Component {
                 )}
               </div>
             </>
-          ) : (
-            null
-          )}
+          ) : null}
         </div>
       </section>
     );
