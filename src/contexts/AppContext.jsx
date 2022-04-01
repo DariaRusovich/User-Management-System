@@ -1,6 +1,6 @@
 import React, { Component, createContext } from 'react';
 import ModalWindow from '../components/ModalWindow';
-import '../styles/Loader.css';
+import '../styles/Loader.scss';
 export const AppContext = createContext();
 
 export default class AppProvider extends Component {

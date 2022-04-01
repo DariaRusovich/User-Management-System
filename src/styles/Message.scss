@@ -1,3 +1,4 @@
+@import './Variables.scss';
 .message-block {
   display: flex;
   flex-direction: column;
@@ -11,7 +12,7 @@
   height: auto;
 }
 .message-block__title__primary {
-  color: var(--success-color);
+  color: $success-color;
   font-size: 22px;
 }
 .message-block__title__secondary {

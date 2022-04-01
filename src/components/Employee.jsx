@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import '../styles/Employee.css';
+import '../styles/Employee.scss';
 import { AppContext } from '../contexts/AppContext';
 import EditEmployeeForm from '../modalForms/EditEmployeeForm';
 import Message from './Message';
 import WarningMessage from './WarningMessage';
-import  employeesApi  from '../api/employeesApi';
+import employeesApi from '../api/employeesApi';
 
 export default class Employee extends Component {
   deleteEmployee = async () => {
@@ -20,6 +20,7 @@ export default class Employee extends Component {
       alert(employeeDeletedError.response.data.message);
     }
   };
+
   showWarningMessage = (message) => {
     this.context.handleOpenModal(
       <WarningMessage close={this.context.handleCloseModal} message={message} />
@@ -36,6 +37,7 @@ export default class Employee extends Component {
       />
     );
   };
+
   openModal = () => {
     this.context.handleOpenModal(
       <EditEmployeeForm

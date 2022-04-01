@@ -39,7 +39,6 @@ class EditDepartmentForm extends Component {
 
     const [savedUpdatedDepartmentError, savedUpdatedDepartment] =
       await departmentsApi.update(departmentId, updatedDepartment);
-      console.log('updatedDepartment',savedUpdatedDepartment.updatedDescription);
     if (savedUpdatedDepartment) {
       this.props.close();
       this.showMessage()

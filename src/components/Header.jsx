@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import '../styles/Header.css';
+import '../styles/Header.scss';
 import LogoutBtn from './LogoutBtn';
 
 export default class Header extends Component {

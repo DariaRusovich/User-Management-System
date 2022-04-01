@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import warning_icon from '../img/warning_icon.svg';
-import '../styles/Message.css';
+import '../styles/Message.scss';
 
 export default class WarningMessage extends Component {
   render() {

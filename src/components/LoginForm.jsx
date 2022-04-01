@@ -20,7 +20,7 @@ export default class LoginForm extends Component {
     };
     this.props.signIn(loginData);
   };
-  
+
   render() {
     const { invalidData } = this.props;
     return (

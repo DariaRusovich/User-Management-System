@@ -4,11 +4,10 @@ import { withRouter } from 'react-router-dom';
 import { DEPARTMENTS_URL, EMPLOYEES_URL } from '../constants/url';
 import { AppContext } from '../contexts/AppContext';
 import EditDepartmentForm from '../modalForms/EditDepartmentForm';
-import '../styles/Department.css';
+import '../styles/Department.scss';
 import Message from './Message';
 import WarningMessage from './WarningMessage';
 import departmentsApi from '../api/departmentsApi';
-
 
 class Department extends Component {
   deleteDepartment = async () => {
@@ -16,12 +15,13 @@ class Department extends Component {
     const [departmentDeletedError, departmentDeleted] =
       await departmentsApi.delete(departmentId);
     if (departmentDeleted) {
-      this.showMessage()
+      this.showMessage();
       this.props.remove(departmentId);
     } else {
-      this.showWarningMessage(departmentDeletedError.response.data.message)
+      this.showWarningMessage(departmentDeletedError.response.data.message);
     }
   };
+
   openModal = () => {
     this.context.handleOpenModal(
       <EditDepartmentForm
@@ -34,12 +34,10 @@ class Department extends Component {
 
   showWarningMessage = (message) => {
     this.context.handleOpenModal(
-      <WarningMessage
-        close={this.context.handleCloseModal}
-        message={message}
-      />
+      <WarningMessage close={this.context.handleCloseModal} message={message} />
     );
   };
+
   showMessage = () => {
     this.context.handleOpenModal(
       <Message
@@ -75,9 +73,7 @@ class Department extends Component {
               Delete
             </button>
             <button className="btn btn-success">
-              <Link
-                to={`${DEPARTMENTS_URL}/${department._id}${EMPLOYEES_URL}`}
-              >
+              <Link to={`${DEPARTMENTS_URL}/${department._id}${EMPLOYEES_URL}`}>
                 Employees
               </Link>
             </button>

@@ -1,3 +1,4 @@
+@import './Variables.scss';
 .form {
   display: flex;
   flex-direction: column;
@@ -13,9 +14,9 @@
 .sort-form {
   width: 250px;
   padding: 9px;
-  border: 1px solid var(--primary-color);
+  border: 1px solid $primary-color;
   border-radius: 5px;
-  background-color: var(--primary-bg);
+  background-color: $primary-bg;
 }
 .form-wrap {
   display: flex;
@@ -24,7 +25,7 @@
 }
 .login-form {
   padding: 30px;
-  box-shadow: var(--box-shadow);
+  box-shadow: $box-shadow;
   border-radius: 5px;
 }
 .login-form fieldset {
@@ -46,8 +47,8 @@
 .search-form input,
 .form textarea {
   padding: 10px 15px;
-  border: 1px solid var(--primary-color);
-  background-color: var(--primary-bg);
+  border: 1px solid $primary-color;
+  background-color: $primary-bg;
   border-radius: 5px;
   width: 100%;
   margin-top: 15px;
@@ -62,12 +63,12 @@
 .form textarea:focus,
 .search-form input:focus,
 .sort-form:focus {
-  outline: 2px solid var(--primary-color);
+  outline: 2px solid $primary-color;
 }
 .form input::placeholder,
 .form textarea::placeholder,
 .search-form input::placeholder {
-  color: var(--primary-color);
+  color: $primary-color;
 }
 .form input:disabled {
   color: #ccc;
@@ -95,7 +96,7 @@
   transform: translate(0, -20%);
   text-transform: none;
   opacity: 0;
-  color: var(--danger-color);
+  color: $danger-color;
   transition: all 0.35s;
 }
 .input-wrapper input:invalid ~ .validation {
@@ -104,5 +105,5 @@
 }
 .warning-message {
   margin-top: 10px;
-  color: var(--danger-color);
+  color: $danger-color;
 }

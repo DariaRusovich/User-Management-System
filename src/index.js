@@ -1,9 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import '../src/styles/ButtonsStyles.css';
-import '../src/styles/CommonStyles.css';
-import '../src/styles/FormStyles.css'
+import './index.scss';
 import App from './App';
 import { BrowserRouter } from 'react-router-dom';
 import AppProvider from './contexts/AppContext';

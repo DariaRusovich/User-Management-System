@@ -8,17 +8,15 @@ import withLoader from '../HOC/withLoader';
 import AddEmployeeForm from '../modalForms/AddEmployeeForm';
 import Employee from './Employee';
 
-
 class EmployeesList extends Component {
   state = {
     employees: [],
   };
 
-  async componentDidMount() {
+  componentDidMount = async () => {
     this.props.toggleLoader();
     const departmentId = this.props.match.params.id;
-    const [employeesError, employees] =
-      await employeesApi.get(departmentId);
+    const [employeesError, employees] = await employeesApi.get(departmentId);
     if (!employeesError) {
       this.setState({
         employees: employees.employees,
@@ -27,11 +25,12 @@ class EmployeesList extends Component {
       this.props.setError(employeesError);
     }
     this.props.toggleLoader();
-  }
+  };
 
   addNewEmployee = (newEmployee) => {
     this.setState((prev) => ({ employees: [...prev.employees, newEmployee] }));
   };
+
   removeEmployee = (employeeId) => {
     this.setState((prev) => ({
       employees: prev.employees.filter((emloyee) => emloyee._id !== employeeId),
@@ -45,7 +44,7 @@ class EmployeesList extends Component {
     });
     this.setState({ employees: updatedEmployees });
   };
-  
+
   openModal = () => {
     const departmentId = this.props.match.params.id;
     this.context.handleOpenModal(
@@ -111,5 +110,4 @@ class EmployeesList extends Component {
 }
 
 export default withRouter(withError(withLoader(EmployeesList)));
-
 EmployeesList.contextType = AppContext;

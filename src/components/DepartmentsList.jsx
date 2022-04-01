@@ -20,7 +20,10 @@ class DepartmentsList extends Component {
   getDepartments = async (page) => {
     this.props.toggleLoader();
     const { limit, currentPage } = this.state;
-    const [departmentsError, departments] = await departmentsApi.get({ limit, page: page || currentPage });
+    const [departmentsError, departments] = await departmentsApi.get({
+      limit,
+      page: page || currentPage,
+    });
     if (!departmentsError) {
       const { limit, currentPage, total } = departments.departments.results;
       this.setState({
@@ -39,20 +42,21 @@ class DepartmentsList extends Component {
   componentDidMount() {
     this.getDepartments();
   }
+
   nextPage() {
-    console.log('current page is', this.state.currentPage);
     this.goToPage(this.state.currentPage + 1);
   }
+
   previousPage() {
     this.goToPage(this.state.currentPage - 1);
   }
+
   goToPage(page) {
-    console.log('page in gotoPage method', page);
     this.setState({ currentPage: page });
     this.onPageChange(page);
   }
+
   onPageChange(page) {
-    console.log('currentpage in pageChange method', page);
     this.getDepartments(page);
     window.scroll(0, 0);
   }
@@ -65,7 +69,9 @@ class DepartmentsList extends Component {
 
   removeDepartment = (departmentId) => {
     this.setState((prev) => ({
-      departments: prev.departments.filter((department) => department._id !== departmentId),
+      departments: prev.departments.filter(
+        (department) => department._id !== departmentId
+      ),
     }));
   };
 
@@ -84,9 +90,13 @@ class DepartmentsList extends Component {
   sortDepartments = (sortedDepartments) => {
     this.setState({ departments: sortedDepartments });
   };
+
   openModal = () => {
     this.context.handleOpenModal(
-      <AddDepartmentForm add={this.addNewDepartment} close={this.context.handleCloseModal} />
+      <AddDepartmentForm
+        add={this.addNewDepartment}
+        close={this.context.handleCloseModal}
+      />
     );
   };
 
@@ -120,12 +130,18 @@ class DepartmentsList extends Component {
               <span className="current-page">Page: {currentPage}</span>
               <div className="btn-wrap">
                 {currentPage > 1 && (
-                  <button onClick={() => this.previousPage()} className="btn btn-primary btn-block">
+                  <button
+                    onClick={() => this.previousPage()}
+                    className="btn btn-primary btn-block"
+                  >
                     Previous page
                   </button>
                 )}
                 {currentPage < lastPage && (
-                  <button onClick={() => this.nextPage()} className="btn btn-primary btn-block">
+                  <button
+                    onClick={() => this.nextPage()}
+                    className="btn btn-primary btn-block"
+                  >
                     Next page
                   </button>
                 )}

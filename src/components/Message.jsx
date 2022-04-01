@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import succes_icon from '../img/success_icon.svg';
-import '../styles/Message.css';
+import '../styles/Message.scss';
 
 export default class Message extends Component {
   render() {

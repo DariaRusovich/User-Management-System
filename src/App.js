@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
 import { Switch } from 'react-router-dom';
 import Header from './components/Header';
-//import { privateRouteComponents, routeComponents } from './constants/routes';
 import EmployeesPage from './pages/EmployeesPage';
 import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';

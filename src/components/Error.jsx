@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
-import '../styles/Error.css';
-
+import '../styles/Error.scss';
 
 export default class Error extends Component {
   render() {
-    console.log(this.props);
     return (
       <div className="section">
         <div className="container error">
