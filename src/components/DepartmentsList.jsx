@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { apiRequest } from '../api/apiService';
 import withError from '../HOC/withError';
 import withLoader from '../HOC/withLoader';
 import Department from './Department';
@@ -7,6 +6,7 @@ import AddDepartmentForm from '../modalForms/AddDepartmentForm';
 import { AppContext } from '../contexts/AppContext';
 import SearchForm from './SearchForm';
 import SortForm from './SortForm';
+import departmentsApi from '../api/departmentsApi';
 
 class DepartmentsList extends Component {
   state = {
@@ -17,13 +17,10 @@ class DepartmentsList extends Component {
     total: 0,
   };
 
-  getDepartments = async () => {
+  getDepartments = async (page) => {
     this.props.toggleLoader();
     const { limit, currentPage } = this.state;
-    const [departmentsError, departments] = await apiRequest.getDepartments(
-      limit,
-      currentPage
-    );
+    const [departmentsError, departments] = await departmentsApi.get({ limit, page: page || currentPage });
     if (!departmentsError) {
       const { limit, currentPage, total } = departments.departments.results;
       this.setState({
@@ -42,17 +39,23 @@ class DepartmentsList extends Component {
   componentDidMount() {
     this.getDepartments();
   }
-
-  componentDidUpdate(prevProps, prevState) {
-    if (this.state.currentPage !== prevState.currentPage) {
-      this.getDepartments();
-      window.scroll(0, 0);
-    }
+  nextPage() {
+    console.log('current page is', this.state.currentPage);
+    this.goToPage(this.state.currentPage + 1);
   }
-
-  handlePagination = (direction) => {
-    this.setState((prev) => ({ currentPage: prev.currentPage + direction }));
-  };
+  previousPage() {
+    this.goToPage(this.state.currentPage - 1);
+  }
+  goToPage(page) {
+    console.log('page in gotoPage method', page);
+    this.setState({ currentPage: page });
+    this.onPageChange(page);
+  }
+  onPageChange(page) {
+    console.log('currentpage in pageChange method', page);
+    this.getDepartments(page);
+    window.scroll(0, 0);
+  }
 
   addNewDepartment = (newDepartment) => {
     this.setState((prev) => ({
@@ -62,16 +65,15 @@ class DepartmentsList extends Component {
 
   removeDepartment = (departmentId) => {
     this.setState((prev) => ({
-      departments: prev.departments.filter(
-        (department) => department._id !== departmentId
-      ),
+      departments: prev.departments.filter((department) => department._id !== departmentId),
     }));
   };
 
   updateDepartment = (updatedDepartment) => {
     const copiedState = this.state.departments;
-    const updatedDepartments = copiedState.map(department => 
-    department._id === updatedDepartment._id ? updatedDepartment : department)
+    const updatedDepartments = copiedState.map((department) =>
+      department._id === updatedDepartment._id ? updatedDepartment : department
+    );
     this.setState({ departments: updatedDepartments });
   };
 
@@ -82,25 +84,19 @@ class DepartmentsList extends Component {
   sortDepartments = (sortedDepartments) => {
     this.setState({ departments: sortedDepartments });
   };
+  openModal = () => {
+    this.context.handleOpenModal(
+      <AddDepartmentForm add={this.addNewDepartment} close={this.context.handleCloseModal} />
+    );
+  };
 
   render() {
     const { departments, lastPage, currentPage } = this.state;
-    const { handleOpenModal, handleCloseModal } = this.context;
     return (
       <section className="section">
         <div className="container section-wrap">
           <div className="wrapper">
-            <button
-              onClick={() =>
-                handleOpenModal(
-                  <AddDepartmentForm
-                    add={this.addNewDepartment}
-                    close={handleCloseModal}
-                  ></AddDepartmentForm>
-                )
-              }
-              className="btn btn-success"
-            >
+            <button onClick={this.openModal} className="btn btn-success">
               + Add department
             </button>
             <div className="form-wrap">
@@ -124,18 +120,12 @@ class DepartmentsList extends Component {
               <span className="current-page">Page: {currentPage}</span>
               <div className="btn-wrap">
                 {currentPage > 1 && (
-                  <button
-                    onClick={() => this.handlePagination(-1)}
-                    className="btn btn-primary btn-block"
-                  >
+                  <button onClick={() => this.previousPage()} className="btn btn-primary btn-block">
                     Previous page
                   </button>
                 )}
                 {currentPage < lastPage && (
-                  <button
-                    onClick={() => this.handlePagination(1)}
-                    className="btn btn-primary btn-block"
-                  >
+                  <button onClick={() => this.nextPage()} className="btn btn-primary btn-block">
                     Next page
                   </button>
                 )}

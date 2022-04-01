@@ -1,20 +1,20 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { withRouter } from 'react-router-dom';
-import { apiRequest } from '../api/apiService';
-import { DEPARTMENT_BY_ID_URL, EMPLOYEES_URL } from '../constants/url';
+import { DEPARTMENTS_URL, EMPLOYEES_URL } from '../constants/url';
 import { AppContext } from '../contexts/AppContext';
 import EditDepartmentForm from '../modalForms/EditDepartmentForm';
 import '../styles/Department.css';
 import Message from './Message';
 import WarningMessage from './WarningMessage';
+import departmentsApi from '../api/departmentsApi';
 
 
 class Department extends Component {
   deleteDepartment = async () => {
     const departmentId = this.props.department._id;
     const [departmentDeletedError, departmentDeleted] =
-      await apiRequest.deleteDepartment(departmentId);
+      await departmentsApi.delete(departmentId);
     if (departmentDeleted) {
       this.showMessage()
       this.props.remove(departmentId);
@@ -76,7 +76,7 @@ class Department extends Component {
             </button>
             <button className="btn btn-success">
               <Link
-                to={`${DEPARTMENT_BY_ID_URL}${department._id}${EMPLOYEES_URL}`}
+                to={`${DEPARTMENTS_URL}/${department._id}${EMPLOYEES_URL}`}
               >
                 Employees
               </Link>

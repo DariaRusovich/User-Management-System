@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { apiRequest } from '../api/apiService';
+import authApi from '../api/authApi';
 import { AppContext } from '../contexts/AppContext';
+
 
 export default class LogoutBtn extends Component {
   signOut = async () => {
-    const [statusError, status] = await apiRequest.logout();
+    const [statusError, status] = await authApi.signOut();
     if (status) {
       this.context.getToken('');
       localStorage.removeItem('token');

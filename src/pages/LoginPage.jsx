@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
-import { apiRequest } from '../api/apiService';
+import authApi from '../api/authApi';
 import LoginForm from '../components/LoginForm';
 import { AppContext } from '../contexts/AppContext';
 import withError from '../HOC/withError';
@@ -13,7 +13,7 @@ class LoginPage extends Component {
   };
 
   signIn = async (loginData) => {
-    const [userDataError, userData] = await apiRequest.signin(loginData);
+    const [userDataError, userData] = await authApi.signIn(loginData);
     if (!userDataError) {
       const tokenAccess = userData.user.tokens.accessToken;
       const tokenRefresh = userData.user.tokens.refreshToken;

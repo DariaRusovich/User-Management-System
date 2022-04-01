@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { apiRequest } from '../api/apiService';
 import Message from '../components/Message';
 import { AppContext } from '../contexts/AppContext';
+import employeesApi from '../api/employeesApi'
 
 export default class AddEmployeeForm extends Component {
   state = {
@@ -28,7 +28,7 @@ export default class AddEmployeeForm extends Component {
       department: this.props.id,
       createdAt: Date.now(),
     };
-    const [savedEmployeeError, savedEmployee] = await apiRequest.addEmployee(
+    const [savedEmployeeError, savedEmployee] = await employeesApi.add(
       newEmployee
     );
     if (savedEmployee) {

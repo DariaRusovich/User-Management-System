@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { withRouter } from 'react-router-dom';
-import { apiRequest } from '../api/apiService';
+import employeesApi from '../api/employeesApi';
 import { AppContext } from '../contexts/AppContext';
 import withError from '../HOC/withError';
 import withLoader from '../HOC/withLoader';
 import AddEmployeeForm from '../modalForms/AddEmployeeForm';
 import Employee from './Employee';
+
 
 class EmployeesList extends Component {
   state = {
@@ -17,7 +18,7 @@ class EmployeesList extends Component {
     this.props.toggleLoader();
     const departmentId = this.props.match.params.id;
     const [employeesError, employees] =
-      await apiRequest.getEmployeesByDepartmentId(departmentId);
+      await employeesApi.get(departmentId);
     if (!employeesError) {
       this.setState({
         employees: employees.employees,
@@ -44,11 +45,20 @@ class EmployeesList extends Component {
     });
     this.setState({ employees: updatedEmployees });
   };
+  
+  openModal = () => {
+    const departmentId = this.props.match.params.id;
+    this.context.handleOpenModal(
+      <AddEmployeeForm
+        id={departmentId}
+        close={this.context.handleCloseModal}
+        add={this.addNewEmployee}
+      ></AddEmployeeForm>
+    );
+  };
 
   render() {
     const { employees } = this.state;
-    const { handleOpenModal, handleCloseModal } = this.context;
-    const departmentId = this.props.match.params.id;
     if (!employees.length) {
       return (
         <section className="section">
@@ -60,18 +70,7 @@ class EmployeesList extends Component {
               </Link>
             </h1>
             <div className="wrapper">
-              <button
-                onClick={() =>
-                  handleOpenModal(
-                    <AddEmployeeForm
-                      id={departmentId}
-                      close={handleCloseModal}
-                      add={this.addNewEmployee}
-                    ></AddEmployeeForm>
-                  )
-                }
-                className="btn btn-success"
-              >
+              <button onClick={this.openModal} className="btn btn-success">
                 + Add employee
               </button>
             </div>
@@ -90,18 +89,7 @@ class EmployeesList extends Component {
               </Link>
             </h1>
             <div className="wrapper">
-              <button
-                onClick={() =>
-                  handleOpenModal(
-                    <AddEmployeeForm
-                      id={departmentId}
-                      close={handleCloseModal}
-                      add={this.addNewEmployee}
-                    ></AddEmployeeForm>
-                  )
-                }
-                className="btn btn-success"
-              >
+              <button onClick={this.openModal} className="btn btn-success">
                 + Add employee
               </button>
             </div>

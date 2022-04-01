@@ -1,16 +1,17 @@
 import React, { Component } from 'react';
-import { apiRequest } from '../api/apiService';
 import '../styles/Employee.css';
 import { AppContext } from '../contexts/AppContext';
 import EditEmployeeForm from '../modalForms/EditEmployeeForm';
 import Message from './Message';
 import WarningMessage from './WarningMessage';
+import  employeesApi  from '../api/employeesApi';
 
 export default class Employee extends Component {
   deleteEmployee = async () => {
     const employeeId = this.props.employee._id;
-    const [employeeDeletedError, employeeDeleted] =
-      await apiRequest.deleteEmployee(employeeId);
+    const [employeeDeletedError, employeeDeleted] = await employeesApi.delete(
+      employeeId
+    );
     if (employeeDeleted) {
       this.showMessage();
       this.props.remove(employeeId);
@@ -35,11 +36,19 @@ export default class Employee extends Component {
       />
     );
   };
+  openModal = () => {
+    this.context.handleOpenModal(
+      <EditEmployeeForm
+        employee={this.props.employee}
+        close={this.context.handleCloseModal}
+        update={this.props.update}
+      />
+    );
+  };
 
   render() {
-    const { employee, update } = this.props;
+    const { employee } = this.props;
     const { username, firstName, lastName, email } = employee;
-    const { handleOpenModal, handleCloseModal } = this.context;
     return (
       <div className="employee-item item-block">
         <img
@@ -61,18 +70,7 @@ export default class Employee extends Component {
           {email}
         </a>
         <div className="btns-group">
-          <button
-            onClick={() =>
-              handleOpenModal(
-                <EditEmployeeForm
-                  employee={employee}
-                  close={handleCloseModal}
-                  update={update}
-                />
-              )
-            }
-            className="btn btn-primary"
-          >
+          <button onClick={this.openModal} className="btn btn-primary">
             Edit
           </button>
           <button onClick={this.deleteEmployee} className="btn btn-danger">

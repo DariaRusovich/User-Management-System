@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { apiRequest } from '../api/apiService';
 import Message from '../components/Message';
 import { AppContext } from '../contexts/AppContext';
+import departmentsApi from '../api/departmentsApi';
 
 class AddDepartmentForm extends Component {
   state = {
@@ -25,7 +25,7 @@ class AddDepartmentForm extends Component {
       createdAt: Date.now(),
     };
     const [savedDepartmentError, savedDepartment] =
-      await apiRequest.addDepartment(newDepartment);
+      await departmentsApi.add(newDepartment);
     if (savedDepartment) {
       this.props.close();
       this.props.add(savedDepartment.department);

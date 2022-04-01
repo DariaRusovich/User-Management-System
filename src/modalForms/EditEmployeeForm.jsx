@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { apiRequest } from '../api/apiService';
 import Message from '../components/Message';
 import { AppContext } from '../contexts/AppContext';
+import  employeesApi  from '../api/employeesApi';
+
 
 export default class EditEmployeeForm extends Component {
   state = {
@@ -14,7 +15,7 @@ export default class EditEmployeeForm extends Component {
 
   componentDidMount = async () => {
     const employeeId = this.props.employee._id;
-    const [employeeError, employee] = await apiRequest.getEmployee(employeeId);
+    const [employeeError, employee] = await employeesApi.getOne(employeeId);
     if (employee) {
       const { email, firstName, lastName, username } = employee.employeeByID;
       this.setState({
@@ -42,7 +43,7 @@ export default class EditEmployeeForm extends Component {
       email: this.state.email,
       updatedAt: Date.now(),
     };
-    const [savedEmployeeError, savedEmployee] = await apiRequest.updateEmployee(
+    const [savedEmployeeError, savedEmployee] = await employeesApi.update(
       employeeId,
       updatedEmployee
     );

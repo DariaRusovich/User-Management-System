@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
-import { apiRequest } from '../api/apiService';
 import Message from '../components/Message';
 import { AppContext } from '../contexts/AppContext';
-
+import departmentsApi from '../api/departmentsApi';
 
 class EditDepartmentForm extends Component {
   state = {
@@ -14,7 +13,7 @@ class EditDepartmentForm extends Component {
 
   componentDidMount = async () => {
     const departmentId = this.props.department._id;
-    const [departmenError, department] = await apiRequest.getDepartment(
+    const [departmenError, department] = await departmentsApi.getOne(
       departmentId
     );
     if (!departmenError) {
@@ -39,7 +38,7 @@ class EditDepartmentForm extends Component {
     };
 
     const [savedUpdatedDepartmentError, savedUpdatedDepartment] =
-      await apiRequest.updatedDepartment(departmentId, updatedDepartment);
+      await departmentsApi.update(departmentId, updatedDepartment);
       console.log('updatedDepartment',savedUpdatedDepartment.updatedDescription);
     if (savedUpdatedDepartment) {
       this.props.close();

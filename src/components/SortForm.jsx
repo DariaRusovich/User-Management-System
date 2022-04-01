@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
-import { apiRequest } from '../api/apiService';
+import departmentsApi from '../api/departmentsApi';
 
 export default class SortForm extends Component {
   handleSort = async (e) => {
     const sortType = e.target.value;
-    const [sortedDepartmentError, sortedDepartment] =
-      await apiRequest.getSortedDepartments(sortType);
+    const [sortedDepartmentError, sortedDepartment] = await departmentsApi.get({ sort: sortType });
     if (sortedDepartment) {
       const departments = sortedDepartment.departments.departments;
       this.props.sort(departments);
@@ -15,7 +14,7 @@ export default class SortForm extends Component {
   };
   render() {
     return (
-      <select className='sort-form' defaultValue={'Sort by name'} onChange={this.handleSort}>
+      <select className="sort-form" defaultValue={'Sort by name'} onChange={this.handleSort}>
         <option disabled value={'Sort by name'}>
           Sort by name
         </option>
