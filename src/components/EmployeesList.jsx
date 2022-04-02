@@ -13,7 +13,7 @@ class EmployeesList extends Component {
     employees: [],
   };
 
-  componentDidMount = async () => {
+  async componentDidMount() {
     this.props.toggleLoader();
     const departmentId = this.props.match.params.id;
     const [employeesError, employees] = await employeesApi.get(departmentId);

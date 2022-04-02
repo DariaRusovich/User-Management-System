@@ -4,7 +4,6 @@ import '../styles/Loader.scss';
 export const AppContext = createContext();
 
 export default class AppProvider extends Component {
-  setState = this.setState.bind(this);
   state = {
     open: false,
     component: null,

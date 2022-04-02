@@ -1,18 +1,23 @@
 import { api } from './interceptors';
 
- class ApiService {
-  get(url, params = {}){
-    return api.get(url, { params });
+export default class ApiService {
+  constructor(baseApiUrl) {
+    this.baseApiUrl = baseApiUrl + '/';
   }
-  post(url, data){
-    return api.post(url, data);
+  get(url, params = {}) {
+    return api.get(this.baseApiUrl + url, { params });
   }
-  patch(url, data){
-    return api.patch(url, data);
+  post(url, data) {
+    return api.post(this.baseApiUrl + url, data);
   }
-  delete(url){
-    return api.delete(url);
+  patch(url, data) {
+    return api.patch(this.baseApiUrl + url, data);
+  }
+  delete(url) {
+    return api.delete(this.baseApiUrl + url);
   }
 }
 
-export const ApiRequest = new ApiService();
+export const ApiRequest = new ApiService(
+
+);

@@ -1,12 +1,16 @@
 import { LOGIN_URL, LOGOUT_URL } from '../constants/url';
-import { ApiRequest } from './apiService';
+import ApiService from './apiService';
 
 class AuthApi {
+  constructor(){
+    this.apiLogin = new ApiService(LOGIN_URL)
+    this.apiLogout = new ApiService(LOGOUT_URL)
+  }
   signIn(data) {
-    return ApiRequest.post(LOGIN_URL, data);
+    return this.apiLogin.post('', data);
   }
   signOut() {
-    return ApiRequest.post(LOGOUT_URL);
+    return this.apiLogout.post('');
   }
 }
 

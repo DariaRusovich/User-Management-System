@@ -1,21 +1,24 @@
-import { ApiRequest } from './apiService';
+import ApiService from './apiService';
 import { DEPARTMENTS_URL } from '../constants/url';
 
 class DepartmentApi {
+  constructor() {
+    this.api = new ApiService(DEPARTMENTS_URL);
+  }
   get(params) {
-    return ApiRequest.get(DEPARTMENTS_URL, params);
+    return this.api.get('', params);
   }
   getOne(id) {
-    return ApiRequest.get(`${DEPARTMENTS_URL}/${id}`);
+    return this.api.get(id);
   }
   add(data) {
-    return ApiRequest.post(DEPARTMENTS_URL, data);
+    return this.api.post('', data);
   }
   delete(id) {
-    return ApiRequest.delete(`${DEPARTMENTS_URL}/${id}`);
+    return this.api.delete(id);
   }
   update(id, data) {
-    return ApiRequest.patch(`${DEPARTMENTS_URL}/${id}`, data);
+    return this.api.patch(id, data);
   }
 }
 
