@@ -1,3 +1,4 @@
+@import './Variables.scss';
 .item__email {
   font-weight: 600;
 }
@@ -14,7 +15,7 @@
 }
 .item__title{
     font-size: 20px;
-    color: var(--accent-color);
+    color: $accent-color;
 }
 .item__title__secondary{
     margin-top: 10px;

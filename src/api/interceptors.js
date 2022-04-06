@@ -6,11 +6,12 @@ export const api = axios.create({
   headers: {
     'Content-type': 'application/json;charset=utf-8',
   },
+  withCredentials: true,
 });
 
 api.interceptors.request.use(
   (config) => {
-    config.headers.Authorization = localStorage.getItem('token');
+    config.headers.Authorization = `Bearer ${localStorage.getItem('token')}`;
     return config;
   },
   (error) => {
@@ -22,7 +23,19 @@ api.interceptors.response.use(
   (response) => {
     return [null, response.data];
   },
-  (error) => {
+  async (error) => {
+    if (error.response.status === 401 && error.config.url !== 'refresh-token') {
+      const [userError, user] = await api.get('refresh-token', {
+        withCredentials: true,
+      });
+      if (!userError) {
+        const { accessToken } = user.userData.tokens;
+        localStorage.setItem('token', accessToken);
+        return await api.request(error.config);
+      } else {
+        return [userError, null];
+      }
+    }
     return [error, null];
   }
 );

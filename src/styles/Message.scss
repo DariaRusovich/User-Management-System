@@ -1,0 +1,32 @@
+@import './Variables.scss';
+.message-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.mt {
+  margin-top: 10px;
+}
+.message-block__img {
+  width: 80px;
+  height: auto;
+}
+.message-block__title__primary {
+  color: $success-color;
+  font-size: 22px;
+}
+.message-block__title__secondary {
+  font-size: 18px;
+  text-transform: uppercase;
+}
+.message-block__message {
+  font-size: 18px;
+}
+.message-block .btn {
+  width: 100%;
+}
+.warning_message-block__message {
+  font-size: 18px;
+  width: 250px;
+  text-align: center;
+}

@@ -1,38 +1,32 @@
 import React, { Component } from 'react';
-import '../styles/LoginForm.css';
 
 export default class LoginForm extends Component {
   state = {
-    // inputError: '*Required',
-    // passwordError: '*Required',
-    inputDirty: false,
-    passwordDirty: false,
+    username: '',
+    password: '',
   };
+
   handleChange = (event) => {
-    switch (event.target.name) {
-      case 'username':
-        this.setState({ inputDirty: true });
-        break;
-      case 'password':
-        this.setState({ passwordDirty: true });
-        break;
-    }
+    this.setState({
+      [event.target.name]: event.target.value,
+    });
   };
 
   handleSubmit = (event) => {
     event.preventDefault();
-    const loginData = {};
-    loginData.username = event.target.username.value.trim();
-    loginData.password = event.target.password.value.trim();
+    const loginData = {
+      username: this.state.username,
+      password: this.state.password,
+    };
     this.props.signIn(loginData);
   };
-  render() {
-    const { inputDirty, passwordDirty } = this.state;
 
+  render() {
+    const { invalidData } = this.props;
     return (
       <section className="section">
         <div className="container form-wrap">
-          <form className="login-form" onSubmit={this.handleSubmit}>
+          <form className="login-form form" onSubmit={this.handleSubmit}>
             <fieldset className="title">
               <legend>Login form</legend>
               <div className="input-wrapper">
@@ -43,7 +37,7 @@ export default class LoginForm extends Component {
                   placeholder="Username"
                   required
                 />
-                {inputDirty && <div className="validation">*Required</div>}
+                <div className="validation">*Required</div>
               </div>
               <div className="input-wrapper">
                 <input
@@ -53,8 +47,9 @@ export default class LoginForm extends Component {
                   placeholder="Password"
                   required
                 />
-                {passwordDirty && <div className="validation">*Required</div>}
+                <div className="validation">*Required</div>
               </div>
+              {invalidData && <p className="warning-message">{invalidData}</p>}
               <button type="submit" className="btn btn-success">
                 Login
               </button>

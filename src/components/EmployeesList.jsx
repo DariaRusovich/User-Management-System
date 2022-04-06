@@ -1,45 +1,78 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { withRouter } from 'react-router-dom';
-import { apiRequest } from '../api/apiService';
+import employeesApi from '../api/employeesApi';
+import { AppContext } from '../contexts/AppContext';
 import withError from '../HOC/withError';
 import withLoader from '../HOC/withLoader';
+import AddEmployeeForm from '../modalForms/AddEmployeeForm';
 import Employee from './Employee';
-import AddNewItemBtn from './AddNewItemBtn';
-
 
 class EmployeesList extends Component {
   state = {
-    departments: {},
     employees: [],
   };
 
   async componentDidMount() {
     this.props.toggleLoader();
     const departmentId = this.props.match.params.id;
-    const [departmentError, department] = await apiRequest.getDepartmentById(
-      departmentId
-    );
-    if (!departmentError) {
+    const [employeesError, employees] = await employeesApi.get(departmentId);
+    if (!employeesError) {
       this.setState({
-        department: department.departmentById.name,
-        employees: department.departmentById.employees,
+        employees: employees.employees,
       });
     } else {
-      this.props.setError(departmentError);
+      this.props.setError(employeesError);
     }
     this.props.toggleLoader();
-  }
+  };
+
+  addNewEmployee = (newEmployee) => {
+    this.setState((prev) => ({ employees: [...prev.employees, newEmployee] }));
+  };
+
+  removeEmployee = (employeeId) => {
+    this.setState((prev) => ({
+      employees: prev.employees.filter((emloyee) => emloyee._id !== employeeId),
+    }));
+  };
+
+  updateEmployee = (updatedEmployee) => {
+    const copiedState = this.state.employees;
+    const updatedEmployees = copiedState.map((employee) => {
+      return employee._id === updatedEmployee._id ? updatedEmployee : employee;
+    });
+    this.setState({ employees: updatedEmployees });
+  };
+
+  openModal = () => {
+    const departmentId = this.props.match.params.id;
+    this.context.handleOpenModal(
+      <AddEmployeeForm
+        id={departmentId}
+        close={this.context.handleCloseModal}
+        add={this.addNewEmployee}
+      ></AddEmployeeForm>
+    );
+  };
+
   render() {
-    const { department, employees } = this.state;
-    if (!employees) {
+    const { employees } = this.state;
+    if (!employees.length) {
       return (
         <section className="section">
           <div className="container">
-            <h1 className='title-primary'>
-              No employees in the {department} department.
-              {' '}<Link className='title' to="/"> Go back.</Link>
+            <h1 className="title-primary">
+              No employees in the department.
+              <Link className="title" to="/">
+                Go back.
+              </Link>
             </h1>
+            <div className="wrapper">
+              <button onClick={this.openModal} className="btn btn-success">
+                + Add employee
+              </button>
+            </div>
           </div>
         </section>
       );
@@ -48,20 +81,25 @@ class EmployeesList extends Component {
       <>
         <section className="section">
           <div className="container section-wrap">
-            {
-              <h2 className="title-secondary">
-                {employees.length} employees in the{' '}
-                <Link to="/" className="title">
-                  {' '}
-                  {department}
-                </Link>{' '}
-                department
-              </h2>
-            }
-            <AddNewItemBtn>employee</AddNewItemBtn>
+            <h1 className="title-secondary">
+              {employees.length} employees.
+              <Link to="/" className="title">
+                Go back
+              </Link>
+            </h1>
+            <div className="wrapper">
+              <button onClick={this.openModal} className="btn btn-success">
+                + Add employee
+              </button>
+            </div>
             <div className="item-list">
               {employees.map((employee) => (
-                <Employee key={employee.id} employee={employee} />
+                <Employee
+                  key={employee._id}
+                  remove={this.removeEmployee}
+                  update={this.updateEmployee}
+                  employee={employee}
+                />
               ))}
             </div>
           </div>
@@ -72,3 +110,4 @@ class EmployeesList extends Component {
 }
 
 export default withRouter(withError(withLoader(EmployeesList)));
+EmployeesList.contextType = AppContext;

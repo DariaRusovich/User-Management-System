@@ -1,0 +1,32 @@
+@import './Variables.scss';
+.modal-window {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: none;
+  backdrop-filter: blur(8px);
+}
+.modal-window__content {
+  padding: 25px;
+  background-color: #fff;
+  border-radius: 5px;
+  min-width: 250px;
+  position: relative;
+  box-shadow: $box-shadow;
+}
+.modal-window.active {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.modal-close__btn {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 5px;
+  font-size: 22px;
+  transform: translate(-50%, 10%);
+  color: $primary-color;
+}

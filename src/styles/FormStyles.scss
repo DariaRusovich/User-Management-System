@@ -1,0 +1,109 @@
+@import './Variables.scss';
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 450px;
+}
+.search-form {
+  display: flex;
+  align-items: center;
+  width: 400px;
+  margin-left: 50px;
+}
+.sort-form {
+  width: 250px;
+  padding: 9px;
+  border: 1px solid $primary-color;
+  border-radius: 5px;
+  background-color: $primary-bg;
+}
+.form-wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.login-form {
+  padding: 30px;
+  box-shadow: $box-shadow;
+  border-radius: 5px;
+}
+.login-form fieldset {
+  width: 100%;
+}
+.form fieldset {
+  width: 100%;
+}
+.form textarea {
+  width: 100%;
+  height: 130px;
+}
+.form legend {
+  font-size: 22px;
+  font-weight: 700;
+  text-align: center;
+}
+.form input,
+.search-form input,
+.form textarea {
+  padding: 10px 15px;
+  border: 1px solid $primary-color;
+  background-color: $primary-bg;
+  border-radius: 5px;
+  width: 100%;
+  margin-top: 15px;
+}
+.search-form input {
+  margin: initial;
+}
+.search-form .btn {
+  margin-left: 20px;
+}
+.form input:focus,
+.form textarea:focus,
+.search-form input:focus,
+.sort-form:focus {
+  outline: 2px solid $primary-color;
+}
+.form input::placeholder,
+.form textarea::placeholder,
+.search-form input::placeholder {
+  color: $primary-color;
+}
+.form input:disabled {
+  color: #ccc;
+  border: 1px solid #ccc;
+}
+.form .btn {
+  margin-top: 20px;
+  text-transform: uppercase;
+}
+.btns-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+.btns-wrap .btn:not(:first-child) {
+  margin-left: 15px;
+}
+.input-wrapper {
+  position: relative;
+}
+.validation {
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translate(0, -20%);
+  text-transform: none;
+  opacity: 0;
+  color: $danger-color;
+  transition: all 0.35s;
+}
+.input-wrapper input:invalid ~ .validation {
+  opacity: 1;
+  transform: translate(-50%, -20%);
+}
+.warning-message {
+  margin-top: 10px;
+  color: $danger-color;
+}

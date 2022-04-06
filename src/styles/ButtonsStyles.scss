@@ -1,0 +1,65 @@
+@import './Variables.scss';
+.btns-group {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.btns-group .btn:not(:first-child) {
+  margin-left: 15px;
+}
+.btn-wrap {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+.btn-wrap .btn:not(:first-child){
+  margin-left: 15px;
+}
+.current-page{
+  margin-top: 15px;
+  font-size: 18px;
+}
+.btn {
+  padding: 10px 20px;
+  border-radius: 5px;
+  transition: 0.5s;
+  border: 1px solid transparent;
+}
+.btn-block {
+  margin-top: 30px;
+}
+.btn-primary {
+  background-color: $primary-bg;
+  border: 1px solid $primary-color;
+}
+.btn-danger {
+  background-color: $danger-bg;
+  color: $danger-color;
+  border: 1px solid $danger-color;
+}
+.btn-success {
+  background-color: $success-bg;
+  color: $success-color;
+  border: 1px solid $success-color;
+}
+.btn-warning {
+  background-color: $warning-bg;
+  color: $warning-color;
+  border: 1px solid $warning-color;
+}
+.btn-primary:hover {
+  background-color: $primary-color;
+  color: #fff;
+}
+.btn-danger:hover {
+  background-color: $danger-color;
+  color: #fff;
+}
+.btn-success:hover {
+  background-color: $success-color;
+  color: #fff;
+}
+.btn-warning:hover {
+  background-color: $warning-color;
+  color: #fff;
+}

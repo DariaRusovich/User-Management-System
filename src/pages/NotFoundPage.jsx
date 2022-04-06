@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import NotFound from '../components/NotFound';
 
-export default class LoginPage extends Component {
+export default class NotFoundPage extends Component {
   render() {
     return (
       <>
